@@ -6,6 +6,15 @@
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <display-name></display-name>
   
+  <filter>  
+    <filter-name>DirectToPageFilter</filter-name>  
+    <filter-class>com.jnote.filter.DirectToPageFilter</filter-class>  
+  </filter>  
+  <filter-mapping>  
+    <filter-name>DirectToPageFilter</filter-name>  
+    <url-pattern>*.jsp</url-pattern>    
+  </filter-mapping>
+  
   <context-param>
 	<param-name>contextConfigLocation</param-name>
 	<param-value>/WEB-INF/applicationContext.xml</param-value>
@@ -26,5 +35,5 @@
   </filter>
   <filter-mapping>
   	<filter-name>struts2</filter-name>
-  	<url-pattern>*.action</url-pattern>
+  	<url-pattern>/*</url-pattern>
   </filter-mapping></web-app>

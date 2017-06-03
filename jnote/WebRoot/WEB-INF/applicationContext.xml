@@ -57,4 +57,20 @@
 		</property>
 	</bean>
 	
+	<!-- service bean  -->
+	<bean id="UserService" class="com.jnote.service.impl.UserService">
+		<property name="userDao">
+			<ref bean="UserDAO"/>
+		</property>
+	</bean>
+	
+	<bean id="ServiceManager" class="com.jnote.service.impl.ServiceManager">
+		<property name="userService">
+			<ref bean="UserService"/>
+		</property>
+	</bean>
+	
+	<bean id="RegisterAction" class="com.jnote.action.RegisterAction" scope="prototype">
+	</bean>
+	
 	</beans>

@@ -1,5 +1,9 @@
 package com.jnote.service;
 
-public interface IUserService {
+import com.jnote.vo.User;
 
+public interface IUserService {
+	boolean saveUser(User user);
+	boolean login(User user);
+	boolean checkUser(User user);
 }
