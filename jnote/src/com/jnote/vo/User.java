@@ -9,6 +9,7 @@ import java.util.Set;
  */
 public class User extends AbstractUser implements java.io.Serializable {
 
+	private String md5Password;
     // Constructors
 
     /** default constructor */
@@ -24,5 +25,14 @@ public class User extends AbstractUser implements java.io.Serializable {
     public User(String username, String password, Set folders, Set userInfos) {
         super(username, password, folders, userInfos);        
     }
+
+	public String getMd5Password() throws Exception {
+			return com.jnote.common.Encrypter.md5Encrypt(super.getPassword());
+		
+	}
+
+	public void setMd5Password(String md5Password) {
+		this.md5Password = md5Password;
+	}
    
 }

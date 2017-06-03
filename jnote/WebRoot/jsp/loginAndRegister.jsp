@@ -16,11 +16,9 @@
 		<input type=submit value=submit>
 </form>
 <span>login</span>
-<form name=regist action="/jnote/register.action" method="post">
+<form name=regist action="" method="post">
 		username:<input type=text name=username id=username value="${username}"> <span id="msg"></span><br>
-		password:<input type=password name=password value="${password}"><br>
-		password again:<input type=password name=repassword value="${repassword}"><br> 	
-		<s:fielderror></s:fielderror>
+		password:<input type=password name=password value="${password}"><br>	
 		<input type=submit value=submit>
 </form>
 </body>
