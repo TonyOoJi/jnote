@@ -5,6 +5,30 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <display-name></display-name>
+  <servlet>
+	<servlet-name>dwr-invoker</servlet-name>
+	<servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
+	<init-param>
+		<param-name>debug</param-name>
+		<param-value>true</param-value>
+	</init-param>
+	<init-param>
+		<param-name>crossDomainSessionSecurity</param-name>
+		<param-value>false</param-value>
+	</init-param>
+	<init-param>
+		<param-name>allowScriptTagRemoting</param-name>
+		<param-value>true</param-value>
+	</init-param>
+	<init-param>
+		<param-name>config</param-name>
+		<param-value>/WEB-INF/dwr.xml</param-value>
+	</init-param>
+</servlet>
+<servlet-mapping>
+	<servlet-name>dwr-invoker</servlet-name>
+	<url-pattern>/dwr/*</url-pattern>
+</servlet-mapping>
   
   <filter>  
     <filter-name>DirectToPageFilter</filter-name>  

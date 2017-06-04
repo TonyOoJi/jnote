@@ -28,6 +28,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-pool-1.3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ant.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/dwr.jar"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.struts2.MYECLIPSE_STRUTS21_CORE"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.struts2.MYECLIPSE_STRUTS21_SPRING"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>

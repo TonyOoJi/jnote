@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dwr>
+	<allow>
+		<create creator="new" javascript="check">
+			<param name="class" value="com.jnote.service.impl.UserService" />
+			<include method="checkUser" />
+		</create>
+		<convert converter="bean" match="com.jnote.vo.User">
+			<param name="include" value="username,password" />
+		</convert>
+
+	</allow>
+	<signatures>
+		
+
+	</signatures>
+</dwr>
