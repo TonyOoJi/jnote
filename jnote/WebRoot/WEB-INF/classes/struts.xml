@@ -8,5 +8,9 @@
 			<result name="success">/jsp/success.jsp</result>
 			<result name="input">/jsp/loginAndRegister.jsp</result>
 		</action>
+		<action name="login" class="LoginAction">
+			<result name="success">/jsp/main.jsp</result>
+			<result name="input">/jsp/loginAndRegister.jsp</result>
+		</action>
 	</package>
 </struts>    

@@ -30,7 +30,18 @@ public class UserService implements IUserService{
 	}
 
 	public boolean login(User user) {
-		// TODO Auto-generated method stub
+		List users = userDao.findByUsername(user.getUsername());
+		if(users.size()==1){
+			try {
+//				System.out.println(user.getUsername()+user.getPassword());
+//				System.out.println("servicelogin:"+((User)(users.get(0))).getPassword());
+				if(user.getMd5Password().equals(((User)(users.get(0))).getPassword())){
+					return true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return false;
 	}
 

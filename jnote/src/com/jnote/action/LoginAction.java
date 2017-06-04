@@ -14,6 +14,14 @@ public class LoginAction extends BaseAction implements ModelDriven<User>{
 		return user;
 	}
 	
-	
+	public String execute(){
+		
+//		System.out.println("userservice:"+serviceManager.getUserService());
+		if(serviceManager.getUserService().login(user)){
+			return SUCCESS;
+		}
+		return INPUT;
+	}
 
+	
 }

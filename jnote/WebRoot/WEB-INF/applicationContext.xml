@@ -73,4 +73,7 @@
 	<bean id="RegisterAction" class="com.jnote.action.RegisterAction" scope="prototype">
 	</bean>
 	
+	<bean id="LoginAction" class="com.jnote.action.LoginAction" scope="prototype">
+	</bean>
+	
 	</beans>
