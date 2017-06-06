@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.dtd">
+<validators>
+	<field name="username">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message key="username.required"></message>
+		</field-validator>
+	</field>
+	<field name="password">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message key="password.required"></message>
+		</field-validator>
+	</field>
+	<!-- <field name="repassword">
+		<field-validator type="fieldexpression">
+			<param name="expression"><![CDATA[password == repassword]]></param>
+			<message key="password.notmatch"></message>
+		</field-validator>
+	</field>
+	<field name="email">
+		<field-validator type="requiredstring">
+			<message key="email.required"></message>
+		</field-validator>
+		<field-validator type="email">
+			<message key="email.invalid"></message>
+		</field-validator>
+		只允许英文字母、数字、下划线、英文句号、以及中划线组成
+		<field-validator type="regex">
+     		<param name="expression"><![CDATA[^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$]]></param>
+     		<message key="email.invalid"></message>
+		</field-validator>
+	</field> -->
+</validators>

@@ -34,7 +34,8 @@
 				<value>com/jnote/vo/User.hbm.xml</value>
 				<value>com/jnote/vo/Folder.hbm.xml</value>
 				<value>com/jnote/vo/MdFile.hbm.xml</value>
-				<value>com/jnote/vo/UserInfo.hbm.xml</value></list>
+				<value>com/jnote/vo/UserInfo.hbm.xml</value>
+			</list>
 		</property></bean>
 	<bean id="UserDAO" class="com.jnote.dao.UserDAO">
 		<property name="sessionFactory">
@@ -76,4 +77,4 @@
 	<bean id="LoginAction" class="com.jnote.action.LoginAction" scope="prototype">
 	</bean>
 	
-	</beans>
+</beans>
