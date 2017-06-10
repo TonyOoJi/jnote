@@ -3,7 +3,7 @@
 <dwr>
 	<allow>
 		<create creator="new" javascript="check">
-			<param name="class" value="com.jnote.service.impl.UserService" />
+			<param name="class" value="com.jnote.common.DwrCheck" />
 			<include method="checkUser" />
 		</create>
 		<convert converter="bean" match="com.jnote.vo.User">

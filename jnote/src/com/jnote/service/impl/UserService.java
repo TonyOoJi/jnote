@@ -26,7 +26,6 @@ public class UserService implements IUserService{
 	}
 
 	public boolean saveUser(User user) {
-//		System.out.println("username:"+user.getUsername());
 		if(check(user.getUsername())){
 			return false;
 		}else{
@@ -39,9 +38,9 @@ public class UserService implements IUserService{
 		List users = userDao.findByUsername(user.getUsername());
 		if(users.size()==1){
 			try {
-//				System.out.println(user.getUsername()+user.getPassword());
-//				System.out.println("servicelogin:"+((User)(users.get(0))).getPassword());
 				if(user.getMd5Password().equals(((User)(users.get(0))).getPassword())){
+					user.setUserid(((User)users.get(0)).getUserid());
+					user.setPassword(null);
 					return true;
 				}
 			} catch (Exception e) {
@@ -52,7 +51,6 @@ public class UserService implements IUserService{
 	}
 
 	public boolean check(String username){
-//		System.out.println("userServiceuser:"+username);
 		List users = userDao.findByUsername(username);
 		if(users!=null&&users.size()==1){
 			return true;
@@ -60,22 +58,18 @@ public class UserService implements IUserService{
 			return false;
 	}
 	
-	/**
+/*	/**
 	 * DWR调用
-	 */
+	 *//*
 	public boolean checkUser(String username){
-//		System.out.println("userServiceuser:"+username);
 		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 		ServiceManager serviceManager = (ServiceManager) wac.getBean("ServiceManager");
-//		System.out.println("serviceManager:"+serviceManager);
-//		System.out.println("serviceManager.userService:"+serviceManager.getUserService());
-//		System.out.println("serviceManager.userService.userdao:"+serviceManager.getUserService().getUserDao());
 		List users = serviceManager.getUserService().userDao.findByUsername(username);
-//		System.out.println(users.size());
+
 		if(users!=null&&users.size()==1){
 			return true;
 		}else 
 			return false;
-	}
+	}*/
 	
 }

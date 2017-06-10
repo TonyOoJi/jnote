@@ -72,9 +72,18 @@
 	</bean>
 	
 	<bean id="RegisterAction" class="com.jnote.action.RegisterAction" scope="prototype">
+		<property name="serviceManager">
+			<ref bean="ServiceManager"/>
+		</property>
 	</bean>
 	
-	<bean id="LoginAction" class="com.jnote.action.LoginAction" scope="prototype">
+	<bean id="LogAction" class="com.jnote.action.LogAction" scope="prototype">
+		<property name="serviceManager">
+			<ref bean="ServiceManager"/>
+		</property>
+	</bean>
+	<bean id="HomeAction" class="com.jnote.action.HomeAction" scope="prototype">
+		<!--  -->
 	</bean>
 	
 </beans>

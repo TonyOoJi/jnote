@@ -1,46 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>welcome to jnote</title>
 <script type="text/javascript" src="page/js/jquery-1.9.0.min.js"></script>
 <script type='text/javascript' src='/jnote/dwr/interface/check.js'></script>
 <script type='text/javascript' src='/jnote/dwr/engine.js'></script>
 <script type='text/javascript' src='/jnote/dwr/util.js'></script>
-<script type="text/javascript" src="page/js/login.js"></script>
+<script type="text/javascript" src='page/js/login.js'></script>
 <link href="page/css/login2.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 		//dwr ajax框架实现检验用户名是否注册
 		function checkUser() {
 			var username = $("#user").val();
-//			var user={username:username,password:null};
-//			alert(username);
-//			var username = document.all.username.value;
 			check.checkUser(username, onData);
 		}
 		function onData(data) {
 			if (data == true) {
-//				document.all.msg.innerHTML = "用户名存在，正确的用户名";
 				$('#user').focus().css({
 					border: "1px solid red",
 					boxShadow: "0 0 2px red"
 				});
 				$("#userCue").html("<font color='red'><b>×用户名被占用了</b></font>");
-//				return false
-			} else
-//				document.all.msg.innerHTML = "不存在的用户，请注册";
+			} else{
 				$('#user').css({
 					border: "1px solid #D7D7D7",
 					boxShadow: "none"
 				});
+				$("#userCue").html("<font color='green'><b>√用户名可用</b></font>");
+			}
 		}
 </script>
 
 </head>
 <body>
-<h1>Jnote 开始记录吧^-^<sup>2017</sup></h1>
+<h1>Jnote 开始记录吧^-^<sup></sup></h1>
+<s:if test="#session.user!=null"><% session.invalidate(); %></s:if>
 <div class="login" style="margin-top:50px;">
     <!--  -->
     <div class="header">
@@ -57,7 +61,7 @@
 		<div class="login-box">
 
 			<div class="login_form">
-				<form action="/jnote/login" name="loginform" accept-charset="utf-8" id="login_form" class="loginForm" method="post">
+				<form action="note/login" name="loginform" accept-charset="utf-8" id="login_form" class="loginForm" method="post">
 					<input type="hidden" name="did" value="0"/>
                		<input type="hidden" name="to" value="log"/>
                 	<div class="uinArea" id="uinArea">
@@ -86,7 +90,7 @@
  	<!--注册-->
     <div class="qlogin" id="qlogin" style="display: none; ">
     	<div class="web_login">
-    		<form name="form2" id="regUser" accept-charset="utf-8"  action="register" method="post">
+    		<form name="form2" id="regUser" accept-charset="utf-8"  action="note/register" method="post">
 	      		<input type="hidden" name="to" value="reg"/>
 				<input type="hidden" name="did" value="0"/>
         		<ul class="reg_form" id="reg-ul">
@@ -131,7 +135,8 @@
                         	<input type="button" id="reg"  style="margin-top:10px;margin-left:85px;width:150px;" class="button_blue" value="注册"/> 
                         	<!-- <a href="#" class="zcxy" target="_blank">注册协议</a> -->
                     	</div>  
-                	</li><div class="cl"></div>
+                	</li>
+                	<div class="cl"></div>
             	</ul>
             </form>     
     	</div>

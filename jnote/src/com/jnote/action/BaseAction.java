@@ -21,27 +21,20 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,
 	protected javax.servlet.http.HttpServletResponse response;
 	protected javax.servlet.http.HttpServletRequest request;
 	protected ServiceManager serviceManager;
-//	protected String result;
 	protected Map<String, String> cookies;
 	protected HttpSession session;
+
+	public ServiceManager getServiceManager() {
+		return serviceManager;
+	}
 
 	public void setServiceManager(ServiceManager serviceManager) {
 		this.serviceManager = serviceManager;
 	}
 
-	/*public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
-	}*/
-
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
 		// 得到ServiceManager
-		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		serviceManager = (ServiceManager) wac.getBean("ServiceManager");
 		//session
 		this.session = request.getSession();
 	}

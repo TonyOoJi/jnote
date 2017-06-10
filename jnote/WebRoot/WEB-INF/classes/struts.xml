@@ -4,14 +4,29 @@
 	<constant name="objectFactory" value="spring"></constant>
 	<constant name="struts.action.excludePattern" value="/dwr.*"></constant>
 	
-	<package name="user" namespace="/" extends="struts-default">
+	<package name="user" namespace="/note" extends="struts-default">
+	
 		<action name="register" class="RegisterAction">
 			<result name="success">/page/success.jsp</result>
 			<result name="input">/page/loginAndRegister.jsp</result>
 		</action>
-		<action name="login" class="LoginAction">
-			<result name="success">/page/main.jsp</result>
+		
+		<action name="logout" class="LogAction" method="logout">
+			<result name="success">/page/loginAndRegister.jsp</result>
+			<result name="input">/page/main.jsp</result>
+		</action>
+		
+		<action name="login" class="LogAction" method="login">
+			<result name="success" type="redirectAction">
+				<param name="actionName">home</param>
+				<!-- <param name="page">1</param> -->
+			</result>
 			<result name="input">/page/loginAndRegister.jsp</result>
 		</action>
+		
+		<action name="home" class="HomeAction">
+			<result name="success">/page/main.jsp</result>
+		</action>
+		
 	</package>
 </struts>    
