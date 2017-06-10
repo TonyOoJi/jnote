@@ -20,7 +20,7 @@ public class LogAction extends BaseAction implements ModelDriven<User> {
 	}
 
 	public String logout() {
-		session.invalidate();
+		session.removeAttribute("user");
 		if (session.getAttribute("user") == null) {
 			return SUCCESS;
 		}
