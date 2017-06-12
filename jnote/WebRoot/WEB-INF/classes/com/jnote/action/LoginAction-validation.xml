@@ -4,13 +4,13 @@
 	<field name="username">
 		<field-validator type="requiredstring">
 			<param name="trim">true</param>
-			<message key="username.required"></message>
+			<message key="username.required">用户名不能为空</message>
 		</field-validator>
 	</field>
 	<field name="password">
 		<field-validator type="requiredstring">
 			<param name="trim">true</param>
-			<message key="password.required"></message>
+			<message key="password.required">密码不能为空</message>
 		</field-validator>
 	</field>
 	<!-- <field name="repassword">

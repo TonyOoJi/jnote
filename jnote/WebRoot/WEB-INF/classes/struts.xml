@@ -29,4 +29,8 @@
 		</action>
 		
 	</package>
+	
+	<package name="json" namespace="/ajax" extends="json-default">
+	
+	</package>
 </struts>    

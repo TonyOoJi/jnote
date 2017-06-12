@@ -3,37 +3,50 @@ package com.jnote.service.impl;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 
+import com.jnote.service.IFolderService;
+import com.jnote.service.IMdFileService;
+import com.jnote.service.IUserInfoService;
+import com.jnote.service.IUserService;
+
 public class ServiceManager {
-	private UserService userService;
-	private UserInfoService userInfoService;
-	private FolderService folderService;
-	private MdFileService mdFileService;
+	private IUserService userService;
+	private IUserInfoService userInfoService;
+	private IFolderService folderService;
+	private IMdFileService mdFileService;
 	private static ApplicationContext applicationContext;
-	public UserService getUserService() {
+	
+	public IUserService getUserService() {
 		return userService;
 	}
-	public void setUserService(UserService userService) {
+
+	public void setUserService(IUserService userService) {
 		this.userService = userService;
 	}
-	public UserInfoService getUserInfoService() {
+
+	public IUserInfoService getUserInfoService() {
 		return userInfoService;
 	}
-	public void setUserInfoService(UserInfoService userInfoService) {
+
+	public void setUserInfoService(IUserInfoService userInfoService) {
 		this.userInfoService = userInfoService;
 	}
-	public FolderService getFolderService() {
+
+	public IFolderService getFolderService() {
 		return folderService;
 	}
-	public void setFolderService(FolderService folderService) {
+
+	public void setFolderService(IFolderService folderService) {
 		this.folderService = folderService;
 	}
-	public MdFileService getMdFileService() {
+
+	public IMdFileService getMdFileService() {
 		return mdFileService;
 	}
-	public void setMdFileService(MdFileService mdFileService) {
+
+	public void setMdFileService(IMdFileService mdFileService) {
 		this.mdFileService = mdFileService;
 	}
-	
+
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException {
 		// TODO Auto-generated method stub

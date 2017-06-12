@@ -25,21 +25,138 @@
 <script src="page/js/jquery-3.2.1.js" type="text/javascript"></script>
 </head>
 <body>
-	<nav class="navbar navbar-default" role="navigation">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">Jnote</a>
+<div class="container">
+<!-- 导航栏  -->
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Jnote</a>
+			</div>
+			<ul class="nav nav-tabs">
+				<li class="active">
+					 <a href="#">首页</a>
+				</li>
+				<li>
+					 <a href="#">简介</a>
+				</li>
+				<li class="disabled">
+					 <a href="#">信息</a>
+				</li>
+				<!-- <li class="dropdown pull-right"> -->
+				<li class="dropdown">
+					 <a href="#" data-toggle="dropdown" class="dropdown-toggle">下拉<strong class="caret"></strong></a>
+					<ul class="dropdown-menu">
+						<li>
+							 <a href="#">操作</a>
+						</li>
+						<li>
+							 <a href="#">设置栏目</a>
+						</li>
+						<li>
+							 <a href="#">更多设置</a>
+						</li>
+						<li class="divider">
+						</li>
+						<li>
+							 <a href="#">分割线</a>
+						</li>
+					</ul>
+				</li>
+				<!-- 右侧 -->
+				<ul class="nav navbar-nav navbar-right">
+					<s:if test="#session.user==null">
+						<li class="pull-right"><a href="page/loginAndRegister.jsp"><span class="glyphicon glyphicon-log-in"></span>登录</a></li>
+					</s:if>
+					<s:elseif test="#session.user!=null">
+						<li class="pull-right"><a href="note/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a></li>
+						<li class="pull-right"><a href="page/loginAndRegister.jsp"><span class="glyphicon glyphicon-user"></span>用户</a></li>
+					</s:elseif>
+				</ul>
+			</ul>
+			<!-- 导航栏2  -->
+			<%-- <nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Jnote</a>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<s:if test="#session.user==null">
+						<li><a href="page/loginAndRegister.jsp"><span class="glyphicon glyphicon-user"></span>登录</a></li>
+					</s:if>
+					<s:elseif test="#session.user!=null">
+						<li><a href="note/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a></li>
+					</s:elseif>
+				</ul>
+			</div>
+			</nav> --%>
+			<!-- 路径导航  -->
+			<ul class="breadcrumb" >
+				<li>
+					<a href="#">Home</a>
+				</li>
+				<li>
+					<a href="#">Library</a>
+				</li>
+				<li class="active">
+					Data
+				</li>
+			</ul>
 		</div>
-		<ul class="nav navbar-nav navbar-right">
-			<s:if test="#session.user==null">
-				<li><a href="page/loginAndRegister.jsp"><span class="glyphicon glyphicon-user"></span>登录</a></li>
-			</s:if>
-			<s:elseif test="#session.user!=null">
-				<li><a href="note/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a></li>
-			</s:elseif>
-		</ul>
 	</div>
-	</nav>
+	
+	<!-- body -->
+	<!--  -->
+	<div class="row clearfix">
+		<div class="col-md-2 column">
+			<div class="panel-group" id="panel-569164">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <a class="panel-title" data-toggle="collapse" data-parent="#panel-569164" href="#panel-element-933230">Collapsible Group Item #1</a>
+					</div>
+					<div id="panel-element-933230" class="panel-collapse collapse in">
+						<div class="panel-body">
+							Anim pariatur cliche...
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <a class="panel-title" data-toggle="collapse" data-parent="#panel-569164" href="#panel-element-249110">Collapsible Group Item #2</a>
+					</div>
+					<div id="panel-element-249110" class="panel-collapse collapse">
+						<div class="panel-body">
+							Anim pariatur cliche...
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2 column">
+			<div class="list-group">
+				 <a href="#" class="list-group-item active">Home</a>
+				<div class="list-group-item">
+					List header
+				</div>
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">
+						List group item heading
+					</h4>
+					<p class="list-group-item-text">
+						...
+					</p>
+				</div>
+				<div class="list-group-item">
+					 <span class="badge">14</span> Help
+				</div> <a class="list-group-item active"> <span class="badge">14</span> Help</a>
+			</div>
+		</div>
+		<div class="col-md-8 column">
+		</div>
+	</div>
+	
+</div>
+	
+	
 <%= session.getAttribute("user") %>
 </body>
 </html>
