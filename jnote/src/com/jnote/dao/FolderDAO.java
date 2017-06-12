@@ -6,6 +6,7 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -24,6 +25,7 @@ public class FolderDAO extends HibernateDaoSupport  {
 		 private static final Log log = LogFactory.getLog(FolderDAO.class);
 		//property constants
 	public static final String FOLDERNAME = "foldername";
+	public static final String USERID = "userid";
 
 
 
@@ -90,11 +92,36 @@ public class FolderDAO extends HibernateDaoSupport  {
          throw re;
       }
 	}
+    
+    /**
+     * 
+     * @param userid
+     * @return
+     */
+    public List findByUserid(int userid){
+    	return findByProperty(USERID, userid);
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public List findRootFolder(int userid){
+    	List  lists = null;
+    	try{
+    		String hql ="from Folder where userid=:id and parentid is null";
+    		Query query = this.getSession().createQuery(hql);
+    		query.setParameter("id", userid);
+    		lists = query.list();
+    	}catch(RuntimeException e){
+    		System.out.println(e);
+//    		throw e;
+    	}
+    	return lists;
+    }
 
-	public List findByFoldername(Object foldername
-	) {
-		return findByProperty(FOLDERNAME, foldername
-		);
+	public List findByFoldername(Object foldername){
+		return findByProperty(FOLDERNAME, foldername);
 	}
 	
 

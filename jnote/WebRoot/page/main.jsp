@@ -20,12 +20,13 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 
-<link href="page/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css"
-	rel="stylesheet" type="text/css" />
-<script src="page/js/jquery-3.2.1.js" type="text/javascript"></script>
+<link href="page/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="page/css/home.css" rel="stylesheet" type="text/css"></link>
+<script src="page/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="page/js/home.js" type="text/javascript"></script>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid container-home">
 <!-- 导航栏  -->
 	<div class="row clearfix">
 		<div class="col-md-12 column">
@@ -63,7 +64,7 @@
 					</ul>
 				</li>
 				<!-- 右侧 -->
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right navbar-above-margin">
 					<s:if test="#session.user==null">
 						<li class="pull-right"><a href="page/loginAndRegister.jsp"><span class="glyphicon glyphicon-log-in"></span>登录</a></li>
 					</s:if>
@@ -90,7 +91,7 @@
 			</div>
 			</nav> --%>
 			<!-- 路径导航  -->
-			<ul class="breadcrumb" >
+			<ul class="breadcrumb breadcrumb-crumbs">
 				<li>
 					<a href="#">Home</a>
 				</li>
@@ -105,10 +106,10 @@
 	</div>
 	
 	<!-- body -->
-	<!--  -->
+	<!-- first Dir -->
 	<div class="row clearfix">
-		<div class="col-md-2 column">
-			<div class="panel-group" id="panel-569164">
+		<div class="col-md-2 column col-above">
+			<!-- <div class="panel-group" id="panel-569164">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						 <a class="panel-title" data-toggle="collapse" data-parent="#panel-569164" href="#panel-element-933230">Collapsible Group Item #1</a>
@@ -129,9 +130,16 @@
 						</div>
 					</div>
 				</div>
+			</div> -->
+			<div class="list-firstDir">
+			<!-- 用户根文件夹 -->
+				<!-- <a href="#" class="list-group-item active">1</a> -->
+				<s:iterator value="rootFolderList">
+					<a href="#" class="list-group-item">${foldername}</a>
+				</s:iterator>
 			</div>
 		</div>
-		<div class="col-md-2 column">
+		<div class="col-md-2 column col-above">
 			<div class="list-group">
 				 <a href="#" class="list-group-item active">Home</a>
 				<div class="list-group-item">
@@ -150,7 +158,7 @@
 				</div> <a class="list-group-item active"> <span class="badge">14</span> Help</a>
 			</div>
 		</div>
-		<div class="col-md-8 column">
+		<div class="col-md-8 column col-above">
 		</div>
 	</div>
 	
@@ -158,5 +166,6 @@
 	
 	
 <%= session.getAttribute("user") %>
+
 </body>
 </html>

@@ -24,13 +24,14 @@
 			<result name="input">/page/loginAndRegister.jsp</result>
 		</action>
 		
-		<action name="home" class="HomeAction">
+		<action name="home" class="HomeAction" method="homePage">
 			<result name="success">/page/main.jsp</result>
+			<result name="input">/page/loadingError.jsp</result>
 		</action>
 		
 	</package>
 	
 	<package name="json" namespace="/ajax" extends="json-default">
-	
+		
 	</package>
-</struts>    
+</struts>

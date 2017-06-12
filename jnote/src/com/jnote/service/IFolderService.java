@@ -1,5 +1,7 @@
 package com.jnote.service;
 
-public interface IFolderService {
+import java.util.List;
 
+public interface IFolderService {
+	public List findRootFolder(int userid);
 }
