@@ -25,3 +25,8 @@ navbar-above-margin{
 	padding:0;
 }
 
+.btn-backg{
+	background-color:#F5F5F5;
+	border-color:#F5F5F5;
+	color:#000;	
+}

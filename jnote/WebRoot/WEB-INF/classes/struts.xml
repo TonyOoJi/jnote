@@ -3,6 +3,8 @@
 <struts>
 	<constant name="objectFactory" value="spring"></constant>
 	<constant name="struts.action.excludePattern" value="/dwr.*"></constant>
+	<!-- 字符集 -->
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
 	
 	<package name="user" namespace="/note" extends="struts-default">
 	
@@ -32,6 +34,10 @@
 	</package>
 	
 	<package name="json" namespace="/ajax" extends="json-default">
-		
+		<action name="addRootFolder" class="HomeAction" method="addRootFolder">
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
 	</package>
 </struts>

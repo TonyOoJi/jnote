@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jnote.dao.FolderDAO;
 import com.jnote.service.IFolderService;
+import com.jnote.vo.Folder;
 
 
 public class FolderService implements IFolderService {
@@ -20,6 +21,10 @@ public class FolderService implements IFolderService {
 	public List findRootFolder(int userid) {
 		
 		return folderDao.findRootFolder(userid);
+	}
+
+	public void sava(Folder folder) {
+		folderDao.save(folder);
 	}
 	
 }

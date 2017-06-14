@@ -22,8 +22,141 @@
 
 <link href="page/assets/bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="page/css/home.css" rel="stylesheet" type="text/css"></link>
+<link href="page/assets/editormd/css/editormd.min.css" rel="stylesheet" type="text/css"></link>
 <script src="page/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="page/js/home.js" type="text/javascript"></script>
+<script src="page/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="page/assets/editormd/editormd.min.js" type="text/javascript"></script>
+<script>
+//多向弹出框的启用
+/* $(function () { 
+	$("[data-toggle='popover']").popover();
+}); */
+</script>
+<script type="text/javascript">
+<!-- js配置markdown编辑器 -->
+				var testEditor;
+            	/* $(function() {
+                	testEditor = editormd("editor-editormd", {
+                   		width   : "100%",
+                    	height  : 640,
+                    	syncScrolling : "single",
+                    	path    : "./page/assets/editormd/lib/"
+                	}); */
+                /*
+                // or
+                testEditor = editormd({
+                    id      : "test-editormd",
+                    width   : "90%",
+                    height  : 640,
+                    path    : "../lib/"
+                });
+                */
+                
+            	/* }); */
+            	$(function() {
+            	 $.get('page/assets/editormd/test.md', function(md){
+                    testEditor = editormd("editor-editormd", {
+                        width: "100%",
+                        height: 560,
+                        path : './page/assets/editormd/lib/',
+                        //theme : "dark",
+                        //previewTheme : "dark",
+                        //editorTheme : "pastel-on-dark",
+                        markdown : md,
+                        codeFold : true,
+                        //syncScrolling : false,
+                        saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+                        searchReplace : true,
+                        //watch : false,                // 关闭实时预览
+                        htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启    
+                        //toolbar  : false,             //关闭工具栏
+                        //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+                        emoji : true,
+                        taskList : true,
+                        tocm            : true,         // Using [TOCM]
+                        tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+                        flowChart : true,             // 开启流程图支持，默认关闭
+                        sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
+                        //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+                        //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+                        //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+                        //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+                        //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+                        imageUpload : true,
+                        imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                        imageUploadURL : "./php/upload.php",
+                        onload : function() {
+                            console.log('onload', this);
+                            //this.fullscreen();
+                            //this.unwatch();
+                            //this.watch().fullscreen();
+
+                            //this.setMarkdown("#PHP");
+                            //this.width("100%");
+                            //this.height(480);
+                            //this.resize("100%", 640);
+                        }
+                    });
+                });
+
+                $("#goto-line-btn").bind("click", function(){
+                    testEditor.gotoLine(90);
+                });
+                
+                $("#show-btn").bind('click', function(){
+                    testEditor.show();
+                });
+                
+                $("#hide-btn").bind('click', function(){
+                    testEditor.hide();
+                });
+                
+                $("#get-md-btn").bind('click', function(){
+                    alert(testEditor.getMarkdown());
+                });
+                
+                $("#get-html-btn").bind('click', function() {
+                    alert(testEditor.getHTML());
+                });                
+                
+                $("#watch-btn").bind('click', function() {
+                    testEditor.watch();
+                });                 
+                
+                $("#unwatch-btn").bind('click', function() {
+                    testEditor.unwatch();
+                });              
+                
+                $("#preview-btn").bind('click', function() {
+                    testEditor.previewing();
+                });
+                
+                $("#fullscreen-btn").bind('click', function() {
+                    testEditor.fullscreen();
+                });
+                
+                $("#show-toolbar-btn").bind('click', function() {
+                    testEditor.showToolbar();
+                });
+                
+                $("#close-toolbar-btn").bind('click', function() {
+                    testEditor.hideToolbar();
+                });
+                
+                $("#toc-menu-btn").click(function(){
+                    testEditor.config({
+                        tocDropdown   : true,
+                        tocTitle      : "目录 Table of Contents",
+                    });
+                });
+                
+                $("#toc-default-btn").click(function() {
+                    testEditor.config("tocDropdown", false);
+                });
+            });
+</script>
+
 </head>
 <body>
 <div class="container-fluid container-home">
@@ -35,13 +168,13 @@
 			</div>
 			<ul class="nav nav-tabs">
 				<li class="active">
-					 <a href="#">首页</a>
+					 <a href="note/home">云笔记</a>
 				</li>
 				<li>
-					 <a href="#">简介</a>
+					 <a href="#">云协作</a>
 				</li>
 				<li class="disabled">
-					 <a href="#">信息</a>
+					 <a href="#">简介</a>
 				</li>
 				<!-- <li class="dropdown pull-right"> -->
 				<li class="dropdown">
@@ -59,7 +192,7 @@
 						<li class="divider">
 						</li>
 						<li>
-							 <a href="#">分割线</a>
+							 <a href="#">更多</a>
 						</li>
 					</ul>
 				</li>
@@ -70,26 +203,10 @@
 					</s:if>
 					<s:elseif test="#session.user!=null">
 						<li class="pull-right"><a href="note/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a></li>
-						<li class="pull-right"><a href="page/loginAndRegister.jsp"><span class="glyphicon glyphicon-user"></span>用户</a></li>
+						<li class="pull-right"><a href="page/loginAndRegister.jsp"><span class="glyphicon glyphicon-user"></span>${session.user.username}</a></li>
 					</s:elseif>
 				</ul>
 			</ul>
-			<!-- 导航栏2  -->
-			<%-- <nav class="navbar navbar-default" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Jnote</a>
-				</div>
-				<ul class="nav navbar-nav navbar-right">
-					<s:if test="#session.user==null">
-						<li><a href="page/loginAndRegister.jsp"><span class="glyphicon glyphicon-user"></span>登录</a></li>
-					</s:if>
-					<s:elseif test="#session.user!=null">
-						<li><a href="note/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a></li>
-					</s:elseif>
-				</ul>
-			</div>
-			</nav> --%>
 			<!-- 路径导航  -->
 			<ul class="breadcrumb breadcrumb-crumbs">
 				<li>
@@ -102,67 +219,66 @@
 					Data
 				</li>
 			</ul>
-		</div>
-	</div>
+		</div><!-- 栅格结束 -->
+	</div><!-- row结束 -->
 	
 	<!-- body -->
 	<!-- first Dir -->
 	<div class="row clearfix">
 		<div class="col-md-2 column col-above">
-			<!-- <div class="panel-group" id="panel-569164">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <a class="panel-title" data-toggle="collapse" data-parent="#panel-569164" href="#panel-element-933230">Collapsible Group Item #1</a>
-					</div>
-					<div id="panel-element-933230" class="panel-collapse collapse in">
-						<div class="panel-body">
-							Anim pariatur cliche...
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <a class="panel-title" data-toggle="collapse" data-parent="#panel-569164" href="#panel-element-249110">Collapsible Group Item #2</a>
-					</div>
-					<div id="panel-element-249110" class="panel-collapse collapse">
-						<div class="panel-body">
-							Anim pariatur cliche...
-						</div>
-					</div>
-				</div>
-			</div> -->
 			<div class="list-firstDir">
 			<!-- 用户根文件夹 -->
 				<!-- <a href="#" class="list-group-item active">1</a> -->
+				<!-- <button type="button" class="btn btn-warning btn-block btn-backg" title='' data-container="body" 
+					data-toggle="popover" data-placement="bottom" data-html="true"
+					data-content=' 名称<input type=text name="newRootFolderName" id="newRootFolderName"><br><button type=button class="btn" id="addNewFolderButton">添加</button> '>
+					添加分类目录
+				</button> -->
+				<!--  -->
+				<button class="btn btn-primary btn-lg btn-block btn-backg" data-toggle="modal" data-target="#addNewFolderModal">
+					添加分类目录
+				</button>
+				<div class="modal fade" id="addNewFolderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									&times;
+								</button>
+								<h4 class="modal-title" id="myModalLabel">
+									添加分类目录
+								</h4>
+								</div>
+								<div class="modal-body">
+									<input type=text name="newRootFolderName" id="newRootFolderName">
+								</div>
+								<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+								</button>
+								<button type=button class="btn btn-primary" id="addNewFolderButton">添加</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal -->
+				</div>
+				<!-- <a href="" id="addRootFolder" class="list-group-item active">添加分类</a> -->
 				<s:iterator value="rootFolderList">
 					<a href="#" class="list-group-item">${foldername}</a>
 				</s:iterator>
 			</div>
 		</div>
 		<div class="col-md-2 column col-above">
-			<div class="list-group">
-				 <a href="#" class="list-group-item active">Home</a>
-				<div class="list-group-item">
-					List header
-				</div>
-				<div class="list-group-item">
-					<h4 class="list-group-item-heading">
-						List group item heading
-					</h4>
-					<p class="list-group-item-text">
-						...
-					</p>
-				</div>
-				<div class="list-group-item">
-					 <span class="badge">14</span> Help
-				</div> <a class="list-group-item active"> <span class="badge">14</span> Help</a>
-			</div>
+			<!-- 子目录 -->
+			
 		</div>
 		<div class="col-md-8 column col-above">
+			<!-- markdown编辑区域 -->
+			<div id="editor-editormd">
+				<textarea style="display:none;"></textarea>
+			</div>		
 		</div>
-	</div>
+	</div><!-- row结束 -->
 	
-</div>
+</div><!-- container-fluid结束 -->
 	
 	
 <%= session.getAttribute("user") %>
