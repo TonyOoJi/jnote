@@ -203,7 +203,7 @@
 					</s:if>
 					<s:elseif test="#session.user!=null">
 						<li class="pull-right"><a href="note/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a></li>
-						<li class="pull-right"><a href="page/loginAndRegister.jsp"><span class="glyphicon glyphicon-user"></span>${session.user.username}</a></li>
+						<li class="pull-right"><a href="page/userInfo.jsp"><span class="glyphicon glyphicon-user"></span>${session.user.username}</a></li>
 					</s:elseif>
 				</ul>
 			</ul>
@@ -234,10 +234,25 @@
 					data-content=' 名称<input type=text name="newRootFolderName" id="newRootFolderName"><br><button type=button class="btn" id="addNewFolderButton">添加</button> '>
 					添加分类目录
 				</button> -->
-				<!--  -->
-				<button class="btn btn-primary btn-lg btn-block btn-backg" data-toggle="modal" data-target="#addNewFolderModal">
-					添加分类目录
-				</button>
+				<!-- 主目录的添加与删除下拉 -->
+				<div class="dropdown">
+    				<button type="button" class="btn dropdown-toggle btn-block btn-backg" id="dropdownMenu1" data-toggle="dropdown">操作
+        				<span class="caret"></span>
+    				</button>
+    				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+       					<li role="presentation">
+            				<button class="btn btn-primary btn-lg btn-block btn-backg" data-toggle="modal" data-target="#addNewFolderModal">
+								添加分类目录
+							</button>
+        				</li>
+        				<li role="presentation">
+            				<button class="btn btn-primary btn-lg btn-block btn-backg" data-toggle="modal" data-target="#addNewFolderModal">
+								删除目录
+							</button>
+        				</li>
+    				</ul>
+				</div>
+				<!-- 弹出框 -->
 				<div class="modal fade" id="addNewFolderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -248,22 +263,25 @@
 								<h4 class="modal-title" id="myModalLabel">
 									添加分类目录
 								</h4>
-								</div>
-								<div class="modal-body">
+							</div>
+							<div class="modal-body">
 									<input type=text name="newRootFolderName" id="newRootFolderName">
-								</div>
-								<div class="modal-footer">
+							</div>
+							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 								</button>
 								<button type=button class="btn btn-primary" id="addNewFolderButton">添加</button>
 							</div>
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal -->
-				</div>
+				</div><!-- 弹出框结束 -->
 				<!-- <a href="" id="addRootFolder" class="list-group-item active">添加分类</a> -->
+				<!-- <ul class="list-group"></ul> -->
+				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0"  style="" id="rootFolderList-div" class="rootFolderList-div">
 				<s:iterator value="rootFolderList">
-					<a href="#" class="list-group-item">${foldername}</a>
+					<a href="#" class="list-group-item glyphicon glyphicon-folder-close a-list" name="${folderid}">&nbsp${foldername}</a>
 				</s:iterator>
+				</div>
 			</div>
 		</div>
 		<div class="col-md-2 column col-above">
@@ -274,13 +292,13 @@
 			<!-- markdown编辑区域 -->
 			<div id="editor-editormd">
 				<textarea style="display:none;"></textarea>
-			</div>		
+			</div>
 		</div>
 	</div><!-- row结束 -->
 	
 </div><!-- container-fluid结束 -->
 	
-	
+<span>测试session</span>
 <%= session.getAttribute("user") %>
 
 </body>

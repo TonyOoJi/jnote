@@ -16,7 +16,7 @@ public abstract class AbstractFolder  implements java.io.Serializable {
     // Fields    
 
      private Integer folderid;
-     private Folder folder;
+     private Folder folder;//parent root
      private User user;
      private String foldername;
      private Set folders = new HashSet(0);

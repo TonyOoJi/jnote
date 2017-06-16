@@ -5,6 +5,11 @@
 container-fluid{
 	padding_right:0px;
 	padding-left:0px;
+	height:100%;
+}
+
+.a-list{
+	border:0px;
 }
 
 .col-above{
@@ -29,4 +34,11 @@ navbar-above-margin{
 	background-color:#F5F5F5;
 	border-color:#F5F5F5;
 	color:#000;	
+}
+
+.rootFolderList-div{
+	height:560px;
+	overflow:auto;
+	position: relative;
+	border:1px solid #F5F5F5
 }

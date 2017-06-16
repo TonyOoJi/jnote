@@ -1,12 +1,15 @@
 package com.jnote.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import net.sf.json.JSONObject;
 
+import com.jnote.action.HomeAction.Row;
 import com.jnote.service.impl.ServiceManager;
+import com.jnote.vo.AbstractFolder;
 import com.jnote.vo.Folder;
 import com.jnote.vo.User;
 import com.opensymphony.xwork2.ModelDriven;
@@ -64,20 +67,32 @@ public class HomeAction extends BaseAction implements ModelDriven<Folder>{
 	}
 	
 	public String addRootFolder(){
-//		System.out.println("in ajax addrootfolder");
 		Folder folder = new Folder();
 		folder.setUser((User) session.getAttribute("user"));
-//		String folderName1 = request.getParameter("foldername");
-//		System.out.println(folderName1);
 		folder.setFoldername(request.getParameter("foldername"));
-//		System.out.println(folder.getUser().getUserid()+folder.getFoldername());
 		if(folder.getUser()!=null&&folder.getFoldername()!=null){
-//			System.out.println(this.serviceManager.getFolderService());
+			//操作
 			this.serviceManager.getFolderService().sava(folder);
+			//得到所有根目录用于刷新
+			rootFolderList = this.serviceManager.getFolderService().findRootFolder(folder.getUser().getUserid());
+			List<Row> listTemp = new ArrayList();
+			for(Object obj : rootFolderList){
+				Folder f = (Folder)obj;
+				int folderid = f.getFolderid();
+				String foldername = f.getFoldername();
+//				String row =  "<a href=\"#\" class=\"list-group-item glyphicon glyphicon-folder-close a-list\" name=\""+folderid+"\">&nbsp"+foldername+"</a>"; 
+//				String rowTemp = new String();
+//				rowTemp = row;
+				Row row = new Row();
+				row.folderid = folderid;
+				row.foldername = foldername;
+				listTemp.add(row);
+			}
 			result = "add success";
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("result", result);
-//			System.out.println("map.put");
+			map.put("list",listTemp);
+//			System.out.println("maplist"+((AbstractFolder) ((List)map.get("list")).get(0)).getFolderid());
 			JSONObject json = JSONObject.fromObject(map);
 			result = json.toString();
 //			System.out.println("json.toString.ok"+result);
@@ -86,6 +101,21 @@ public class HomeAction extends BaseAction implements ModelDriven<Folder>{
 		return INPUT;
 	}
 
-	
+	public class Row{
+		public int folderid;
+		public String foldername;
+		public int getFolderid() {
+			return folderid;
+		}
+		public void setFolderid(int folderid) {
+			this.folderid = folderid;
+		}
+		public String getFoldername() {
+			return foldername;
+		}
+		public void setFoldername(String foldername) {
+			this.foldername = foldername;
+		}
+	}
 	
 }
