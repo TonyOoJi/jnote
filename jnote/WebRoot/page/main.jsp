@@ -58,7 +58,7 @@
             	 $.get('page/assets/editormd/test.md', function(md){
                     testEditor = editormd("editor-editormd", {
                         width: "100%",
-                        height: 560,
+                        height: "85%",
                         path : './page/assets/editormd/lib/',
                         //theme : "dark",
                         //previewTheme : "dark",
