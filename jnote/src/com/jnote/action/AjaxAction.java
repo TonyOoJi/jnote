@@ -111,18 +111,56 @@ public class AjaxAction extends BaseAction {
 	}
 
 	public String addChildFolder() {
-		int currentFolderId = Integer.parseInt(request.getParameter("currentFolderId"));
+//		System.out.println(request.getParameter("currentFolderId"));
+		int userid = ((User) session.getAttribute("user")).getUserid();
+		Integer currentFolderId = Integer.parseInt(request.getParameter("currentFolderId"));
 		String foldername = request.getParameter("foldername");
+//		System.out.println(currentFolderId+foldername);
 		Folder folder = new Folder();
 		folder.setUser((User) session.getAttribute("user"));
 		folder.setFoldername(foldername);
-		folder.setFolder(serviceManager.getFolderService().findFodlerById(currentFolderId));
-		if (folder.getUser() != null && folder.getFoldername() != null&& folder.getFolder() != null) {
+		folder.setFolder(serviceManager.getFolderService().findFolderById(currentFolderId));
+		if (folder.getUser() != null && folder.getFoldername() != null && folder.getFolder() != null) {
 			// 操作
-			this.serviceManager.getFolderService().sava(folder);
+			serviceManager.getFolderService().sava(folder);
 			// 调用函数得到所有子节点用于刷新
-			getChildListToJsonByFolderid();
+			getChildList(userid,currentFolderId);
 			return SUCCESS;
+		}
+		return INPUT;
+	}
+	
+	public String getChildList(int userid,int parentid){
+		
+		childFolderList = serviceManager.getFolderService().findChildFolder(userid, parentid);
+//		System.out.println(childFolderList.size());
+		// 获取文件夹list，并封装
+		List<FolderAjax> listTemp = new ArrayList<FolderAjax>();
+		if(childFolderList != null){
+			for (Object obj : childFolderList) {
+				Folder f = (Folder) obj;
+				int folderid = f.getFolderid();
+				String foldername = f.getFoldername();
+				FolderAjax fa = new FolderAjax();
+				fa.folderid = folderid;
+				fa.foldername = foldername;
+				listTemp.add(fa);
+			}
+		}
+		try {
+			result = "error";
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("list", listTemp);
+			//file add to map
+			
+			result = "success";
+			map.put("result", result);
+			JSONObject json = JSONObject.fromObject(map);
+			childListResult = json.toString();
+//			System.out.println("json.toString.ok"+childListResult);
+			return SUCCESS;
+		} catch (RuntimeException e) {
+			System.out.println(e);
 		}
 		return INPUT;
 	}
@@ -130,11 +168,13 @@ public class AjaxAction extends BaseAction {
 	public String getChildListToJsonByFolderid() {
 //		System.out.println("comein getChild");
 		session.setAttribute("parentid", Integer.parseInt(request.getParameter("parentid")));
-		int userid = ((User) session.getAttribute("user")).getUserid();
+//		System.out.println("p"+Integer.parseInt(request.getParameter("parentid")));
+		Integer userid = ((User) session.getAttribute("user")).getUserid();
+//		System.out.println("u"+userid);
 		int parentid = Integer.parseInt(request.getParameter("parentid"));
-//		System.out.println(userid+parentid);
+//		System.out.println(userid+","+parentid);
 		childFolderList = serviceManager.getFolderService().findChildFolder(userid, parentid);
-//		System.out.println(childFolderList.size());
+//		System.out.println("s"+childFolderList.size());
 		// 获取文件夹list，并封装
 		List<FolderAjax> listTemp = new ArrayList<FolderAjax>();
 		if(childFolderList != null){

@@ -31,9 +31,9 @@ public class FolderService implements IFolderService {
 		folderDao.save(folder);
 	}
 
-	public Folder findFodlerById(int folderid) {
-		folderDao.findById(folderid);
-		return null;
+	public Folder findFolderById(int folderid) {
+//		System.out.println("comeinserviceoffolder");
+		return folderDao.findFolderById(folderid);
 	}
 	
 }

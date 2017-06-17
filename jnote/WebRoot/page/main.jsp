@@ -319,7 +319,7 @@
 								</h4>
 							</div>
 							<div class="modal-body">
-								<input type=text name="addChildFolderModal" id="addChildFolderName">
+								<input type=text name="addChildFolderName" id="addChildFolderName">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭

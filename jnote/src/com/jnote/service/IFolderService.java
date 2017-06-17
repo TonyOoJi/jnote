@@ -8,5 +8,5 @@ public interface IFolderService {
 	public List findRootFolder(int userid);
 	public void sava(Folder folder);
 	public List findChildFolder(int userid,int parentid);
-	public Folder findFodlerById(int folderid);
+	public Folder findFolderById(int folderid);
 }

@@ -10,6 +10,7 @@ import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.jnote.vo.AbstractFolder;
 import com.jnote.vo.Folder;
 
 /**
@@ -26,6 +27,7 @@ public class FolderDAO extends HibernateDaoSupport  {
 		//property constants
 	public static final String FOLDERNAME = "foldername";
 	public static final String USERID = "userid";
+	public static final String FOLDERID = "folderid";
 
 
 
@@ -54,12 +56,16 @@ public class FolderDAO extends HibernateDaoSupport  {
             throw re;
         }
     }
-    
+    /*
+     * 方法有问题
+     */
     public Folder findById( java.lang.Integer id) {
         log.debug("getting Folder instance with id: " + id);
         try {
+//        	System.out.println("cominfolderdao"+id);
             Folder instance = (Folder) getHibernateTemplate()
                     .get("Folder", id);
+//            System.out.println(instance);
             return instance;
         } catch (RuntimeException re) {
             log.error("get failed", re);
@@ -67,6 +73,10 @@ public class FolderDAO extends HibernateDaoSupport  {
         }
     }
     
+    public Folder findFolderById(java.lang.Integer id){
+    	List list = findByProperty(FOLDERID, id);
+    	return (Folder) list.get(0);
+    }
     
     public List findByExample(Folder instance) {
         log.debug("finding Folder instance by example");
