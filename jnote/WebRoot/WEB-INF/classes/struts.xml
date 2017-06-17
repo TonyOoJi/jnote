@@ -39,12 +39,12 @@
 				<param name="root">result</param>
 			</result>
 		</action>
-		<action name="addChildFolder">
+		<action name="addChildFolder" class="AjaxAction" method="addChildFolder">
 			<result name="success" type="json">
 				<param name="root">childListResult</param>
 			</result>
 		</action>
-		<action name="getChildListToJsonByFolderid">
+		<action name="getChildListToJsonByFolderid" class="AjaxAction" method="getChildListToJsonByFolderid">
 			<result name="success" type="json">
 				<param name="root">childListResult</param>
 			</result>

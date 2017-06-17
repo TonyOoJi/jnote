@@ -278,16 +278,16 @@
 				<!-- <a href="" id="addRootFolder" class="list-group-item active">添加分类</a> -->
 				<!-- <ul class="list-group"></ul> -->
 				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0"  style="" id="rootFolderList-div" class="rootFolderList-div">
-				<s:iterator value="rootFolderList">
-					<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name="${folderid}">&nbsp${foldername}</a>
-				</s:iterator>
+					<s:iterator value="rootFolderList">
+						<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name="${folderid}">&nbsp${foldername}</a>
+					</s:iterator>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-2 column col-above">
 			<!-- 子目录 -->
 			<div class="list-firstDir">
-			<!-- 用户根文件夹 -->
+			<!-- 子目录 -->
 				<!-- 子目录的添加与新建文件下拉 -->
 				<div class="dropdown">
     				<button type="button" class="btn dropdown-toggle btn-block btn-backg" id="dropdownMenu1" data-toggle="dropdown">操作
@@ -296,7 +296,7 @@
     				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
        					<li role="presentation">
             				<button class="btn btn-primary btn-lg btn-block btn-backg" data-toggle="modal" data-target="#addChildFolderModal">
-								添加分类目录
+								添加子目录
 							</button>
         				</li>
         				<li role="presentation">
@@ -319,7 +319,7 @@
 								</h4>
 							</div>
 							<div class="modal-body">
-									<input type=text name="addChildFolderModal" id="addChildFolderName">
+								<input type=text name="addChildFolderModal" id="addChildFolderName">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
@@ -355,6 +355,7 @@
 				
 				<!-- <a href="" id="addRootFolder" class="list-group-item active">添加分类</a> -->
 				<!-- <ul class="list-group"></ul> -->
+				<!-- 子目录及文件 -->
 				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0"  style="" id="childList-div" class="childList-div">
 					<!-- <s:iterator value="childFolderList">
 						<a href="#" class="list-group-item glyphicon glyphicon-folder-close a-list" name="${folderid}">&nbsp${foldername}</a>
