@@ -22,9 +22,18 @@ public class FolderService implements IFolderService {
 		
 		return folderDao.findRootFolder(userid);
 	}
+	
+	public List findChildFolder(int userid,int parentid){
+		return folderDao.findChildFolder(userid, parentid);
+	}
 
 	public void sava(Folder folder) {
 		folderDao.save(folder);
+	}
+
+	public Folder findFodlerById(int folderid) {
+		folderDao.findById(folderid);
+		return null;
 	}
 	
 }

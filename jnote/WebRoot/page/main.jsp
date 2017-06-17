@@ -58,7 +58,7 @@
             	 $.get('page/assets/editormd/test.md', function(md){
                     testEditor = editormd("editor-editormd", {
                         width: "100%",
-                        height: "85%",
+                        height: "78%",
                         path : './page/assets/editormd/lib/',
                         //theme : "dark",
                         //previewTheme : "dark",
@@ -223,7 +223,7 @@
 	</div><!-- row结束 -->
 	
 	<!-- body -->
-	<!-- first Dir -->
+	<!-- root Dir -->
 	<div class="row clearfix">
 		<div class="col-md-2 column col-above">
 			<div class="list-firstDir">
@@ -279,16 +279,105 @@
 				<!-- <ul class="list-group"></ul> -->
 				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0"  style="" id="rootFolderList-div" class="rootFolderList-div">
 				<s:iterator value="rootFolderList">
-					<a href="#" class="list-group-item glyphicon glyphicon-folder-close a-list" name="${folderid}">&nbsp${foldername}</a>
+					<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name="${folderid}">&nbsp${foldername}</a>
 				</s:iterator>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-2 column col-above">
 			<!-- 子目录 -->
-			
+			<div class="list-firstDir">
+			<!-- 用户根文件夹 -->
+				<!-- 子目录的添加与新建文件下拉 -->
+				<div class="dropdown">
+    				<button type="button" class="btn dropdown-toggle btn-block btn-backg" id="dropdownMenu1" data-toggle="dropdown">操作
+        				<span class="caret"></span>
+    				</button>
+    				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+       					<li role="presentation">
+            				<button class="btn btn-primary btn-lg btn-block btn-backg" data-toggle="modal" data-target="#addChildFolderModal">
+								添加分类目录
+							</button>
+        				</li>
+        				<li role="presentation">
+            				<button class="btn btn-primary btn-lg btn-block btn-backg" data-toggle="modal" data-target="#addFileModal">
+								新建文件
+							</button>
+        				</li>
+    				</ul>
+				</div>
+				<!-- 弹出框 -->
+				<div class="modal fade" id="addChildFolderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									&times;
+								</button>
+								<h4 class="modal-title" id="myModalLabel">
+									添加子目录
+								</h4>
+							</div>
+							<div class="modal-body">
+									<input type=text name="addChildFolderModal" id="addChildFolderName">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+								</button>
+								<button type=button class="btn btn-primary" id="addChildFolderButton">添加</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal -->
+				</div><!-- 弹出框结束 -->
+				<!-- 新建文件弹框 -->
+				<div class="modal fade" id="addFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									&times;
+								</button>
+								<h4 class="modal-title" id="myModalLabel">
+									添加文件
+								</h4>
+							</div>
+							<div class="modal-body">
+									<input type=text name="addFileModal" id="addFileName">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+								</button>
+								<button type=button class="btn btn-primary" id="addFileButton">添加</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal -->
+				</div><!-- 新建文件弹出框结束 -->
+				
+				<!-- <a href="" id="addRootFolder" class="list-group-item active">添加分类</a> -->
+				<!-- <ul class="list-group"></ul> -->
+				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0"  style="" id="childList-div" class="childList-div">
+					<!-- <s:iterator value="childFolderList">
+						<a href="#" class="list-group-item glyphicon glyphicon-folder-close a-list" name="${folderid}">&nbsp${foldername}</a>
+					</s:iterator>
+					<s:iterator value="fileList">
+						<a href="#" class="list-group-item a-list" name="${mdfileid}">&nbsp${filename}</a>
+					</s:iterator> -->
+				</div>
+			</div>
 		</div>
 		<div class="col-md-8 column col-above">
+			<!-- 标题 -->
+			<div id="mdTitle">
+				<div class="input-group">
+					<span class="input-group-addon">
+                       	标题
+                    </span>
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">提交</button>
+                    </span>
+                </div><!-- /input-group -->
+			</div>
 			<!-- markdown编辑区域 -->
 			<div id="editor-editormd">
 				<textarea style="display:none;"></textarea>

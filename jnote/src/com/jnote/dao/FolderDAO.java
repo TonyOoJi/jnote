@@ -119,6 +119,20 @@ public class FolderDAO extends HibernateDaoSupport  {
     	}
     	return lists;
     }
+    
+    public List findChildFolder(int userid,int parentid){
+    	List lists = null;
+    	try{
+    		String hql ="from Folder where userid=:uid and parentid=:pid";
+    		Query query = this.getSession().createQuery(hql);
+    		query.setParameter("uid", userid);
+    		query.setParameter("pid", parentid);
+    		lists = query.list();
+    	}catch(RuntimeException e){
+    		System.out.println(e);
+    	}
+    	return lists;
+    }
 
 	public List findByFoldername(Object foldername){
 		return findByProperty(FOLDERNAME, foldername);

@@ -37,8 +37,19 @@ navbar-above-margin{
 }
 
 .rootFolderList-div{
-	height:560px;
+	height:78%;
 	overflow:auto;
 	position: relative;
 	border:1px solid #F5F5F5
+}
+
+.childList-div{
+	height:78%;
+	overflow:auto;
+	position: relative;
+	border:1px solid #F5F5F5
+}
+
+.mdTitle-input{
+	width:60%;
 }

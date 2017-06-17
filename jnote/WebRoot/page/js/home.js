@@ -1,8 +1,11 @@
 $(document).ready(function(){
 	//滚动监听
 //	$('rootFolderList-div').scrollspy({ target: '.navbar-example' });//启用滚动触发事件
-	$("#addNewFolderButton").click(function(){
-		//ajax请求信息在homeaction中写为html的String
+	
+	/**
+	 * 添加根目录节点
+	 */
+	$("#addNewFolderButton").click(function(){//ajax请求信息在homeaction中写为html的String
 //		alert($("#newRootFolderName").val());
 		var folderName = $("#newRootFolderName").serialize();
 		$.ajax({
@@ -26,9 +29,16 @@ $(document).ready(function(){
 	            		$("#rootFolderList-div").append('<a href="#" class="list-group-item glyphicon glyphicon-folder-close a-list" name=" ' +value.folderid+ ' ">&nbsp' + value.foldername + '</a>');
 	            	});
 	            	alert(d.result);
+	            	//$('#addNewFolderModal').modal('hide');
 	            }
 		});
 	});
 	
+
 	
 });
+
+function getChild(obj){
+	var folderid = obj.name;
+	alert(folderid);
+}

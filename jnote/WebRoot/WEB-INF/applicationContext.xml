@@ -104,6 +104,11 @@
 			<ref bean="ServiceManager"/>
 		</property>
 	</bean>
+	<bean id="AjaxAction" class="com.jnote.action.AjaxAction" scope="prototype">
+		<property name="serviceManager">
+			<ref bean="ServiceManager"/>
+		</property>
+	</bean>
 	
 	<!-- spring-aop transactionManager -->
 	<bean id="txManager"

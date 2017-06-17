@@ -34,9 +34,19 @@
 	</package>
 	
 	<package name="json" namespace="/ajax" extends="json-default">
-		<action name="addRootFolder" class="HomeAction" method="addRootFolder">
+		<action name="addRootFolder" class="AjaxAction" method="addRootFolder">
 			<result name="success" type="json">
 				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="addChildFolder">
+			<result name="success" type="json">
+				<param name="root">childListResult</param>
+			</result>
+		</action>
+		<action name="getChildListToJsonByFolderid">
+			<result name="success" type="json">
+				<param name="root">childListResult</param>
 			</result>
 		</action>
 	</package>
