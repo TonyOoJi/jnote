@@ -236,8 +236,8 @@
 				</button> -->
 				<!-- 主目录的添加与删除下拉 -->
 				<div class="dropdown">
-    				<button type="button" class="btn dropdown-toggle btn-block btn-backg" id="dropdownMenu1" data-toggle="dropdown">操作
-        				<span class="caret"></span>
+    				<button type="button" class="btn dropdown-toggle btn-block btn-backg" id="dropdownMenu1" data-toggle="dropdown">
+        				分类<span class="caret"></span>
     				</button>
     				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
        					<li role="presentation">
@@ -279,7 +279,7 @@
 				<!-- <ul class="list-group"></ul> -->
 				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0"  style="" id="rootFolderList-div" class="rootFolderList-div">
 					<s:iterator value="rootFolderList">
-						<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name="${folderid}">&nbsp${foldername}</a>
+						<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" name="${folderid}">&nbsp${foldername}</a>
 					</s:iterator>
 				</div>
 			</div>
@@ -290,8 +290,8 @@
 			<!-- 子目录 -->
 				<!-- 子目录的添加与新建文件下拉 -->
 				<div class="dropdown">
-    				<button type="button" class="btn dropdown-toggle btn-block btn-backg" id="dropdownMenu1" data-toggle="dropdown">操作
-        				<span class="caret"></span>
+    				<button type="button" class="btn dropdown-toggle btn-block btn-backg" id="dropdownMenu1" data-toggle="dropdown">
+        				文件目录<span class="caret"></span>
     				</button>
     				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
        					<li role="presentation">
@@ -342,7 +342,7 @@
 								</h4>
 							</div>
 							<div class="modal-body">
-									<input type=text name="addFileModal" id="addFileName">
+									<input type=text name="addFileName" id="addFileName">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
@@ -375,7 +375,7 @@
                     </span>
                     <input type="text" class="form-control">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">提交</button>
+                        <button class="btn btn-default glyphicon glyphicon-floppy-disk" type="button" id="saveFile">提交</button>
                     </span>
                 </div><!-- /input-group -->
 			</div>

@@ -39,6 +39,7 @@ public class MdFileDAO extends HibernateDaoSupport  {
     public void save(MdFile transientInstance) {
         log.debug("saving MdFile instance");
         try {
+//        	System.out.println("comein mdfileDao");
             getHibernateTemplate().save(transientInstance);
             log.debug("save successful");
         } catch (RuntimeException re) {

@@ -49,5 +49,10 @@
 				<param name="root">childListResult</param>
 			</result>
 		</action>
+		<action name="addFile" class="AjaxAction" method="addFile">
+			<result name="success" type="json">
+				<param name="root">childListResult</param>
+			</result>
+		</action>
 	</package>
 </struts>

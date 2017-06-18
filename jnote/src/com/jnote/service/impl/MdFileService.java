@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jnote.dao.MdFileDAO;
 import com.jnote.service.IMdFileService;
+import com.jnote.vo.MdFile;
 
 
 public class MdFileService implements IMdFileService {
@@ -19,6 +20,10 @@ public class MdFileService implements IMdFileService {
 
 	public List findChildFiles(int userid, int folderid) {
 		return mdFileDao.getChildMdFile(userid,folderid);
+	}
+
+	public void save(MdFile mf) {
+		this.mdFileDao.save(mf);
 	}
 
 }

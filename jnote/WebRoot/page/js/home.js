@@ -32,7 +32,7 @@ $(document).ready(function(){
 	            	$("#rootFolderList-div").empty();
 	            	// 回传的list中对象为 String
 	            	$(d.list).each(function (i, value) {
-	            		$("#rootFolderList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
+	            		$("#rootFolderList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
 	            	});
 	            	alert(d.result);
 	            	// $('#addNewFolderModal').modal('hide');
@@ -72,12 +72,12 @@ $(document).ready(function(){
 	/**
 	 * 添加文件
 	 */
-	$("#addChildFolderButton").click(function(){
+	$("#addFileButton").click(function(){
 		$.ajax({
-	            url:'/jnote/ajax/addChildFolder.action',
+	            url:'/jnote/ajax/addFile.action',
 	            type:'post',
 	            data:{
-	            	foldername:$("input[name=addChildFolderName]").val(),
+	            	fileName:$("input[name=addFileName]").val(),
 	            	currentFolderId:currentFolderId,
 	            	parentid:currentFolderId
 	            },
@@ -85,6 +85,7 @@ $(document).ready(function(){
 	            success:function (data) {
 	            	var d = eval("("+data+")");
 	            	$("#childList-div").empty();
+	            	alert(d.result);
 	            	// 回传的list中对象为 String
 	            	$(d.list).each(function (i, value) {
 	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name="' + value.folderid + '">&nbsp' + value.foldername + '</a>');
@@ -92,8 +93,6 @@ $(document).ready(function(){
 	            	$(d.fileList).each(function (i, value) {
 	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-file a-list" onclick="" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
 	            	});
-	            	alert(d.result);
-	            	// $('#addNewFolderModal').modal('hide');
 	            }
 		});
 	});

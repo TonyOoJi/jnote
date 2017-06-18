@@ -2,15 +2,16 @@ package com.jnote.action;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jsx3.gui.TimePicker;
+
 import net.sf.json.JSONObject;
 
-import com.jnote.action.AjaxAction.FolderAjax;
 import com.jnote.service.impl.ServiceManager;
-import com.jnote.vo.AbstractUser;
 import com.jnote.vo.Folder;
 import com.jnote.vo.MdFile;
 import com.jnote.vo.User;
@@ -141,6 +142,43 @@ public class AjaxAction extends BaseAction {
 	}
 	
 	/**
+	 * 添加文件
+	 */
+	public String addFile(){
+//		System.out.println("come in addfile");
+		int userid = ((User) session.getAttribute("user")).getUserid();
+		Integer currentFolderId = Integer.parseInt(request.getParameter("currentFolderId"));
+		String fileName = request.getParameter("fileName");
+//		System.out.println(userid + "-" + currentFolderId+fileName);
+		MdFile mf = new MdFile();
+		mf.setUserid(userid);
+		mf.setFilename(fileName);
+		mf.setFolderid(currentFolderId);
+		Date date = new Date();
+		Timestamp timeStamp = new Timestamp(date.getTime());
+		mf.setAddtime(timeStamp);
+		mf.setModifytime(timeStamp);
+		if (mf.getUserid() != null && mf.getFilename() != null && mf.getFolderid() != null) {
+			// 操作
+//			System.out.println("save");
+			serviceManager.getMdFileService().save(mf);
+			// 调用函数得到所有子节点用于刷新
+//			System.out.println("flush");
+			getChildList(userid,currentFolderId);
+			return SUCCESS;
+		}else if(mf.getUserid() != null && mf.getFilename() != null && mf.getFolderid() == null){
+			result = "没有选择文件夹";
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result", result);
+			JSONObject json = JSONObject.fromObject(map);
+			childListResult = json.toString();
+//			System.out.println("json.toString.ok"+childListResult);
+			return SUCCESS;
+		}
+		return INPUT;
+	}
+	
+	/**
 	 * 添加操作之后的获取数据
 	 * @param userid
 	 * @param parentid
@@ -167,7 +205,7 @@ public class AjaxAction extends BaseAction {
 		childFileList = serviceManager.getMdFileService().findChildFiles(userid, parentid);
 		List<FileAjax> listTempOfFile = new ArrayList<FileAjax>();
 		if(childFileList != null){
-			for (Object obj : listTempOfFile) {
+			for (Object obj : childFileList) {
 				MdFile mf = (MdFile) obj;
 				FileAjax fileAjax = new FileAjax();
 				fileAjax.setMdfileid(mf.getMdfileid());
