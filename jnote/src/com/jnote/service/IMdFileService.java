@@ -1,5 +1,7 @@
 package com.jnote.service;
 
-public interface IMdFileService {
+import java.util.List;
 
+public interface IMdFileService {
+	public List findChildFiles(int userid, int folderid);
 }

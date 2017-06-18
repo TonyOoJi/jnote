@@ -1,5 +1,6 @@
 package com.jnote.action;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import com.jnote.action.AjaxAction.FolderAjax;
 import com.jnote.service.impl.ServiceManager;
 import com.jnote.vo.AbstractUser;
 import com.jnote.vo.Folder;
+import com.jnote.vo.MdFile;
 import com.jnote.vo.User;
 
 public class AjaxAction extends BaseAction {
@@ -73,6 +75,10 @@ public class AjaxAction extends BaseAction {
 		this.result = result;
 	}
 
+	/**
+	 * 添加根目录及刷新
+	 * @return
+	 */
 	public String addRootFolder() {
 		Folder folder = new Folder();
 		folder.setUser((User) session.getAttribute("user"));
@@ -110,6 +116,10 @@ public class AjaxAction extends BaseAction {
 		return INPUT;
 	}
 
+	/**
+	 * 添加子文件夹
+	 * @return
+	 */
 	public String addChildFolder() {
 //		System.out.println(request.getParameter("currentFolderId"));
 		int userid = ((User) session.getAttribute("user")).getUserid();
@@ -130,11 +140,17 @@ public class AjaxAction extends BaseAction {
 		return INPUT;
 	}
 	
+	/**
+	 * 添加操作之后的获取数据
+	 * @param userid
+	 * @param parentid
+	 * @return
+	 */
 	public String getChildList(int userid,int parentid){
-		
+		session.setAttribute("parentid", Integer.parseInt(request.getParameter("parentid")));
+		// 获取文件夹list，并封装
 		childFolderList = serviceManager.getFolderService().findChildFolder(userid, parentid);
 //		System.out.println(childFolderList.size());
-		// 获取文件夹list，并封装
 		List<FolderAjax> listTemp = new ArrayList<FolderAjax>();
 		if(childFolderList != null){
 			for (Object obj : childFolderList) {
@@ -147,12 +163,27 @@ public class AjaxAction extends BaseAction {
 				listTemp.add(fa);
 			}
 		}
+		// 获取文件list，并封装
+		childFileList = serviceManager.getMdFileService().findChildFiles(userid, parentid);
+		List<FileAjax> listTempOfFile = new ArrayList<FileAjax>();
+		if(childFileList != null){
+			for (Object obj : listTempOfFile) {
+				MdFile mf = (MdFile) obj;
+				FileAjax fileAjax = new FileAjax();
+				fileAjax.setMdfileid(mf.getMdfileid());
+				fileAjax.setFilename(mf.getFilename());
+				fileAjax.setAddtime(mf.getAddtime().toString());
+				fileAjax.setModifytime(mf.getModifytime().toString());
+				listTempOfFile.add(fileAjax);
+			}
+		}
 		try {
 			result = "error";
 			Map<String, Object> map = new HashMap<String, Object>();
+			//folder add to map
 			map.put("list", listTemp);
 			//file add to map
-			
+			map.put("fileList", listTempOfFile);
 			result = "success";
 			map.put("result", result);
 			JSONObject json = JSONObject.fromObject(map);
@@ -165,6 +196,10 @@ public class AjaxAction extends BaseAction {
 		return INPUT;
 	}
 
+	/**
+	 * 点击获取下级目录信息
+	 * @return
+	 */
 	public String getChildListToJsonByFolderid() {
 //		System.out.println("comein getChild");
 		session.setAttribute("parentid", Integer.parseInt(request.getParameter("parentid")));
@@ -173,9 +208,9 @@ public class AjaxAction extends BaseAction {
 //		System.out.println("u"+userid);
 		int parentid = Integer.parseInt(request.getParameter("parentid"));
 //		System.out.println(userid+","+parentid);
+		// 获取文件夹list，并封装
 		childFolderList = serviceManager.getFolderService().findChildFolder(userid, parentid);
 //		System.out.println("s"+childFolderList.size());
-		// 获取文件夹list，并封装
 		List<FolderAjax> listTemp = new ArrayList<FolderAjax>();
 		if(childFolderList != null){
 			for (Object obj : childFolderList) {
@@ -188,14 +223,33 @@ public class AjaxAction extends BaseAction {
 				listTemp.add(fa);
 			}
 		}
+		// 获取文件list，并封装
+		childFileList = serviceManager.getMdFileService().findChildFiles(userid, parentid);
+//		System.out.println("getFileLists:"+childFileList.size());
+		List<FileAjax> listTempOfFile = new ArrayList<FileAjax>();
+		if(childFileList != null){
+			for (Object obj : childFileList) {
+				MdFile mf = (MdFile) obj;
+				FileAjax fileAjax = new FileAjax();
+				fileAjax.setMdfileid(mf.getMdfileid());
+				fileAjax.setFilename(mf.getFilename());
+				fileAjax.setAddtime(mf.getAddtime().toString());
+				fileAjax.setModifytime(mf.getModifytime().toString());
+//				System.out.println(fileAjax.getAddtime());
+//				System.out.println(fileAjax.getFilename()+fileAjax.getMdfileid());
+				listTempOfFile.add(fileAjax);
+			}
+		}
 		try {
 			result = "error";
 			Map<String, Object> map = new HashMap<String, Object>();
+			//folder add to map
 			map.put("list", listTemp);
 			//file add to map
-			
+			map.put("fileList", listTempOfFile);
 			result = "success";
 			map.put("result", result);
+			//map to json to string
 			JSONObject json = JSONObject.fromObject(map);
 			childListResult = json.toString();
 //			System.out.println("json.toString.ok"+childListResult);
@@ -235,6 +289,24 @@ public class AjaxAction extends BaseAction {
 	public class FileAjax {
 		public int mdfileid;
 		public String filename;
+		public String addtime;
+	    public String modifytime;
+
+		public String getAddtime() {
+			return addtime;
+		}
+
+		public void setAddtime(String addtime) {
+			this.addtime = addtime;
+		}
+
+		public String getModifytime() {
+			return modifytime;
+		}
+
+		public void setModifytime(String modifytime) {
+			this.modifytime = modifytime;
+		}
 
 		public int getMdfileid() {
 			return mdfileid;

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -56,6 +57,22 @@ public class MdFileDAO extends HibernateDaoSupport  {
             throw re;
         }
     }
+	
+	public List getChildMdFile(java.lang.Integer userid,java.lang.Integer folderid){
+		List lists = null;
+    	try{
+    		String hql ="from MdFile where userid=:uid and folderid=:fid";
+    		Query query = this.getSession().createQuery(hql);
+    		query.setParameter("uid", userid);
+    		query.setParameter("fid", folderid);
+    		lists = query.list();
+    	}catch(RuntimeException e){
+    		System.out.println(e);
+    	}
+//    	System.out.println(userid+"-"+folderid);
+//    	System.out.println("comein DAO :"+lists.size());
+    	return lists;
+	}
     
     public MdFile findById( java.lang.Integer id) {
         log.debug("getting MdFile instance with id: " + id);

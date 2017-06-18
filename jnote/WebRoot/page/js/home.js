@@ -41,7 +41,7 @@ $(document).ready(function(){
 	});
 	
 	/**
-	 * 添加根目录节点
+	 * 添加子目录节点
 	 */
 	$("#addChildFolderButton").click(function(){
 		$.ajax({
@@ -59,6 +59,38 @@ $(document).ready(function(){
 	            	// 回传的list中对象为 String
 	            	$(d.list).each(function (i, value) {
 	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name="' + value.folderid + '">&nbsp' + value.foldername + '</a>');
+	            	});
+	            	$(d.fileList).each(function (i, value) {
+	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-file a-list" onclick="" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+	            	});
+	            	alert(d.result);
+	            	// $('#addNewFolderModal').modal('hide');
+	            }
+		});
+	});
+	
+	/**
+	 * 添加文件
+	 */
+	$("#addChildFolderButton").click(function(){
+		$.ajax({
+	            url:'/jnote/ajax/addChildFolder.action',
+	            type:'post',
+	            data:{
+	            	foldername:$("input[name=addChildFolderName]").val(),
+	            	currentFolderId:currentFolderId,
+	            	parentid:currentFolderId
+	            },
+	            dataType:'json',
+	            success:function (data) {
+	            	var d = eval("("+data+")");
+	            	$("#childList-div").empty();
+	            	// 回传的list中对象为 String
+	            	$(d.list).each(function (i, value) {
+	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name="' + value.folderid + '">&nbsp' + value.foldername + '</a>');
+	            	});
+	            	$(d.fileList).each(function (i, value) {
+	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-file a-list" onclick="" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
 	            	});
 	            	alert(d.result);
 	            	// $('#addNewFolderModal').modal('hide');
@@ -96,6 +128,9 @@ function getChild(obj){
         		$("#childList-div").append( '</a>' );
         		*/
 //        		$("#childList-div").append();
+        	});
+        	$(d.fileList).each(function (i, value) {
+        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-file a-list" onclick="" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
         	});
 //        	alert(d.result);
         }

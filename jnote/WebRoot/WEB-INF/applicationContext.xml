@@ -76,6 +76,11 @@
 			<ref bean="FolderDAO"/>
 		</property>
 	</bean>
+	<bean id="MdFileService" class="com.jnote.service.impl.MdFileService">
+		<property name="mdFileDao">
+			<ref bean="MdFileDAO"/>
+		</property>
+	</bean>
 	
 	<!-- serviceManager bean -->
 	<bean id="ServiceManager" class="com.jnote.service.impl.ServiceManager">
@@ -84,6 +89,9 @@
 		</property>
 		<property name="folderService">
 			<ref bean="FolderService"/>
+		</property>
+		<property name="mdFileService">
+			<ref bean="MdFileService"/>
 		</property>
 	</bean>
 	
