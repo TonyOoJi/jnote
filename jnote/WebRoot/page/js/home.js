@@ -1,4 +1,6 @@
 var currentFolderId;//当前目录id
+var currentFileId;//当前文件
+
 $(document).ready(function(){
 	// 滚动监听
 // $('rootFolderList-div').scrollspy({ target: '.navbar-example' });//启用滚动触发事件
@@ -61,7 +63,7 @@ $(document).ready(function(){
 	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name="' + value.folderid + '">&nbsp' + value.foldername + '</a>');
 	            	});
 	            	$(d.fileList).each(function (i, value) {
-	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-file a-list" onclick="" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-file a-list" onclick="getMdFile(this)" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
 	            	});
 	            	alert(d.result);
 	            	// $('#addNewFolderModal').modal('hide');
@@ -91,12 +93,20 @@ $(document).ready(function(){
 	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name="' + value.folderid + '">&nbsp' + value.foldername + '</a>');
 	            	});
 	            	$(d.fileList).each(function (i, value) {
-	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-file a-list" onclick="" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-file a-list" onclick="getMdFile(this)" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
 	            	});
 	            }
 		});
 	});
-	
+
+	$("#saveFilebtn").click(function(){
+		mdEditor.setCursor({line:1, ch:1});
+		mdEditor.insertValue("#qwedascsa");
+		alert(mdEditor.getMarkdown());    // 获取 Markdown
+		alert(mdEditor.getHTML());
+//		alert($("input[name=mdTitle]").val());
+//		$("input[name=mdTitle]").val("asdasdsad");
+	});
 	
 });
 
@@ -129,9 +139,33 @@ function getChild(obj){
 //        		$("#childList-div").append();
         	});
         	$(d.fileList).each(function (i, value) {
-        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-file a-list" onclick="" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-file a-list" onclick="getMdFile(this)" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
         	});
 //        	alert(d.result);
+        }
+	});
+}
+function getMdFile(obj){
+	var fileId = obj.name;
+	alert(fileId);
+	currentFileId = fileId;
+	$.ajax({
+		url:'/jnote/ajax/getMdFile.action',  
+        type:'post',
+        data:{
+        	mdFileId:fileId
+        	// foldername:folderName
+        },
+        dataType:'json',
+        success:function (data) {
+        	var d = eval("("+data+")");
+        	var file = d.file;
+        	// 回传的list中对象为 String
+        	$("input[name=mdTitle]").val(file.title);//将标题添加
+        	mdEditor.setCursor({line:1, ch:1});//设置光标到1，1位置
+        	alert(file.content);
+    		mdEditor.insertValue(file.content);//设置文本内容
+//    		alert(d.result);//
         }
 	});
 }

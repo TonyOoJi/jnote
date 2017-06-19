@@ -1,8 +1,8 @@
 package com.jnote.dao;
 // default package
 
-import java.sql.Timestamp;
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
@@ -29,6 +29,7 @@ public class MdFileDAO extends HibernateDaoSupport  {
 	public static final String USERID = "userid";
 	public static final String FOLDERID = "folderid";
 	public static final String SHAREURL = "shareurl";
+	public static final String MDFILEID = "mdfileid";
 
 
 
@@ -80,18 +81,24 @@ public class MdFileDAO extends HibernateDaoSupport  {
         try {
             MdFile instance = (MdFile) getHibernateTemplate()
                     .get("MdFile", id);
+//            System.out.println(instance);//这个方法始终不可用
             return instance;
         } catch (RuntimeException re) {
             log.error("get failed", re);
             throw re;
         }
     }
+    public MdFile findFileById(java.lang.Integer id){
+    	return (MdFile) findByProperty(MDFILEID, id).get(0);
+    }
     
     
     public List findByExample(MdFile instance) {
         log.debug("finding MdFile instance by example");
         try {
+//        	System.out.println(instance.getMdfileid());
             List results = getHibernateTemplate().findByExample(instance);
+//            System.out.println(results.size());
             log.debug("find by example successful, result size: " + results.size());
             return results;
         } catch (RuntimeException re) {
@@ -113,10 +120,8 @@ public class MdFileDAO extends HibernateDaoSupport  {
       }
 	}
 
-	public List findByFilename(Object filename
-	) {
-		return findByProperty(FILENAME, filename
-		);
+	public List findByFilename(Object filename) {
+		return findByProperty(FILENAME, filename);
 	}
 	
 	public List findByContent(Object content

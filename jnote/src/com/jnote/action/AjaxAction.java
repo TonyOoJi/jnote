@@ -27,6 +27,7 @@ public class AjaxAction extends BaseAction {
 	private List childFileList; // 子节点文件
 	private String result; // 根目录json结果
 	private String childListResult; // 子节点json结果
+	private String fileResult;//文件信息
 
 	public List getChildFolderList() {
 		return childFolderList;
@@ -74,6 +75,14 @@ public class AjaxAction extends BaseAction {
 
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+	public String getFileResult() {
+		return fileResult;
+	}
+
+	public void setFileResult(String fileResult) {
+		this.fileResult = fileResult;
 	}
 
 	/**
@@ -297,6 +306,32 @@ public class AjaxAction extends BaseAction {
 		}
 		return INPUT;
 	}
+	/**
+	 * 获取文档内容
+	 * @return
+	 */
+	public String getMdFile(){
+//		System.out.println("come in getMd");
+		Integer fileId = Integer.parseInt(request.getParameter("mdFileId"));
+//		System.out.println(fileId);
+		MdFile mf = new MdFile();
+		mf.setMdfileid(fileId);
+		MdFile resultFile = serviceManager.getMdFileService().findByFileExample(mf);
+//		System.out.println(resultFile);
+		mdFileContentAjax mfca = new mdFileContentAjax();
+		mfca.setFileId(resultFile.getMdfileid());
+		mfca.setContent(resultFile.getContent());
+		mfca.setTitle(resultFile.getFilename());
+		Map<String,mdFileContentAjax> map = new HashMap<String,mdFileContentAjax>();
+		map.put("file",mfca);
+		JSONObject json = JSONObject.fromObject(map);
+		fileResult = json.toString();
+		if(fileResult != null){
+//			System.out.println(fileResult);
+			return SUCCESS;
+		}
+		return INPUT;
+	}
 
 	/**
 	 * 
@@ -361,7 +396,30 @@ public class AjaxAction extends BaseAction {
 		public void setFilename(String filename) {
 			this.filename = filename;
 		}
-
+	}
+	
+	public class mdFileContentAjax{
+		public Integer fileId;
+		public String title;
+		public String content;
+		public Integer getFileId() {
+			return fileId;
+		}
+		public void setFileId(Integer fileId) {
+			this.fileId = fileId;
+		}
+		public String getTitle() {
+			return title;
+		}
+		public void setTitle(String title) {
+			this.title = title;
+		}
+		public String getContent() {
+			return content;
+		}
+		public void setContent(String content) {
+			this.content = content;
+		}
 	}
 
 }

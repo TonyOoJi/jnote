@@ -54,5 +54,10 @@
 				<param name="root">childListResult</param>
 			</result>
 		</action>
+		<action name="getMdFile" class="AjaxAction" method="getMdFile">
+			<result name="success" type="json">
+				<param name="root">fileResult</param>
+			</result>
+		</action>
 	</package>
 </struts>

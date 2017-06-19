@@ -35,7 +35,7 @@
 </script>
 <script type="text/javascript">
 <!-- js配置markdown编辑器 -->
-				var testEditor;
+				var mdEditor;
             	/* $(function() {
                 	testEditor = editormd("editor-editormd", {
                    		width   : "100%",
@@ -56,7 +56,7 @@
             	/* }); */
             	$(function() {
             	 $.get('page/assets/editormd/test.md', function(md){
-                    testEditor = editormd("editor-editormd", {
+                    mdEditor = editormd("editor-editormd", {
                         width: "100%",
                         height: "78%",
                         path : './page/assets/editormd/lib/',
@@ -101,58 +101,58 @@
                 });
 
                 $("#goto-line-btn").bind("click", function(){
-                    testEditor.gotoLine(90);
+                    mdEditor.gotoLine(90);
                 });
                 
                 $("#show-btn").bind('click', function(){
-                    testEditor.show();
+                    mdEditor.show();
                 });
                 
                 $("#hide-btn").bind('click', function(){
-                    testEditor.hide();
+                    mdEditor.hide();
                 });
                 
                 $("#get-md-btn").bind('click', function(){
-                    alert(testEditor.getMarkdown());
+                    alert(mdEditor.getMarkdown());
                 });
                 
                 $("#get-html-btn").bind('click', function() {
-                    alert(testEditor.getHTML());
+                    alert(mdEditor.getHTML());
                 });                
                 
                 $("#watch-btn").bind('click', function() {
-                    testEditor.watch();
+                    mdEditor.watch();
                 });                 
                 
                 $("#unwatch-btn").bind('click', function() {
-                    testEditor.unwatch();
+                    mdEditor.unwatch();
                 });              
                 
                 $("#preview-btn").bind('click', function() {
-                    testEditor.previewing();
+                    mdEditor.previewing();
                 });
                 
                 $("#fullscreen-btn").bind('click', function() {
-                    testEditor.fullscreen();
+                    mdEditor.fullscreen();
                 });
                 
                 $("#show-toolbar-btn").bind('click', function() {
-                    testEditor.showToolbar();
+                    mdEditor.showToolbar();
                 });
                 
                 $("#close-toolbar-btn").bind('click', function() {
-                    testEditor.hideToolbar();
+                    mdEditor.hideToolbar();
                 });
                 
                 $("#toc-menu-btn").click(function(){
-                    testEditor.config({
+                    mdEditor.config({
                         tocDropdown   : true,
                         tocTitle      : "目录 Table of Contents",
                     });
                 });
                 
                 $("#toc-default-btn").click(function() {
-                    testEditor.config("tocDropdown", false);
+                    mdEditor.config("tocDropdown", false);
                 });
             });
 </script>
@@ -373,9 +373,9 @@
 					<span class="input-group-addon">
                        	标题
                     </span>
-                    <input type="text" class="form-control">
+                    	<input type=text value="" class="form-control md-title-text" name="mdTitle" id="mdTitle">
                     <span class="input-group-btn">
-                        <button class="btn btn-default glyphicon glyphicon-floppy-disk" type="button" id="saveFile">提交</button>
+                        <button class="btn btn-default glyphicon glyphicon-floppy-disk" type="button" id="saveFilebtn">保存</button>
                     </span>
                 </div><!-- /input-group -->
 			</div>
@@ -390,6 +390,7 @@
 	
 <span>测试session</span>
 <%= session.getAttribute("user") %>
+<input type="text" id="test"/>
 
 </body>
 </html>

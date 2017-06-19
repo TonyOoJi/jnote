@@ -26,4 +26,10 @@ public class MdFileService implements IMdFileService {
 		this.mdFileDao.save(mf);
 	}
 
+	public MdFile findByFileExample(MdFile mf) {
+//		List list = this.mdFileDao.findByExample(mf);
+		MdFile mdFile = this.mdFileDao.findFileById(mf.getMdfileid());
+		return mdFile;
+	}
+
 }
