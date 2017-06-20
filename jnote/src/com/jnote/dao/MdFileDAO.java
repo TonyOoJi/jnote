@@ -1,6 +1,8 @@
 package com.jnote.dao;
 // default package
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -47,6 +49,21 @@ public class MdFileDAO extends HibernateDaoSupport  {
             log.error("save failed", re);
             throw re;
         }
+    }
+    
+    public void updataFile(MdFile mf){
+//    	System.out.println("updata dao in ");
+    	try{
+    		String hql = "update MdFile mdfile set mdfile.filename=:fn, mdfile.content.content=:c, mdfile.modifytime=:mt where mdfile.mdfileid=:mfid";
+    		Query query = this.getSession().createQuery(hql);
+    		query.setString("fn", mf.getFilename());
+    		query.setString("c", mf.getContent());
+    		query.setTimestamp("mt", mf.getModifytime());
+    		query.setInteger("mfid", mf.getMdfileid());
+    		query.executeUpdate();
+    	}catch(RuntimeException re){
+    		throw(re);
+    	}
     }
     
 	public void delete(MdFile persistentInstance) {

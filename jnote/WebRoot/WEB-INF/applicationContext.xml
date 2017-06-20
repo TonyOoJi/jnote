@@ -134,7 +134,7 @@
             <tx:method name="find*" propagation="REQUIRED" /> -->
             <tx:method name="*" propagation="REQUIRED"/>
           <!--   对其他方法的配置      read-only="" -->
-            <tx:method name="*" propagation="SUPPORTS" read-only="false" />
+            <!-- <tx:method name="*" propagation="SUPPORTS" read-only="false" /> -->
         </tx:attributes>
     </tx:advice>
 	   <!--  将事务通知和切入点组合 -->

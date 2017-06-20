@@ -32,4 +32,12 @@ public class MdFileService implements IMdFileService {
 		return mdFile;
 	}
 
+	public void updataMdFile(MdFile mf) {
+		try{
+			this.mdFileDao.updataFile(mf);
+		}catch(Exception e){
+			System.out.println(e);
+		}
+	}
+
 }

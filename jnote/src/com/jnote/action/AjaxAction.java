@@ -28,6 +28,15 @@ public class AjaxAction extends BaseAction {
 	private String result; // 根目录json结果
 	private String childListResult; // 子节点json结果
 	private String fileResult;//文件信息
+	private String resultMsg;
+
+	public String getResultMsg() {
+		return resultMsg;
+	}
+
+	public void setResultMsg(String resultMsg) {
+		this.resultMsg = resultMsg;
+	}
 
 	public List getChildFolderList() {
 		return childFolderList;
@@ -328,6 +337,32 @@ public class AjaxAction extends BaseAction {
 		fileResult = json.toString();
 		if(fileResult != null){
 //			System.out.println(fileResult);
+			return SUCCESS;
+		}
+		return INPUT;
+	}
+	
+	public String updataFile(){
+//		System.out.println("updata in");
+		Integer mdFileId = Integer.parseInt(request.getParameter("mdFileId"));
+		String title = request.getParameter("fileTitle");
+		String content = request.getParameter("content");
+//		System.out.println(mdFileId + title +content);
+		Date date = new Date();
+		Timestamp ts = new Timestamp(date.getTime());
+		MdFile mdFile = new MdFile();
+		mdFile.setMdfileid(mdFileId);
+		mdFile.setFilename(title);
+		mdFile.setContent(content);
+		mdFile.setModifytime(ts);
+		serviceManager.getMdFileService().updataMdFile(mdFile);
+		resultMsg = "保存成功";
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("result", resultMsg);
+		JSONObject json = JSONObject.fromObject(map);
+		resultMsg = json.toString();
+		if(resultMsg != null){
+//			System.out.println(resultMsg);
 			return SUCCESS;
 		}
 		return INPUT;

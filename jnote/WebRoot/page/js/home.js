@@ -100,13 +100,28 @@ $(document).ready(function(){
 	});
 
 	$("#saveFilebtn").click(function(){
-		mdEditor.setCursor({line:1, ch:1});
-		mdEditor.insertValue("#qwedascsa");
-		alert(mdEditor.getMarkdown());    // 获取 Markdown
-		alert(mdEditor.getHTML());
+//		mdEditor.setCursor({line:1, ch:1});
+//		mdEditor.insertValue("#qwedascsa");
+//		alert(mdEditor.getMarkdown());    // 获取 Markdown
+//		alert(mdEditor.getHTML());
 //		alert($("input[name=mdTitle]").val());
 //		$("input[name=mdTitle]").val("asdasdsad");
-	});
+		alert("savefile");
+		$.ajax({
+			 	url:'/jnote/ajax/updataFile.action',
+	            type:'post',
+	            data:{
+	            	mdFileId:currentFileId,
+	            	fileTitle:$("input[name=mdTitle]").val(),
+	            	content:mdEditor.getMarkdown()
+	            },
+	            dataType:'json',
+	            success:function (data) {
+	            	var d = eval("("+data+")");
+	            	alert(d.result);
+	            }//success	
+		});//ajax
+	});//click
 	
 });
 
@@ -147,7 +162,7 @@ function getChild(obj){
 }
 function getMdFile(obj){
 	var fileId = obj.name;
-	alert(fileId);
+//	alert(fileId);
 	currentFileId = fileId;
 	$.ajax({
 		url:'/jnote/ajax/getMdFile.action',  
@@ -163,7 +178,7 @@ function getMdFile(obj){
         	// 回传的list中对象为 String
         	$("input[name=mdTitle]").val(file.title);//将标题添加
         	mdEditor.setCursor({line:1, ch:1});//设置光标到1，1位置
-        	alert(file.content);
+//        	alert(file.content);
     		mdEditor.insertValue(file.content);//设置文本内容
 //    		alert(d.result);//
         }

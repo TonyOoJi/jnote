@@ -59,5 +59,10 @@
 				<param name="root">fileResult</param>
 			</result>
 		</action>
+		<action name="updataFile" class="AjaxAction" method="updataFile">
+			<result name="success" type="json">
+				<param name="root">resultMsg</param>
+			</result>
+		</action>
 	</package>
 </struts>
