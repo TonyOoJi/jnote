@@ -301,7 +301,7 @@ function getFId(evt){
 				<%-- <ul class="list-group"></ul> --%>
 				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0" id="rootFolderList-div" class="rootFolderList-div"  onmouseover="javascript:getFId(event);">
 					<s:iterator value="rootFolderList">
-						<a href="javascript:return false;" class="list-group-item select-folder glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" value="folder" name="${folderid}">&nbsp${foldername}</a>
+						<a href="javascript:return false;" class="list-group-item select-root glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" value="folder" name="${folderid}">&nbsp${foldername}</a>
 					</s:iterator>
 				</div>
 			</div>

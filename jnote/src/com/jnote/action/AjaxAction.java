@@ -374,7 +374,7 @@ public class AjaxAction extends BaseAction {
 	}
 	
 	/**
-	 * 
+	 * 删除根目录
 	 */
 	public String deleteFolder(){
 		Folder folder = new Folder();
@@ -398,6 +398,13 @@ public class AjaxAction extends BaseAction {
 //			System.out.println("json.toString.ok"+result);
 			return SUCCESS;
 		}
+		return INPUT;
+	}
+	
+	public String deleteChildFolder(){
+		//
+		//此处需要补全
+		//刷新child目录列表
 		return INPUT;
 	}
 	

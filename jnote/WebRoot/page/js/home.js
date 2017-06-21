@@ -40,7 +40,7 @@ $(document).ready(function(){
 	            	$("#rootFolderList-div").empty();
 	            	// 回传的list中对象为 String
 	            	$(d.list).each(function (i, value) {
-	            		$("#rootFolderList-div").append('<a href="javascript:return false;" class="list-group-item select-folder glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" value="folder"  name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
+	            		$("#rootFolderList-div").append('<a href="javascript:return false;" class="list-group-item select-root glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" value="folder"  name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
 	            	});
 	            	alert(d.result);
 	            	// $('#addNewFolderModal').modal('hide');
@@ -66,10 +66,10 @@ $(document).ready(function(){
 	            	$("#childList-div").empty();
 	            	// 回传的list中对象为 String
 	            	$(d.list).each(function (i, value) {
-	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder"  name="' + value.folderid + '">&nbsp' + value.foldername + '</a>');
+	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder"  name="' + value.folderid + '">&nbsp' + value.foldername + '</a>');
 	            	});
 	            	$(d.fileList).each(function (i, value) {
-	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
 	            	});
 	            	alert(d.result);
 	            	// $('#addNewFolderModal').modal('hide');
@@ -96,10 +96,10 @@ $(document).ready(function(){
 	            	alert(d.result);
 	            	// 回传的list中对象为 String
 	            	$(d.list).each(function (i, value) {
-	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder"  name="' + value.folderid + '">&nbsp' + value.foldername + '</a>');
+	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder"  name="' + value.folderid + '">&nbsp' + value.foldername + '</a>');
 	            	});
 	            	$(d.fileList).each(function (i, value) {
-	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+	            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
 	            	});
 	            }
 		});
@@ -132,7 +132,7 @@ $(document).ready(function(){
 	 * 删除文件夹
 	 */
 //	var menu = new BootstrapMenu('.list-group-item.select-folder', {
-		var menu = new BootstrapMenu('.list-group-item', {
+		var menu = new BootstrapMenu('.list-group-item.select-child', {
 		  actions: [{
 		      name: '添加',
 		      onClick: function() {
@@ -147,8 +147,10 @@ $(document).ready(function(){
 		    		  
 		    		  //修改：：：：：删除子目录文件夹时应刷新全部，注意图标
 		    		  //删除根目录时另写
+		    		  //deleteChildFolder写
+		    		  //目录的更新
 		    		  $.ajax({
-						 	url:'/jnote/ajax/deleteFolder.action',
+						 	url:'/jnote/ajax/deleteChildFolder.action',
 				            type:'post',
 				            data:{
 				            	folderId:delFolderId
@@ -157,11 +159,11 @@ $(document).ready(function(){
 				            success:function (data) {
 				            	var d = eval("("+data+")");
 				            	$("#rootFolderList-div").empty();
-				            	// 回传的list中对象为 String
-				            	$(d.list).each(function (i, value) {
-				            		$("#rootFolderList-div").append('<a href="javascript:return false;" class="list-group-item select-folder glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" value="folder"  name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
-				            	});
+				            	// 回传的list中对象为 String            
 				            	$("#childList-div").empty();
+				            	//
+				            	//
+				            	//此处需要补全
 				            	alert(d.result);
 				            }//success	
 			    	  });//ajax
@@ -179,10 +181,10 @@ $(document).ready(function(){
 				            	$("#childList-div").empty();
 				            	// 回传的list中对象为 String
 				            	$(d.list).each(function (i, value) {
-				            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder"  name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
+				            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder"  name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
 				            	});
 				            	$(d.fileList).each(function (i, value) {
-				            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+				            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
 				            	});
 				            	alert(d.result);
 				            }//success	
@@ -197,6 +199,42 @@ $(document).ready(function(){
 		      }
 		  }]
 		});
+		
+		var rootmenu = new BootstrapMenu('.list-group-item.select-root', {
+			  actions: [{
+			      name: '添加',
+			      onClick: function() {
+			    	alert(delType);
+			    	alert(delFolderId);
+//			        toastr.info("'Action' clicked!");
+			      }
+			    }, {
+			      name: '删除',
+			      onClick: function() {
+			    	  if(delType == "folder"){//删除类型是文件夹
+			    		  $.ajax({
+							 	url:'/jnote/ajax/deleteFolder.action',
+					            type:'post',
+					            data:{
+					            	folderId:delFolderId
+					            },
+					            dataType:'json',
+					            success:function (data) {
+					            	var d = eval("("+data+")");
+					            	$("#rootFolderList-div").empty();
+					            	// 回传的list中对象为 String
+					            	$(d.list).each(function (i, value) {
+					            		$("#rootFolderList-div").append('<a href="javascript:return false;" class="list-group-item select-root glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" value="folder"  name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
+					            	});
+					            	$("#childList-div").empty();
+					            	alert(d.result);
+					            }//success	
+				    	  });//ajax
+			    	  }
+//			        toastr.info("'Another action' clicked!");
+			      }
+			    }]
+			});
 	
 	 /*var menu=new BootstrapMenu('.DynamicAdd',{       //.DynamicAdd是tbody下的tr的class名称
          fetchElementData:function($rowElem){     //fetchElementData获取元数据
@@ -270,7 +308,7 @@ function getChild(obj){
         	$("#childList-div").empty();
         	// 回传的list中对象为 String
         	$(d.list).each(function (i, value) {
-        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder" name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
+        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder" name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
         		/*
         		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name=" ');
         		$("#childList-div").append( value.folderid );
@@ -281,7 +319,7 @@ function getChild(obj){
 //        		$("#childList-div").append();
         	});
         	$(d.fileList).each(function (i, value) {
-        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
         	
         	});
 //        	alert(d.result);
