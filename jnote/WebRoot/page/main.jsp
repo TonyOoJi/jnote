@@ -162,7 +162,6 @@ function getFId(evt){
 	var ex,objx,tn;
 	ex=evt||window.event;
 	objx = ex.srcElement || ex.target || ex;
-	
 	delType = objx.getAttribute("value");
 	if(delType == "folder"){
 		delFolderId = objx.name;
@@ -184,13 +183,13 @@ function getFId(evt){
 			</div>
 			<ul class="nav nav-tabs" role="tablist">
     			<li role="presentation" class="active">
-    				<a href="#note" aria-controls="note" role="tab" data-toggle="tab">Home</a>
+    				<a href="#note" aria-controls="note" role="tab" data-toggle="tab">云笔记</a>
     			</li>
     			<li role="presentation">
-    				<a href="#share" aria-controls="share" role="tab" data-toggle="tab">Profile</a>
+    				<a href="#share" aria-controls="share" role="tab" data-toggle="tab">云分享</a>
     			</li>
     			<li role="presentation">
-    				<a href="#help" aria-controls="help" role="tab" data-toggle="tab">Messages</a>
+    				<a href="#help" aria-controls="help" role="tab" data-toggle="tab">示例</a>
     			</li>
 				<%-- <li class="dropdown pull-right"> --%>
 				<%-- 

@@ -151,7 +151,7 @@ $(document).ready(function(){
 						 	url:'/jnote/ajax/deleteFolder.action',
 				            type:'post',
 				            data:{
-				            	folderId:delFileId
+				            	folderId:delFolderId
 				            },
 				            dataType:'json',
 				            success:function (data) {
