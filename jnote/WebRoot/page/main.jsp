@@ -34,7 +34,7 @@
 }); */
 </script>
 <script type="text/javascript">
-<!-- js配置markdown编辑器 -->
+/* js配置markdown编辑器 */
 				var mdEditor;
             	/* $(function() {
                 	testEditor = editormd("editor-editormd", {
@@ -160,23 +160,24 @@
 </head>
 <body>
 <div class="container-fluid container-home">
-<!-- 导航栏  -->
-	<div class="row clearfix">
-		<div class="col-md-12 column">
+<%-- 导航栏  --%>
+	 <div class="row clearfix">
+		<div class="col-md-12 column"> 
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Jnote</a>
+				<a class="navbar-brand" href="javascript:return fasle;">Jnote</a>
 			</div>
-			<ul class="nav nav-tabs">
-				<li class="active">
-					 <a href="note/home">云笔记</a>
-				</li>
-				<li>
-					 <a href="#">云协作</a>
-				</li>
-				<li class="disabled">
-					 <a href="#">简介</a>
-				</li>
-				<!-- <li class="dropdown pull-right"> -->
+			<ul class="nav nav-tabs" role="tablist">
+    			<li role="presentation" class="">
+    				<a href="#note" aria-controls="note" role="tab" data-toggle="tab">Home</a>
+    			</li>
+    			<li role="presentation" class="active">
+    				<a href="#share" aria-controls="share" role="tab" data-toggle="tab">Profile</a>
+    			</li>
+    			<li role="presentation">
+    				<a href="#help" aria-controls="help" role="tab" data-toggle="tab">Messages</a>
+    			</li>
+				<%-- <li class="dropdown pull-right"> --%>
+				<%-- 
 				<li class="dropdown">
 					 <a href="#" data-toggle="dropdown" class="dropdown-toggle">下拉<strong class="caret"></strong></a>
 					<ul class="dropdown-menu">
@@ -196,7 +197,8 @@
 						</li>
 					</ul>
 				</li>
-				<!-- 右侧 -->
+				--%>
+				<%-- 右侧 --%>
 				<ul class="nav navbar-nav navbar-right navbar-above-margin">
 					<s:if test="#session.user==null">
 						<li class="pull-right"><a href="page/loginAndRegister.jsp"><span class="glyphicon glyphicon-log-in"></span>登录</a></li>
@@ -207,34 +209,39 @@
 					</s:elseif>
 				</ul>
 			</ul>
-			<!-- 路径导航  -->
-			<ul class="breadcrumb breadcrumb-crumbs">
-				<li>
-					<a href="#">Home</a>
-				</li>
-				<li>
-					<a href="#">Library</a>
-				</li>
-				<li class="active">
-					Data
-				</li>
-			</ul>
-		</div><!-- 栅格结束 -->
-	</div><!-- row结束 -->
+			
+		</div><%-- 栅格结束 --%>
+	</div><%-- row结束 --%>
 	
-	<!-- body -->
-	<!-- root Dir -->
+	<%-- body --%>
+	<%-- root Dir --%>
+	<div class="tab-content"><%--页签content --%>
+	<div id="note" role="tabpanel" class="tab-pane fade active"><%--页签1 start --%>
+	<div>
+		<%-- 路径导航  --%>
+		<ul class="breadcrumb breadcrumb-crumbs">
+			<li>
+				<a href="#">Home</a>
+			</li>
+			<li>
+				<a href="#">Library</a>
+			</li>
+			<li class="active">
+				Data
+			</li>
+		</ul>
+	</div>
 	<div class="row clearfix">
 		<div class="col-md-2 column col-above">
 			<div class="list-firstDir">
-			<!-- 用户根文件夹 -->
-				<!-- <a href="#" class="list-group-item active">1</a> -->
-				<!-- <button type="button" class="btn btn-warning btn-block btn-backg" title='' data-container="body" 
+			<%-- 用户根文件夹 --%>
+				<%-- <a href="#" class="list-group-item active">1</a> --%>
+				<%-- <button type="button" class="btn btn-warning btn-block btn-backg" title='' data-container="body" 
 					data-toggle="popover" data-placement="bottom" data-html="true"
 					data-content=' 名称<input type=text name="newRootFolderName" id="newRootFolderName"><br><button type=button class="btn" id="addNewFolderButton">添加</button> '>
 					添加分类目录
-				</button> -->
-				<!-- 主目录的添加与删除下拉 -->
+				</button> --%>
+				<%-- 主目录的添加与删除下拉 --%>
 				<div class="dropdown">
     				<button type="button" class="btn dropdown-toggle btn-block btn-backg" id="dropdownMenu1" data-toggle="dropdown">
         				分类<span class="caret"></span>
@@ -246,13 +253,13 @@
 							</button>
         				</li>
         				<li role="presentation">
-            				<button class="btn btn-primary btn-lg btn-block btn-backg" data-toggle="modal" data-target="#addNewFolderModal">
+            				<button class="btn btn-primary btn-lg btn-block btn-backg" data-toggle="modal" data-target="#delFolderModal">
 								删除目录
 							</button>
         				</li>
     				</ul>
 				</div>
-				<!-- 弹出框 -->
+				<%-- 弹出框 --%>
 				<div class="modal fade" id="addNewFolderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -272,11 +279,11 @@
 								</button>
 								<button type=button class="btn btn-primary" id="addNewFolderButton">添加</button>
 							</div>
-						</div><!-- /.modal-content -->
-					</div><!-- /.modal -->
-				</div><!-- 弹出框结束 -->
-				<!-- <a href="" id="addRootFolder" class="list-group-item active">添加分类</a> -->
-				<!-- <ul class="list-group"></ul> -->
+						</div><%-- /.modal-content --%>
+					</div><%-- /.modal --%>
+				</div><%-- 弹出框结束 --%>
+				<%-- <a href="" id="addRootFolder" class="list-group-item active">添加分类</a> --%>
+				<%-- <ul class="list-group"></ul> --%>
 				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0"  style="" id="rootFolderList-div" class="rootFolderList-div">
 					<s:iterator value="rootFolderList">
 						<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" name="${folderid}">&nbsp${foldername}</a>
@@ -285,10 +292,10 @@
 			</div>
 		</div>
 		<div class="col-md-2 column col-above">
-			<!-- 子目录 -->
+			<%-- 子目录 --%>
 			<div class="list-firstDir">
-			<!-- 子目录 -->
-				<!-- 子目录的添加与新建文件下拉 -->
+			<%-- 子目录 --%>
+				<%-- 子目录的添加与新建文件下拉 --%>
 				<div class="dropdown">
     				<button type="button" class="btn dropdown-toggle btn-block btn-backg" id="dropdownMenu1" data-toggle="dropdown">
         				文件目录<span class="caret"></span>
@@ -306,7 +313,7 @@
         				</li>
     				</ul>
 				</div>
-				<!-- 弹出框 -->
+				<%-- 弹出框 --%>
 				<div class="modal fade" id="addChildFolderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -326,10 +333,10 @@
 								</button>
 								<button type=button class="btn btn-primary" id="addChildFolderButton">添加</button>
 							</div>
-						</div><!-- /.modal-content -->
-					</div><!-- /.modal -->
-				</div><!-- 弹出框结束 -->
-				<!-- 新建文件弹框 -->
+						</div><%-- /.modal-content --%>
+					</div><%-- /.modal --%>
+				</div><%-- 弹出框结束 --%>
+				<%-- 新建文件弹框 --%>
 				<div class="modal fade" id="addFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -349,25 +356,25 @@
 								</button>
 								<button type=button class="btn btn-primary" id="addFileButton">添加</button>
 							</div>
-						</div><!-- /.modal-content -->
-					</div><!-- /.modal -->
-				</div><!-- 新建文件弹出框结束 -->
+						</div><%-- /.modal-content --%>
+					</div><%-- /.modal --%>
+				</div><%-- 新建文件弹出框结束 --%>
 				
-				<!-- <a href="" id="addRootFolder" class="list-group-item active">添加分类</a> -->
-				<!-- <ul class="list-group"></ul> -->
-				<!-- 子目录及文件 -->
+				<%-- <a href="" id="addRootFolder" class="list-group-item active">添加分类</a> --%>
+				<%-- <ul class="list-group"></ul> --%>
+				<%-- 子目录及文件 --%>
 				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0"  style="" id="childList-div" class="childList-div">
-					<!-- <s:iterator value="childFolderList">
+					<%-- <s:iterator value="childFolderList">
 						<a href="#" class="list-group-item glyphicon glyphicon-folder-close a-list" name="${folderid}">&nbsp${foldername}</a>
 					</s:iterator>
 					<s:iterator value="fileList">
 						<a href="#" class="list-group-item a-list" name="${mdfileid}">&nbsp${filename}</a>
-					</s:iterator> -->
+					</s:iterator> --%>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-8 column col-above">
-			<!-- 标题 -->
+			<%-- 标题 --%>
 			<div id="mdTitle">
 				<div class="input-group">
 					<span class="input-group-addon">
@@ -377,16 +384,24 @@
                     <span class="input-group-btn">
                         <button class="btn btn-default glyphicon glyphicon-floppy-disk" type="button" id="saveFilebtn">保存</button>
                     </span>
-                </div><!-- /input-group -->
+                </div><%-- /input-group --%>
 			</div>
-			<!-- markdown编辑区域 -->
+			<%-- markdown编辑区域 --%>
 			<div id="editor-editormd">
-				<textarea style="display:none;"></textarea>
+				<textarea style="display:none;" id="mdTextArea"></textarea>
 			</div>
 		</div>
-	</div><!-- row结束 -->
+	</div><%-- row结束 --%>
+	</div><%--页签1 end --%>
 	
-</div><!-- container-fluid结束 -->
+	<div role="tabpanel" class="tab-pane fade active" id="share"><%--页签2 start --%>
+		2
+	</div><%--页签2 end --%>
+	<div role="tabpanel" class="tab-pane fade" id="help">
+		3
+	</div>
+	</div><%--tab content end --%>
+</div><%-- container-fluid结束 --%>
 	
 <span>测试session</span>
 <%= session.getAttribute("user") %>

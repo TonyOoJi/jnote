@@ -35,8 +35,8 @@ public class MdFileService implements IMdFileService {
 	public void updataMdFile(MdFile mf) {
 		try{
 			this.mdFileDao.updataFile(mf);
-		}catch(Exception e){
-			System.out.println(e);
+		}catch(RuntimeException e){
+			throw e;
 		}
 	}
 

@@ -233,21 +233,19 @@ public class AjaxAction extends BaseAction {
 				listTempOfFile.add(fileAjax);
 			}
 		}
-		try {
-			result = "error";
-			Map<String, Object> map = new HashMap<String, Object>();
-			//folder add to map
-			map.put("list", listTemp);
-			//file add to map
-			map.put("fileList", listTempOfFile);
-			result = "success";
-			map.put("result", result);
-			JSONObject json = JSONObject.fromObject(map);
-			childListResult = json.toString();
-//			System.out.println("json.toString.ok"+childListResult);
+		result = "error";
+		Map<String, Object> map = new HashMap<String, Object>();
+		//folder add to map
+		map.put("list", listTemp);
+		//file add to map
+		map.put("fileList", listTempOfFile);
+		result = "success";
+		map.put("result", result);
+		JSONObject json = JSONObject.fromObject(map);
+		childListResult = json.toString();
+//		System.out.println("json.toString.ok"+childListResult);
+		if(childListResult != null){
 			return SUCCESS;
-		} catch (RuntimeException e) {
-			System.out.println(e);
 		}
 		return INPUT;
 	}
@@ -257,7 +255,7 @@ public class AjaxAction extends BaseAction {
 	 * @return
 	 */
 	public String getChildListToJsonByFolderid() {
-//		System.out.println("comein getChild");
+//		System.out.println("ajaxaction-getchildlisttojsonbyfolderid-in");
 		session.setAttribute("parentid", Integer.parseInt(request.getParameter("parentid")));
 //		System.out.println("p"+Integer.parseInt(request.getParameter("parentid")));
 		Integer userid = ((User) session.getAttribute("user")).getUserid();
@@ -296,22 +294,20 @@ public class AjaxAction extends BaseAction {
 				listTempOfFile.add(fileAjax);
 			}
 		}
-		try {
-			result = "error";
-			Map<String, Object> map = new HashMap<String, Object>();
-			//folder add to map
-			map.put("list", listTemp);
-			//file add to map
-			map.put("fileList", listTempOfFile);
-			result = "success";
-			map.put("result", result);
-			//map to json to string
-			JSONObject json = JSONObject.fromObject(map);
-			childListResult = json.toString();
-//			System.out.println("json.toString.ok"+childListResult);
+		result = "error";
+		Map<String, Object> map = new HashMap<String, Object>();
+		//folder add to map
+		map.put("list", listTemp);
+		//file add to map
+		map.put("fileList", listTempOfFile);
+		result = "success";
+		map.put("result", result);
+		//map to json to string
+		JSONObject json = JSONObject.fromObject(map);
+		childListResult = json.toString();
+//		System.out.println("json.toString.ok"+childListResult);
+		if(childListResult != null){	
 			return SUCCESS;
-		} catch (RuntimeException e) {
-			System.out.println(e);
 		}
 		return INPUT;
 	}

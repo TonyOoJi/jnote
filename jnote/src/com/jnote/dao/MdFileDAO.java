@@ -62,7 +62,7 @@ public class MdFileDAO extends HibernateDaoSupport  {
     		query.setInteger("mfid", mf.getMdfileid());
     		query.executeUpdate();
     	}catch(RuntimeException re){
-    		throw(re);
+    		throw re;
     	}
     }
     
@@ -78,26 +78,26 @@ public class MdFileDAO extends HibernateDaoSupport  {
     }
 	
 	public List getChildMdFile(java.lang.Integer userid,java.lang.Integer folderid){
-		List lists = null;
     	try{
+    		List lists = null;
     		String hql ="from MdFile where userid=:uid and folderid=:fid";
     		Query query = this.getSession().createQuery(hql);
     		query.setParameter("uid", userid);
     		query.setParameter("fid", folderid);
     		lists = query.list();
-    	}catch(RuntimeException e){
-    		System.out.println(e);
+    		return lists;
+    	}catch(RuntimeException re){
+    		throw re;
     	}
 //    	System.out.println(userid+"-"+folderid);
 //    	System.out.println("comein DAO :"+lists.size());
-    	return lists;
+    	
 	}
     
     public MdFile findById( java.lang.Integer id) {
         log.debug("getting MdFile instance with id: " + id);
         try {
-            MdFile instance = (MdFile) getHibernateTemplate()
-                    .get("MdFile", id);
+            MdFile instance = (MdFile) getHibernateTemplate().get("MdFile", id);
 //            System.out.println(instance);//这个方法始终不可用
             return instance;
         } catch (RuntimeException re) {
@@ -106,7 +106,11 @@ public class MdFileDAO extends HibernateDaoSupport  {
         }
     }
     public MdFile findFileById(java.lang.Integer id){
-    	return (MdFile) findByProperty(MDFILEID, id).get(0);
+    	try{
+    		return (MdFile) findByProperty(MDFILEID, id).get(0);
+    	}catch(RuntimeException re){
+    		throw re;
+    	}
     }
     
     
@@ -115,7 +119,7 @@ public class MdFileDAO extends HibernateDaoSupport  {
         try {
 //        	System.out.println(instance.getMdfileid());
             List results = getHibernateTemplate().findByExample(instance);
-//            System.out.println(results.size());
+//          System.out.println(results.size());
             log.debug("find by example successful, result size: " + results.size());
             return results;
         } catch (RuntimeException re) {
@@ -128,8 +132,7 @@ public class MdFileDAO extends HibernateDaoSupport  {
       log.debug("finding MdFile instance with property: " + propertyName
             + ", value: " + value);
       try {
-         String queryString = "from MdFile as model where model." 
-         						+ propertyName + "= ?";
+         String queryString = "from MdFile as model where model." + propertyName + "= ?";
 		 return getHibernateTemplate().find(queryString, value);
       } catch (RuntimeException re) {
          log.error("find by property name failed", re);
@@ -138,7 +141,11 @@ public class MdFileDAO extends HibernateDaoSupport  {
 	}
 
 	public List findByFilename(Object filename) {
-		return findByProperty(FILENAME, filename);
+		try{
+			return findByProperty(FILENAME, filename);
+		}catch(RuntimeException re){
+			throw re;
+		}
 	}
 	
 	public List findByContent(Object content

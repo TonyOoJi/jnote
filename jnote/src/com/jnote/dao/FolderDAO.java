@@ -74,8 +74,12 @@ public class FolderDAO extends HibernateDaoSupport  {
     }
     
     public Folder findFolderById(java.lang.Integer id){
-    	List list = findByProperty(FOLDERID, id);
-    	return (Folder) list.get(0);
+    	try{
+    		List list = findByProperty(FOLDERID, id);
+    		return (Folder) list.get(0);
+    	}catch (RuntimeException re) {
+    		throw re;
+    	}
     }
     
     public List findByExample(Folder instance) {
@@ -109,7 +113,11 @@ public class FolderDAO extends HibernateDaoSupport  {
      * @return
      */
     public List findByUserid(int userid){
-    	return findByProperty(USERID, userid);
+    	try{
+    		return findByProperty(USERID, userid);
+    	}catch(RuntimeException re){
+    		throw re;
+    	}
     }
     
     /**
@@ -117,31 +125,31 @@ public class FolderDAO extends HibernateDaoSupport  {
      * @return
      */
     public List findRootFolder(int userid){
-    	List  lists = null;
     	try{
+    		List  lists = null;
     		String hql ="from Folder where userid=:id and parentid is null";
     		Query query = this.getSession().createQuery(hql);
     		query.setParameter("id", userid);
     		lists = query.list();
-    	}catch(RuntimeException e){
-    		System.out.println(e);
-//    		throw e;
+    		return lists;
+    	}catch(RuntimeException re){
+    		throw re;
     	}
-    	return lists;
     }
     
     public List findChildFolder(int userid,int parentid){
-    	List lists = null;
     	try{
+//    		System.out.println("dao-folder-findchildfolder-in");
+    		List lists = null;
     		String hql ="from Folder where userid=:uid and parentid=:pid";
     		Query query = this.getSession().createQuery(hql);
     		query.setParameter("uid", userid);
     		query.setParameter("pid", parentid);
     		lists = query.list();
-    	}catch(RuntimeException e){
-    		System.out.println(e);
+    		return lists;
+    	}catch(RuntimeException re){
+    		throw re;
     	}
-    	return lists;
     }
 
 	public List findByFoldername(Object foldername){

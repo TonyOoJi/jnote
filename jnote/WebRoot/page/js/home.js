@@ -1,6 +1,9 @@
 var currentFolderId;//当前目录id
 var currentFileId;//当前文件
 
+//启用页签1
+//$('#noteTab a[href="#note"]').tab('show');
+
 $(document).ready(function(){
 	// 滚动监听
 // $('rootFolderList-div').scrollspy({ target: '.navbar-example' });//启用滚动触发事件
@@ -106,7 +109,6 @@ $(document).ready(function(){
 //		alert(mdEditor.getHTML());
 //		alert($("input[name=mdTitle]").val());
 //		$("input[name=mdTitle]").val("asdasdsad");
-		alert("savefile");
 		$.ajax({
 			 	url:'/jnote/ajax/updataFile.action',
 	            type:'post',
@@ -161,6 +163,8 @@ function getChild(obj){
 	});
 }
 function getMdFile(obj){
+	//mdEditer.clear();	//清空操作
+	mdEditor.cm.setValue("");//源码中参数为cm,设置cm的值可以达到清空效果
 	var fileId = obj.name;
 //	alert(fileId);
 	currentFileId = fileId;
@@ -177,6 +181,7 @@ function getMdFile(obj){
         	var file = d.file;
         	// 回传的list中对象为 String
         	$("input[name=mdTitle]").val(file.title);//将标题添加
+        	
         	mdEditor.setCursor({line:1, ch:1});//设置光标到1，1位置
 //        	alert(file.content);
     		mdEditor.insertValue(file.content);//设置文本内容
