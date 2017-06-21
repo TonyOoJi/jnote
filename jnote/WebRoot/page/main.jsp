@@ -167,10 +167,10 @@
 				<a class="navbar-brand" href="javascript:return fasle;">Jnote</a>
 			</div>
 			<ul class="nav nav-tabs" role="tablist">
-    			<li role="presentation" class="">
+    			<li role="presentation" class="active">
     				<a href="#note" aria-controls="note" role="tab" data-toggle="tab">Home</a>
     			</li>
-    			<li role="presentation" class="active">
+    			<li role="presentation">
     				<a href="#share" aria-controls="share" role="tab" data-toggle="tab">Profile</a>
     			</li>
     			<li role="presentation">
@@ -215,8 +215,8 @@
 	
 	<%-- body --%>
 	<%-- root Dir --%>
-	<div class="tab-content"><%--页签content --%>
-	<div id="note" role="tabpanel" class="tab-pane fade active"><%--页签1 start --%>
+	<div class="tab-content" id="tabContent"><%--页签content --%>
+	<div id="note" role="tabpanel" class="tab-pane active"><%--页签1 start --%>
 	<div>
 		<%-- 路径导航  --%>
 		<ul class="breadcrumb breadcrumb-crumbs">
@@ -394,10 +394,10 @@
 	</div><%-- row结束 --%>
 	</div><%--页签1 end --%>
 	
-	<div role="tabpanel" class="tab-pane fade active" id="share"><%--页签2 start --%>
+	<div role="tabpanel" class="tab-pane" id="share"><%--页签2 start --%>
 		2
 	</div><%--页签2 end --%>
-	<div role="tabpanel" class="tab-pane fade" id="help">
+	<div role="tabpanel" class="tab-pane" id="help">
 		3
 	</div>
 	</div><%--tab content end --%>
