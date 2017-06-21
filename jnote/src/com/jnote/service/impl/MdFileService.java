@@ -40,4 +40,8 @@ public class MdFileService implements IMdFileService {
 		}
 	}
 
+	public int deleteMdFile(int mdFileId) {
+		return mdFileDao.deleteById(mdFileId);
+	}
+
 }

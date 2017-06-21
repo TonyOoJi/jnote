@@ -77,6 +77,25 @@ public class MdFileDAO extends HibernateDaoSupport  {
         }
     }
 	
+	/**
+	 * deleteById-mdfileid
+	 * @param fid
+	 * @return
+	 */
+	public int deleteById(Integer fid){
+		try{
+//			System.out.println("folder-dao-in-deletebyid");
+			String hql = "delete from MdFile where mdfileid=:id";
+			Query query = this.getSession().createQuery(hql);
+			query.setParameter("id", fid);
+			int resultNum = query.executeUpdate();
+//			System.out.println("folder-dao-in-deletebyid"+resultNum);
+			return resultNum;
+		}catch(RuntimeException re){
+			throw re;
+		}
+	}
+	
 	public List getChildMdFile(java.lang.Integer userid,java.lang.Integer folderid){
     	try{
     		List lists = null;

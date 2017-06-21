@@ -9,4 +9,5 @@ public interface IMdFileService {
 	public void save(MdFile mf);
 	public MdFile findByFileExample(MdFile mf);
 	public void updataMdFile(MdFile mf);
+	public int deleteMdFile(int mdFileId);
 }

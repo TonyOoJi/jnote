@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tools.ant.types.CommandlineJava.SysProperties;
+
 import jsx3.gui.TimePicker;
 
 import net.sf.json.JSONObject;
@@ -105,26 +107,10 @@ public class AjaxAction extends BaseAction {
 		if (folder.getUser() != null && folder.getFoldername() != null) {
 			// 操作
 			this.serviceManager.getFolderService().sava(folder);
-			// 得到所有根目录用于刷新
-			rootFolderList = this.serviceManager.getFolderService()
-					.findRootFolder(folder.getUser().getUserid());
-			List<FolderAjax> listTemp = new ArrayList();
-			for (Object obj : rootFolderList) {
-				Folder f = (Folder) obj;
-				int folderid = f.getFolderid();
-				String foldername = f.getFoldername();
-				// String row =
-				// "<a href=\"#\" class=\"list-group-item glyphicon glyphicon-folder-close a-list\" name=\""+folderid+"\">&nbsp"+foldername+"</a>";
-				// String rowTemp = new String();
-				// rowTemp = row;
-				FolderAjax row = new FolderAjax();
-				row.folderid = folderid;
-				row.foldername = foldername;
-				listTemp.add(row);
-			}
+			List rootList = getRootFolderList(folder);
 			result = "add error";
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("list", listTemp);
+			map.put("list", rootList);
 			result = "add success";
 			map.put("result", result);
 			JSONObject json = JSONObject.fromObject(map);
@@ -133,6 +119,29 @@ public class AjaxAction extends BaseAction {
 			return SUCCESS;
 		}
 		return INPUT;
+	}
+	/**
+	 * 得到根目录
+	 * @return
+	 */
+	public List getRootFolderList(Folder folder){
+		// 得到所有根目录用于刷新
+		rootFolderList = this.serviceManager.getFolderService().findRootFolder(folder.getUser().getUserid());
+		List<FolderAjax> listTemp = new ArrayList();
+		for (Object obj : rootFolderList) {
+			Folder f = (Folder) obj;
+			int folderid = f.getFolderid();
+			String foldername = f.getFoldername();
+			// String row =
+			// "<a href=\"#\" class=\"list-group-item glyphicon glyphicon-folder-close a-list\" name=\""+folderid+"\">&nbsp"+foldername+"</a>";
+			// String rowTemp = new String();
+			// rowTemp = row;
+			FolderAjax row = new FolderAjax();
+			row.folderid = folderid;
+			row.foldername = foldername;
+			listTemp.add(row);
+		}
+		return listTemp;
 	}
 
 	/**
@@ -360,6 +369,54 @@ public class AjaxAction extends BaseAction {
 		if(resultMsg != null){
 //			System.out.println(resultMsg);
 			return SUCCESS;
+		}
+		return INPUT;
+	}
+	
+	/**
+	 * 
+	 */
+	public String deleteFolder(){
+		Folder folder = new Folder();
+		folder.setUser((User) session.getAttribute("user"));
+		folder.setFolderid(Integer.parseInt(request.getParameter("folderId")));
+//		System.out.println(folder.getFolderid());
+		String delResult = "删除失败";
+		//delete folder
+		int resultLine = serviceManager.getFolderService().delete(folder.getFolderid());//受影响的行数
+//		System.out.println("ajaxaction-deletefolder-resultLine"+resultLine);
+		if (resultLine == 1) {
+			// 生成数据刷新
+			List rootList = getRootFolderList(folder);
+//			System.out.println("ajaxaction-deletefolder-rootlist-size"+rootList.size());
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("list", rootList);
+			delResult = "删除成功";
+			map.put("result", delResult);
+			JSONObject json = JSONObject.fromObject(map);
+			result = json.toString();
+//			System.out.println("json.toString.ok"+result);
+			return SUCCESS;
+		}
+		return INPUT;
+	}
+	
+	/**
+	 * 
+	 */
+	public String deleteFile(){
+		int fileId = Integer.parseInt(request.getParameter("fileId"));
+		Integer userid = ((User) session.getAttribute("user")).getUserid();
+		Integer parentid = Integer.parseInt(request.getParameter("parentid"));
+//		System.out.println("ajaxaction-delfile-data"+fileId+" "+userid+" "+parentid);
+		//删除操作
+		int resultLine = serviceManager.getMdFileService().deleteMdFile(fileId);
+//		System.out.println("ajaxaction-delfile-resultLine:"+resultLine);
+		if(resultLine == 1){
+			if(userid != null && parentid != null){
+				getChildList(userid,parentid);
+				return SUCCESS;
+			}
 		}
 		return INPUT;
 	}

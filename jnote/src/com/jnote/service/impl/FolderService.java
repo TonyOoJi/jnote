@@ -35,5 +35,9 @@ public class FolderService implements IFolderService {
 //		System.out.println("comeinserviceoffolder");
 		return folderDao.findFolderById(folderid);
 	}
+
+	public int delete(Integer folderId) {
+		return this.folderDao.deleteById(folderId);
+	}
 	
 }

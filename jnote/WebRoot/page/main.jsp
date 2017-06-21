@@ -27,6 +27,8 @@
 <script src="page/js/home.js" type="text/javascript"></script>
 <script src="page/assets/bootstrap-3.3.7/dist/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="page/assets/editormd/editormd.min.js" type="text/javascript"></script>
+<script src="page/assets/bootstrap-3.3.7/js/BootstrapMenu.min.js" type="text/javascript"></script>
+
 <script>
 //多向弹出框的启用
 /* $(function () { 
@@ -155,6 +157,20 @@
                     mdEditor.config("tocDropdown", false);
                 });
             });
+/**鼠标悬停获取name属性中的ID值和类型*/
+function getFId(evt){
+	var ex,objx,tn;
+	ex=evt||window.event;
+	objx = ex.srcElement || ex.target || ex;
+	
+	delType = objx.getAttribute("value");
+	if(delType == "folder"){
+		delFolderId = objx.name;
+	}else {
+		delFileId = objx.name;
+	}
+}
+
 </script>
 
 </head>
@@ -284,9 +300,9 @@
 				</div><%-- 弹出框结束 --%>
 				<%-- <a href="" id="addRootFolder" class="list-group-item active">添加分类</a> --%>
 				<%-- <ul class="list-group"></ul> --%>
-				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0"  style="" id="rootFolderList-div" class="rootFolderList-div">
+				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0" id="rootFolderList-div" class="rootFolderList-div"  onmouseover="javascript:getFId(event);">
 					<s:iterator value="rootFolderList">
-						<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" name="${folderid}">&nbsp${foldername}</a>
+						<a href="javascript:return false;" class="list-group-item select-folder glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" value="folder" name="${folderid}">&nbsp${foldername}</a>
 					</s:iterator>
 				</div>
 			</div>
@@ -363,7 +379,7 @@
 				<%-- <a href="" id="addRootFolder" class="list-group-item active">添加分类</a> --%>
 				<%-- <ul class="list-group"></ul> --%>
 				<%-- 子目录及文件 --%>
-				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0"  style="" id="childList-div" class="childList-div">
+				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0"  style="" id="childList-div" class="childList-div" onmouseover="javascript:getFId(event);">
 					<%-- <s:iterator value="childFolderList">
 						<a href="#" class="list-group-item glyphicon glyphicon-folder-close a-list" name="${folderid}">&nbsp${foldername}</a>
 					</s:iterator>
@@ -402,10 +418,10 @@
 	</div>
 	</div><%--tab content end --%>
 </div><%-- container-fluid结束 --%>
-	
+
 <span>测试session</span>
 <%= session.getAttribute("user") %>
 <input type="text" id="test"/>
-
+	
 </body>
 </html>

@@ -49,13 +49,34 @@ public class FolderDAO extends HibernateDaoSupport  {
 	public void delete(Folder persistentInstance) {
         log.debug("deleting Folder instance");
         try {
+//        	System.out.println("folder-dao-delete-in");
             getHibernateTemplate().delete(persistentInstance);
+//            System.out.println("folder-dao-delete-success");
             log.debug("delete successful");
         } catch (RuntimeException re) {
             log.error("delete failed", re);
             throw re;
         }
     }
+	/**
+	 * delete by folderid
+	 * @param id
+	 * @return
+	 */
+	public int deleteById(Integer fid){
+		try{
+//			System.out.println("folder-dao-in-deletebyid");
+			String hql = "delete from Folder where folderid=:id";
+			Query query = this.getSession().createQuery(hql);
+			query.setParameter("id", fid);
+			int resultNum = query.executeUpdate();
+//			System.out.println("folder-dao-in-deletebyid"+resultNum);
+			return resultNum;
+		}catch(RuntimeException re){
+			throw re;
+		}
+	}
+	
     /*
      * 方法有问题
      */
@@ -98,8 +119,7 @@ public class FolderDAO extends HibernateDaoSupport  {
       log.debug("finding Folder instance with property: " + propertyName
             + ", value: " + value);
       try {
-         String queryString = "from Folder as model where model." 
-         						+ propertyName + "= ?";
+         String queryString = "from Folder as model where model." + propertyName + "= ?";
 		 return getHibernateTemplate().find(queryString, value);
       } catch (RuntimeException re) {
          log.error("find by property name failed", re);

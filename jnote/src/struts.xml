@@ -64,5 +64,15 @@
 				<param name="root">resultMsg</param>
 			</result>
 		</action>
+		<action name="deleteFolder" class="AjaxAction" method="deleteFolder">
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="deleteFile" class="AjaxAction" method="deleteFile">
+			<result name="success" type="json">
+				<param name="root">childListResult</param>
+			</result>
+		</action>
 	</package>
 </struts>
