@@ -129,15 +129,23 @@ $(document).ready(function(){
 	});//click
 	
 	/**
-	 * 删除文件夹
+	 * 删除子目录（子文件夹&文件）
 	 */
 //	var menu = new BootstrapMenu('.list-group-item.select-folder', {
 		var menu = new BootstrapMenu('.list-group-item.select-child', {
 		  actions: [{
-		      name: '添加',
+		      name: '分享',
 		      onClick: function() {
-		    	alert(delType);
-		    	alert(delFolderId);
+		    	  if(delType == "folder"){
+		    		  alert("不支持文件夹分享");
+		    	  }else{
+		    		  //
+		    		  //
+		    		  //此处添加ajax post至分享action
+		    		  //
+		    		  
+		    	  }
+//		    	alert(delFolderId);
 //		        toastr.info("'Action' clicked!");
 		      }
 		    }, {
@@ -240,59 +248,7 @@ $(document).ready(function(){
 			      }
 			    }]
 			});
-	
-	 /*var menu=new BootstrapMenu('.DynamicAdd',{       //.DynamicAdd是tbody下的tr的class名称
-         fetchElementData:function($rowElem){     //fetchElementData获取元数据
-             var data = table.row($rowElem).data();   //获取表格数据
-             return data;    //return的目的是给下面的onClick传递参数
-         },
-
-         actionsGroups: [  //给右键菜单的选项加一个分组，分割线
-              ['setEditable', 'setUneditable' ],
-             ['editDescription'],
-             ['deleteRow']
-
-         ],
-          you can declare 'actions' as an object instead of an array,
-         * and its keys will be used as action ids. 
-         //自定义右键菜单的功能
-         actions: {
-             addDescription: {
-                 name: '<font size=3>添加</font>',
-                 iconClass: 'fa-plus',
-                 onClick: function(row) {    //添加右击事件
-                     $("#myAddModal").modal("show");
-                     //定义你自己的添加事件
-                 },
-                 isEnabled: function(row) {
-                    return row.isEditable;
-                 }
-             },
-             editDescription: {
-                   name: '<font size=3>修改</font>',
-                   iconClass: 'fa-edit',
-                   onClick: function(row) {   //修改右击事件
-                        alert(row.id);
-                        //定义你自己的修改事件
-                   },
-                   isEnabled: function(row) {  
-                       return row.isEditable;
-                   }
-            },
-
-            deleteRow: {
-                name: '<font size=3>删除</font>',
-                iconClass: 'fa-trash',
-                onClick: function(row) {  //删除右击事件
-                    alert(row.id);
-                    //定义你自己的删除事件
-                },
-                isEnabled: function(row) {
-                     return row.isEditable && row.isRemovable;
-                }
-            }
-         }*/
-	
+		
 });//ready
 
 function getChild(obj){

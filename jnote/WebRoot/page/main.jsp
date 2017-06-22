@@ -413,7 +413,7 @@ function getFId(evt){
 		2
 	</div><%--页签2 end --%>
 	<div role="tabpanel" class="tab-pane" id="help">
-		3
+		<iframe src="/test.html"></iframe>
 	</div>
 	</div><%--tab content end --%>
 </div><%-- container-fluid结束 --%>
