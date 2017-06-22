@@ -153,17 +153,20 @@ $(document).ready(function(){
 						 	url:'/jnote/ajax/deleteChildFolder.action',
 				            type:'post',
 				            data:{
-				            	folderId:delFolderId
+				            	folderId:delFolderId,
+				            	parentid:currentFolderId
 				            },
 				            dataType:'json',
 				            success:function (data) {
 				            	var d = eval("("+data+")");
-				            	$("#rootFolderList-div").empty();
-				            	// 回传的list中对象为 String            
+				            	// 回传的list中对象为 String
 				            	$("#childList-div").empty();
-				            	//
-				            	//
-				            	//此处需要补全
+				            	$(d.list).each(function (i, value) {
+				            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder"  name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
+				            	});
+				            	$(d.fileList).each(function (i, value) {
+				            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+				            	});
 				            	alert(d.result);
 				            }//success	
 			    	  });//ajax
@@ -199,7 +202,9 @@ $(document).ready(function(){
 		      }
 		  }]
 		});
-		
+		/**
+		 * 删除根目录
+		 */
 		var rootmenu = new BootstrapMenu('.list-group-item.select-root', {
 			  actions: [{
 			      name: '添加',

@@ -400,11 +400,25 @@ public class AjaxAction extends BaseAction {
 		}
 		return INPUT;
 	}
-	
+	/**
+	 * delete child folder
+	 * @return
+	 */
 	public String deleteChildFolder(){
-		//
-		//此处需要补全
-		//刷新child目录列表
+		Folder folder = new Folder();
+		folder.setUser((User) session.getAttribute("user"));
+		folder.setFolderid(Integer.parseInt(request.getParameter("folderId")));
+		String delResult = "删除失败";
+		//delete folder
+		int resultLine = serviceManager.getFolderService().delete(folder.getFolderid());//受影响的行数
+		Integer userid = folder.getUser().getUserid();
+		Integer parentid = Integer.parseInt(request.getParameter("parentid"));
+		if(resultLine == 1){
+			if(userid != null && parentid != null){
+				getChildList(userid,parentid);
+				return SUCCESS;
+			}
+		}	
 		return INPUT;
 	}
 	

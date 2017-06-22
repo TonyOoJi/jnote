@@ -74,5 +74,10 @@
 				<param name="root">childListResult</param>
 			</result>
 		</action>
+		<action name="deleteChildFolder" class="AjaxAction" method="deleteChildFolder">
+			<result name="success" type="json">
+				<param name="root">childListResult</param>
+			</result>
+		</action>
 	</package>
 </struts>
