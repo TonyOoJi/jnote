@@ -146,7 +146,7 @@
 
 
 
-<!-- 
+<%-- 
 <span>register</span>
 <form name=regist action="/jnote/register" method="post">
 		username:<input type=text name=username id=username value="${username}"> <span id="msg"></span><br>
@@ -162,6 +162,6 @@
 		<input type=submit value=submit>
 </form>
 
- -->
+ --%>
 </body>
 </html>

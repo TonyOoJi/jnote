@@ -139,9 +139,15 @@ public class MdFileDAO extends HibernateDaoSupport  {
             throw re;
         }
     }
+    
     public MdFile findFileById(java.lang.Integer id){
     	try{
-    		return (MdFile) findByProperty(MDFILEID, id).get(0);
+    		List list = findByProperty(MDFILEID, id);
+    		if(list.size() == 0){
+    			return null;
+    		}else{
+    			return (MdFile) list.get(0);
+    		}
     	}catch(RuntimeException re){
     		throw re;
     	}

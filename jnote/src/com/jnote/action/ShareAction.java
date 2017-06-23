@@ -27,8 +27,8 @@ public class ShareAction extends BaseAction{
 		if(mf == null){
 			return INPUT;
 		}else{
-			if(mf.getMdhtml() == null){
-				mdHtml = "<h1>禁止访问--没有访问权限，这篇文字没有被分享。</h1>";
+			if(mf.getShareurl() == null){
+				mdHtml = "<h1>禁止访问--没有访问权限，这篇文章没有被分享。</h1>";
 				return SUCCESS;
 			}else{
 				mdHtml = mf.getMdhtml();

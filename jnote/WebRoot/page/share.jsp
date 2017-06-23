@@ -22,7 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-  <body>
-     <div>${mdHtml}</div>
+  <body style="text-align:center">
+     <div style="margin:0 auto;">
+     ${mdHtml}
+     </div>
   </body>
 </html>
