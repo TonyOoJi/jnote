@@ -1,7 +1,7 @@
 var currentFolderId;//当前目录id
 var delFolderId;//需要删除的目录ID
 var currentFileId;//当前文件
-var delFileId;//需要删除的文件ID
+var delFileId;//需要删除或获取URL的文件ID
 var delType;//删除操作的类型file&folder
 
 //启用页签1
@@ -118,7 +118,8 @@ $(document).ready(function(){
 	            data:{
 	            	mdFileId:currentFileId,
 	            	fileTitle:$("input[name=mdTitle]").val(),
-	            	content:mdEditor.getMarkdown()
+	            	content:mdEditor.getMarkdown(),
+	            	mdhtml:mdEditor.getHTML()
 	            },
 	            dataType:'json',
 	            success:function (data) {
@@ -143,7 +144,19 @@ $(document).ready(function(){
 		    		  //
 		    		  //此处添加ajax post至分享action
 		    		  //
-		    		  
+		    		  $.ajax({
+						 	url:'/jnote/ajax/buildShareUrl.action',
+				            type:'post',
+				            data:{
+				            	fileId:delFileId
+				            },
+				            dataType:'json',
+				            success:function (data) {
+				            	var d = eval("("+data+")");
+				            	// 回传的list中对象为 String
+				            	alert(d.shareUrl + "      请将url复制到浏览器地址栏访问");
+				            }//success	
+			    	  });//ajax
 		    	  }
 //		    	alert(delFolderId);
 //		        toastr.info("'Action' clicked!");

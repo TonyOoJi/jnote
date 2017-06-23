@@ -31,5 +31,8 @@
         <property name="shareurl" type="java.lang.String">
             <column name="shareurl" length="50" />
         </property>
+        <property name="mdhtml" type="java.lang.String">
+        	<column name="mdhtml" length="65535"/>
+        </property>
     </class>
 </hibernate-mapping>

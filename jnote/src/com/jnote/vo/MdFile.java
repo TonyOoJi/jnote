@@ -21,8 +21,8 @@ public class MdFile extends AbstractMdFile implements java.io.Serializable {
     }
     
     /** full constructor */
-    public MdFile(String filename, String content, Timestamp addtime, Timestamp modifytime, Integer userid, Integer folderid, String shareurl) {
-        super(filename, content, addtime, modifytime, userid, folderid, shareurl);        
+    public MdFile(String filename, String content, Timestamp addtime, Timestamp modifytime, Integer userid, Integer folderid, String shareurl ,String mdhtml) {
+        super(filename, content, addtime, modifytime, userid, folderid, shareurl ,mdhtml);        
     }
    
 }

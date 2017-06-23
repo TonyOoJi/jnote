@@ -1,11 +1,16 @@
+.body{
+	margin:0 auto;
+}
 
 .row-above{
 }
 
-container-fluid{
+
+.container-fluid{
 	padding_right:0px;
 	padding-left:0px;
 	height:100%;
+	width:100%;
 }
 
 .a-list{

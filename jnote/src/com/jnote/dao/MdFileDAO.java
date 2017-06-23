@@ -32,6 +32,7 @@ public class MdFileDAO extends HibernateDaoSupport  {
 	public static final String FOLDERID = "folderid";
 	public static final String SHAREURL = "shareurl";
 	public static final String MDFILEID = "mdfileid";
+	public static final String MDHTML = "mdhtml";
 
 
 
@@ -54,13 +55,27 @@ public class MdFileDAO extends HibernateDaoSupport  {
     public void updataFile(MdFile mf){
 //    	System.out.println("updata dao in ");
     	try{
-    		String hql = "update MdFile mdfile set mdfile.filename=:fn, mdfile.content.content=:c, mdfile.modifytime=:mt where mdfile.mdfileid=:mfid";
+    		String hql = "update MdFile mdfile set mdfile.filename=:fn, mdfile.content.content=:c, mdfile.modifytime=:mt, mdfile.mdhtml=:mh where mdfile.mdfileid=:mfid";
     		Query query = this.getSession().createQuery(hql);
     		query.setString("fn", mf.getFilename());
     		query.setString("c", mf.getContent());
     		query.setTimestamp("mt", mf.getModifytime());
     		query.setInteger("mfid", mf.getMdfileid());
+    		query.setString("mh", mf.getMdhtml());
     		query.executeUpdate();
+    	}catch(RuntimeException re){
+    		throw re;
+    	}
+    }
+    
+    public int updataFileUrl(Integer mdfileid, String url){
+    	try{
+    		String hql = "update MdFile mdfile set mdfile.shareurl=:su where mdfile.mdfileid=:id";
+    		Query query = this.getSession().createQuery(hql);
+    		query.setString("su", url);
+    		query.setInteger("id", mdfileid);
+    		int resultLine = query.executeUpdate();
+    		return resultLine;
     	}catch(RuntimeException re){
     		throw re;
     	}

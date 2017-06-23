@@ -118,6 +118,11 @@
 			<ref bean="ServiceManager"/>
 		</property>
 	</bean>
+	<bean id="ShareAction" class="com.jnote.action.ShareAction" scope="prototype">
+		<property name="serviceManager">
+			<ref bean="ServiceManager"/>
+		</property>
+	</bean>
 	
 	<!-- spring-aop transactionManager -->
 	<bean id="txManager"

@@ -31,6 +31,10 @@
 			<result name="input">/page/loadingError.jsp</result>
 		</action>
 		
+		<action name="share" class="ShareAction" method="getSharePage">
+			<result name="success">/page/share.jsp</result>
+			<result name="input">/page/errorShareUrl.jsp</result>
+		</action>
 	</package>
 	
 	<package name="json" namespace="/ajax" extends="json-default">
@@ -79,5 +83,11 @@
 				<param name="root">childListResult</param>
 			</result>
 		</action>
+		<action name="buildShareUrl" class="AjaxAction" method="buildShareUrl">
+			<result name="success" type="json">
+				<param name="root">shareUrl</param>
+			</result>
+		</action>
+		
 	</package>
 </struts>

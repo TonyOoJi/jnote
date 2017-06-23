@@ -31,6 +31,16 @@ public class AjaxAction extends BaseAction {
 	private String childListResult; // 子节点json结果
 	private String fileResult;//文件信息
 	private String resultMsg;
+	private String shareUrl;
+
+	
+	public void setShareUrl(String shareUrl) {
+		this.shareUrl = shareUrl;
+	}
+	
+	public String getShareUrl(){
+		return shareUrl;
+	}	
 
 	public String getResultMsg() {
 		return resultMsg;
@@ -97,7 +107,7 @@ public class AjaxAction extends BaseAction {
 	}
 
 	/**
-	 * 添加根目录及刷新
+	 * add root folder and refresh the root list
 	 * @return
 	 */
 	public String addRootFolder() {
@@ -121,7 +131,7 @@ public class AjaxAction extends BaseAction {
 		return INPUT;
 	}
 	/**
-	 * 得到根目录
+	 * get root folder
 	 * @return
 	 */
 	public List getRootFolderList(Folder folder){
@@ -145,7 +155,7 @@ public class AjaxAction extends BaseAction {
 	}
 
 	/**
-	 * 添加子文件夹
+	 * add child folder and refresh the child list
 	 * @return
 	 */
 	public String addChildFolder() {
@@ -169,7 +179,7 @@ public class AjaxAction extends BaseAction {
 	}
 	
 	/**
-	 * 添加文件
+	 * add mdfile and refresh the child list
 	 */
 	public String addFile(){
 //		System.out.println("come in addfile");
@@ -206,7 +216,8 @@ public class AjaxAction extends BaseAction {
 	}
 	
 	/**
-	 * 添加操作之后的获取数据
+	 * when we add childfolder or add child file,we should refresh child folder and list
+	 * this method can get the childlist message to json
 	 * @param userid
 	 * @param parentid
 	 * @return
@@ -260,7 +271,7 @@ public class AjaxAction extends BaseAction {
 	}
 
 	/**
-	 * 点击获取下级目录信息
+	 * click root folder and get the child folder and mdfile to json
 	 * @return
 	 */
 	public String getChildListToJsonByFolderid() {
@@ -321,7 +332,7 @@ public class AjaxAction extends BaseAction {
 		return INPUT;
 	}
 	/**
-	 * 获取文档内容
+	 * get mdfile content
 	 * @return
 	 */
 	public String getMdFile(){
@@ -347,12 +358,17 @@ public class AjaxAction extends BaseAction {
 		return INPUT;
 	}
 	
+	/**
+	 * updata file
+	 * @return
+	 */
 	public String updataFile(){
 //		System.out.println("updata in");
 		Integer mdFileId = Integer.parseInt(request.getParameter("mdFileId"));
 		String title = request.getParameter("fileTitle");
 		String content = request.getParameter("content");
-//		System.out.println(mdFileId + title +content);
+		String mdhtml = request.getParameter("mdhtml");
+//		System.out.println(mdFileId + title + content + mdhtml);
 		Date date = new Date();
 		Timestamp ts = new Timestamp(date.getTime());
 		MdFile mdFile = new MdFile();
@@ -360,6 +376,8 @@ public class AjaxAction extends BaseAction {
 		mdFile.setFilename(title);
 		mdFile.setContent(content);
 		mdFile.setModifytime(ts);
+		mdFile.setMdhtml(mdhtml);
+//		System.out.println("mdhtml:"+ mdFile.getMdhtml());
 		serviceManager.getMdFileService().updataMdFile(mdFile);
 		resultMsg = "保存成功";
 		Map<String, String> map = new HashMap<String, String>();
@@ -374,7 +392,7 @@ public class AjaxAction extends BaseAction {
 	}
 	
 	/**
-	 * 删除根目录
+	 * delete root folder
 	 */
 	public String deleteFolder(){
 		Folder folder = new Folder();
@@ -423,7 +441,7 @@ public class AjaxAction extends BaseAction {
 	}
 	
 	/**
-	 * 
+	 * delete mdfile
 	 */
 	public String deleteFile(){
 		int fileId = Integer.parseInt(request.getParameter("fileId"));
@@ -438,6 +456,24 @@ public class AjaxAction extends BaseAction {
 				getChildList(userid,parentid);
 				return SUCCESS;
 			}
+		}
+		return INPUT;
+	}
+	
+	public String buildShareUrl(){
+//		System.out.println("conein getShareUrl");
+		int fileId = Integer.parseInt(request.getParameter("fileId"));
+//		System.out.println(fileId);
+		shareUrl = "localhost:8081/jnote/note/share?fileid=" + fileId;
+		Integer resultLine = serviceManager.getMdFileService().updataMdFileUrl(fileId,shareUrl);
+//		System.out.println(shareUrl);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("shareUrl", shareUrl);
+		JSONObject json = JSONObject.fromObject(map);
+		shareUrl = json.toString();
+//		System.out.println(shareUrl);
+		if(shareUrl != null && resultLine == 1){
+			return SUCCESS;
 		}
 		return INPUT;
 	}

@@ -21,6 +21,7 @@ public abstract class AbstractMdFile  implements java.io.Serializable {
      private Integer userid;
      private Integer folderid;
      private String shareurl;
+     private String mdhtml;
 
 
     // Constructors
@@ -36,7 +37,7 @@ public abstract class AbstractMdFile  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public AbstractMdFile(String filename, String content, Timestamp addtime, Timestamp modifytime, Integer userid, Integer folderid, String shareurl) {
+    public AbstractMdFile(String filename, String content, Timestamp addtime, Timestamp modifytime, Integer userid, Integer folderid, String shareurl ,String mdhtml) {
         this.filename = filename;
         this.content = content;
         this.addtime = addtime;
@@ -44,6 +45,7 @@ public abstract class AbstractMdFile  implements java.io.Serializable {
         this.userid = userid;
         this.folderid = folderid;
         this.shareurl = shareurl;
+        this.mdhtml = mdhtml;
     }
 
    
@@ -112,6 +114,16 @@ public abstract class AbstractMdFile  implements java.io.Serializable {
     public void setShareurl(String shareurl) {
         this.shareurl = shareurl;
     }
+
+	public String getMdhtml() {
+		return mdhtml;
+	}
+
+	public void setMdhtml(String mdhtml) {
+		this.mdhtml = mdhtml;
+	}
+    
+    
    
 
 

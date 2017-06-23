@@ -26,10 +26,17 @@ public class MdFileService implements IMdFileService {
 		this.mdFileDao.save(mf);
 	}
 
+	/**
+	 * Actually this method find mdFile by ID is not by example
+	 */
 	public MdFile findByFileExample(MdFile mf) {
 //		List list = this.mdFileDao.findByExample(mf);
 		MdFile mdFile = this.mdFileDao.findFileById(mf.getMdfileid());
 		return mdFile;
+	}
+	
+	public MdFile findFileById(int fileid){
+		return this.mdFileDao.findFileById(fileid);
 	}
 
 	public void updataMdFile(MdFile mf) {
@@ -42,6 +49,11 @@ public class MdFileService implements IMdFileService {
 
 	public int deleteMdFile(int mdFileId) {
 		return mdFileDao.deleteById(mdFileId);
+	}
+
+	public int updataMdFileUrl(int mdfileid , String url) {
+		int resultLine = this.mdFileDao.updataFileUrl(mdfileid, url);
+		return resultLine;
 	}
 
 }

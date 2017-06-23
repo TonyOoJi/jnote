@@ -173,7 +173,7 @@ function getFId(evt){
 </script>
 
 </head>
-<body>
+<body class="body">
 <div class="container-fluid container-home">
 <%-- 导航栏  --%>
 	 <div class="row clearfix">
@@ -413,7 +413,8 @@ function getFId(evt){
 		2
 	</div><%--页签2 end --%>
 	<div role="tabpanel" class="tab-pane" id="help">
-		<iframe src="/test.html"></iframe>
+		<%-- <iframe src="/test.html"></iframe> --%>
+		<jsp:include page="test.html"></jsp:include>
 	</div>
 	</div><%--tab content end --%>
 </div><%-- container-fluid结束 --%>
