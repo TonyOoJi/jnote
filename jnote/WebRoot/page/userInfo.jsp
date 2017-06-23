@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	<a class="btn btn-primary" href="note/home">返回</a>
-    <%= session.getAttribute("user").toString() %>
+    	
     <br>
 
   </body>

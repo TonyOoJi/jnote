@@ -421,7 +421,7 @@ function getFId(evt){
 
 <span>测试session</span>
 <%= session.getAttribute("user") %>
-<input type="text" id="test"/>
+<%-- <input type="text" id="test"/> --%>
 	
 </body>
 </html>

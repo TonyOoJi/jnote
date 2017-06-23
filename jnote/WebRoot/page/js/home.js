@@ -154,7 +154,9 @@ $(document).ready(function(){
 				            success:function (data) {
 				            	var d = eval("("+data+")");
 				            	// 回传的list中对象为 String
-				            	alert(d.shareUrl + "      请将url复制到浏览器地址栏访问");
+				            	//http://10.127.169.122/jnote/
+				            	//localhost:8081/jnote/
+				            	alert("10.127.169.122/jnote/" + d.shareUrl + "      请将url复制到浏览器地址栏访问");
 				            }//success	
 			    	  });//ajax
 		    	  }
@@ -312,7 +314,7 @@ function getMdFile(obj){
 //	alert(fileId);
 	currentFileId = fileId;
 	$.ajax({
-		url:'/jnote/ajax/getMdFile.action',  
+		url:'/jnote/ajax/getMdFile.action',
         type:'post',
         data:{
         	mdFileId:fileId

@@ -359,7 +359,8 @@ public class AjaxAction extends BaseAction {
 	}
 	
 	/**
-	 * updata file
+	 * update file
+	 * @author YJ
 	 * @return
 	 */
 	public String updataFile(){
@@ -460,11 +461,15 @@ public class AjaxAction extends BaseAction {
 		return INPUT;
 	}
 	
+	/**
+	 * build shared url and return
+	 * @return
+	 */
 	public String buildShareUrl(){
 //		System.out.println("conein getShareUrl");
 		int fileId = Integer.parseInt(request.getParameter("fileId"));
 //		System.out.println(fileId);
-		shareUrl = "localhost:8081/jnote/note/share?fileid=" + fileId;
+		shareUrl = "note/share?fileid=" + fileId;
 		Integer resultLine = serviceManager.getMdFileService().updataMdFileUrl(fileId,shareUrl);
 //		System.out.println(shareUrl);
 		Map<String, String> map = new HashMap<String, String>();
@@ -475,6 +480,20 @@ public class AjaxAction extends BaseAction {
 		if(shareUrl != null && resultLine == 1){
 			return SUCCESS;
 		}
+		return INPUT;
+	}
+	
+	/**
+	 * update user information
+	 * @author YJ
+	 * @return
+	 */
+	public String updateUserInfo(){
+		//
+		//
+		//
+		//
+		
 		return INPUT;
 	}
 

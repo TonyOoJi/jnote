@@ -14,6 +14,7 @@ public class LogAction extends BaseAction implements ModelDriven<User> {
 	public String login() {
 		if (serviceManager.getUserService().login(user)) {
 			session.setAttribute("user", user);
+											System.out.println(user.getUsername() + "登录");
 			return SUCCESS;
 		}
 		return INPUT;
