@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<a class="btn btn-primary" href="note/home">返回</a>
     <br>
     <br>
-    <img alt="yurisa" src="${pageContext.request.contextPath}${userInfoExist.headurl}">
+    <img alt="pic" src="${userInfoExist.headurl}">
 	<form action="note/uploadFile" method="post" enctype="multipart/form-data">
     <!--文件域-->
     <input type="file" name="upload"/><input type="submit" value="上传">
@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br>
 	<br>
 	<br>
-	<form action="note/userinfo">
+	<form action="note/userinfo" method="post">
 		用户手机：<input type="text" name="tel" id="tel" value="${userInfoExist.tel}"><br>
 		用户邮箱：<input type="text" name="email" id="email" value="${userInfoExist.email}"><br>
 		<input type="submit" value="提交">
