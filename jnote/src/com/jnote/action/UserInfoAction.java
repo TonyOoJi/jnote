@@ -132,7 +132,7 @@ public class UserInfoAction extends BaseAction implements ModelDriven<UserInfo>,
 	public String getUserInfo(){
 		userid = ((User) session.getAttribute("user")).getUserid();
 		userInfoExist = serviceManager.getUserInfoService().findUserInfoByUserId(userid);
-		System.out.println(userInfoExist.getHeadurl());
+//		System.out.println(userInfoExist.getHeadurl());
 		if(userid != null){
 			userInfo.setUserid(userid);
 			return SUCCESS;

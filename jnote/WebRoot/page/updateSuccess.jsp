@@ -23,6 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-	更新用户信息成功！点击<a class="btn btn-primary" href="note/home">返回</a>
+	更新用户信息成功！点击<a class="btn btn-primary" href="note/getUserInfo">返回</a>
   </body>
 </html>

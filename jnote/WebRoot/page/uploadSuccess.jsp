@@ -23,6 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	 头像上传成功！点击<a class="btn btn-primary" href="page/userInfo.jsp">返回</a>
+  	 头像上传成功！点击<a class="btn btn-primary" href="note/getUserInfo">返回</a>
   </body>
 </html>
