@@ -15,13 +15,13 @@ public class UserInfo extends AbstractUserInfo implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public UserInfo(User user) {
-        super(user);        
+    public UserInfo(Integer userid) {
+        super(userid);        
     }
     
     /** full constructor */
-    public UserInfo(User user, String email, String tel, String headurl) {
-        super(user, email, tel, headurl);        
+    public UserInfo(Integer userid, String email, String tel, String headurl) {
+        super(userid, email, tel, headurl);        
     }
    
 }

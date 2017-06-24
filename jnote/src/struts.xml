@@ -35,6 +35,11 @@
 			<result name="success">/page/share.jsp</result>
 			<result name="input">/page/errorShareUrl.jsp</result>
 		</action>
+		
+		<action name="userinfo" class="UserInfoAction" method="updateUserInfo">
+			<result name="success">/page/updateSuccess.jsp</result>
+			<result name="input">/page/error.jsp</result>
+		</action>
 	</package>
 	
 	<package name="json" namespace="/ajax" extends="json-default">

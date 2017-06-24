@@ -13,7 +13,7 @@ public abstract class AbstractUserInfo  implements java.io.Serializable {
     // Fields    
 
      private Integer userinfoid;
-     private User user;
+     private Integer userid;
      private String email;
      private String tel;
      private String headurl;
@@ -26,13 +26,13 @@ public abstract class AbstractUserInfo  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public AbstractUserInfo(User user) {
-        this.user = user;
+    public AbstractUserInfo(Integer userid) {
+        this.userid = userid;
     }
     
     /** full constructor */
-    public AbstractUserInfo(User user, String email, String tel, String headurl) {
-        this.user = user;
+    public AbstractUserInfo(Integer userid, String email, String tel, String headurl) {
+        this.userid = userid;
         this.email = email;
         this.tel = tel;
         this.headurl = headurl;
@@ -49,12 +49,12 @@ public abstract class AbstractUserInfo  implements java.io.Serializable {
         this.userinfoid = userinfoid;
     }
 
-    public User getUser() {
-        return this.user;
+    public Integer getUserid() {
+        return this.userid;
     }
     
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public String getEmail() {

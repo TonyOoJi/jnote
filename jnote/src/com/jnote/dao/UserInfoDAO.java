@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -25,6 +26,7 @@ public class UserInfoDAO extends HibernateDaoSupport  {
 	public static final String EMAIL = "email";
 	public static final String TEL = "tel";
 	public static final String HEADURL = "headurl";
+	public static final String USERID = "userid";
 
 
 
@@ -41,6 +43,21 @@ public class UserInfoDAO extends HibernateDaoSupport  {
             log.error("save failed", re);
             throw re;
         }
+    }
+    
+    public int updateUserInfo(UserInfo ui){
+    	try{
+    		String hql = "update UserInfo as userInfo set userInfo.tel =:tel,userInfo.email=:em,userInfo.headurl=:hu where userInfo.userid=:uid";
+        	Query query = this.getSession().createQuery(hql);
+        	query.setString("tel", ui.getTel());
+        	query.setString("em", ui.getEmail());
+        	query.setString("hu", ui.getHeadurl());
+        	query.setInteger("uid", ui.getUserid());
+        	int resultLine = query.executeUpdate();
+        	return resultLine;
+    	}catch(RuntimeException re){
+    		throw re;
+    	}
     }
     
 	public void delete(UserInfo persistentInstance) {
@@ -91,6 +108,15 @@ public class UserInfoDAO extends HibernateDaoSupport  {
          throw re;
       }
 	}
+    
+    public UserInfo findByUserid(Object userid){
+    	List list = findByProperty(USERID, userid);
+    	if(list.size() == 0){
+    		return null;
+    	}else {
+    		return (UserInfo) list.get(0);
+    	}
+    }
 
 	public List findByEmail(Object email
 	) {

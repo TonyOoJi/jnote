@@ -82,6 +82,11 @@
 			<ref bean="MdFileDAO"/>
 		</property>
 	</bean>
+	<bean id="UserInfoService" class="com.jnote.service.impl.UserInfoService">
+		<property name="userInfoDao">
+			<ref bean="UserInfoDAO"/>
+		</property>
+	</bean>
 	
 	<!-- serviceManager bean -->
 	<bean id="ServiceManager" class="com.jnote.service.impl.ServiceManager">
@@ -93,6 +98,9 @@
 		</property>
 		<property name="mdFileService">
 			<ref bean="MdFileService"/>
+		</property>
+		<property name="userInfoService">
+			<ref bean="UserInfoService"/>
 		</property>
 	</bean>
 	
@@ -108,6 +116,13 @@
 			<ref bean="ServiceManager"/>
 		</property>
 	</bean>
+	
+	<bean id="UserInfoAction" class="com.jnote.action.UserInfoAction">
+		<property name="serviceManager">
+			<ref bean="ServiceManager"/>
+		</property>
+	</bean>
+	
 	<bean id="HomeAction" class="com.jnote.action.HomeAction" scope="prototype">
 		<property name="serviceManager">
 			<ref bean="ServiceManager"/>

@@ -10,9 +10,9 @@
             <column name="userinfoid" />
             <generator class="native"></generator>
         </id>
-        <many-to-one name="user" class="User" fetch="select">
-            <column name="userid" not-null="true" />
-        </many-to-one>
+        <property name="userid" type="java.lang.Integer">
+            <column name="userid" length="11" />
+        </property>
         <property name="email" type="java.lang.String">
             <column name="email" length="30" />
         </property>

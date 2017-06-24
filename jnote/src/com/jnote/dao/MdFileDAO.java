@@ -52,7 +52,7 @@ public class MdFileDAO extends HibernateDaoSupport  {
         }
     }
     
-    public void updataFile(MdFile mf){
+    public void updateFile(MdFile mf){
 //    	System.out.println("updata dao in ");
     	try{
     		String hql = "update MdFile mdfile set mdfile.filename=:fn, mdfile.content.content=:c, mdfile.modifytime=:mt, mdfile.mdhtml=:mh where mdfile.mdfileid=:mfid";
