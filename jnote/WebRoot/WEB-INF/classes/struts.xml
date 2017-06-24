@@ -40,6 +40,12 @@
 			<result name="success">/page/updateSuccess.jsp</result>
 			<result name="input">/page/error.jsp</result>
 		</action>
+		
+		<action name="uploadFile" class="UserInfoAction" method="uploadFile">
+			<result name="success">/page/uploadSuccess.jsp</result>
+			<result name="input">/page/error.jsp</result>
+		</action>
+		
 	</package>
 	
 	<package name="json" namespace="/ajax" extends="json-default">

@@ -28,14 +28,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	<a class="btn btn-primary" href="note/home">返回</a>
-    	
     <br>
-
+    <br>
+    <img alt="yurisa" src="${pageContext.request.contextPath}/head/yurisa.jpg">
+	<form action="note/uploadFile" method="post" enctype="multipart/form-data">
+    <!--文件域-->
+    <input type="file" name="upload"/><input type="submit" value="上传">
+  	</form>
+  	<span>不要忘记点击上传哦。</span>
+	<br>
 	<form action="note/userinfo">
-		
-		上传头像：<input type="file" name="headPic">
-		用户手机：<input type="text" name="tel"><br>
-		用户邮箱：<input type="text" name="email"><br>
+		用户手机：<input type="text" name="tel" id="tel"><br>
+		用户邮箱：<input type="text" name="email" id="email"><br>
 		<input type="submit" value="提交">
 	</form>
   </body>
