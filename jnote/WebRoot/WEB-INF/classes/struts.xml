@@ -46,6 +46,10 @@
 			<result name="input">/page/error.jsp</result>
 		</action>
 		
+		<action name="getUserInfo" class="UserInfoAction" method="getUserInfo">
+			<result name="success">/page/userInfo.jsp</result>
+			<result name="input">/page/loginAndRegister.jsp</result>
+		</action>
 	</package>
 	
 	<package name="json" namespace="/ajax" extends="json-default">

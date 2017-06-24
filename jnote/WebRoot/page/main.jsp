@@ -220,7 +220,7 @@ function getFId(evt){
 					</s:if>
 					<s:elseif test="#session.user!=null">
 						<li class="pull-right"><a href="note/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a></li>
-						<li class="pull-right"><a href="page/userInfo.jsp"><span class="glyphicon glyphicon-user"></span>${session.user.username}</a></li>
+						<li class="pull-right"><a href="note/getUserInfo"><span class="glyphicon glyphicon-user"></span>${session.user.username}</a></li>
 					</s:elseif>
 				</ul>
 			</ul>

@@ -27,7 +27,7 @@ public class UserInfoService implements IUserInfoService {
 				//
 				//ui中加入headurl
 //				ui.setHeadurl("${pageContext.request.contextPath}/head/" + ui.getUserid() + ".jpg");
-				System.out.println("userinfoservice:uiheadurl"+ui.getHeadurl());
+//				System.out.println("userinfoservice:uiheadurl"+ui.getHeadurl());
 				this.userInfoDao.save(ui);
 				return 1;
 			}else{
@@ -51,13 +51,11 @@ public class UserInfoService implements IUserInfoService {
 		int resultLine = 0;
 		if(ui.getUserid() != null){
 			if(this.findUserInfoByUserId(ui.getUserid()) == null){
-				//
-				//ui中加入headurl
-//				ui.setHeadurl("${pageContext.request.contextPath}/head/" + ui.getUserid() + ".jpg");
-//				System.out.println("userinfoservice:uiheadurl"+ui.getHeadurl());
+				//数据库中还没有用户的信息就调用save保存
 				this.userInfoDao.save(ui);
 				return 1;
 			}else{
+				//数据库中已经存在用户信息，取出信息后将url加入再update操作
 				UserInfo userInfo = this.findUserInfoByUserId(ui.getUserid());
 				userInfo.setHeadurl(ui.getHeadurl());
 				resultLine = this.userInfoDao.updateUserInfo(userInfo);
