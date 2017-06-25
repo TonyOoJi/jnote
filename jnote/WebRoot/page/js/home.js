@@ -130,12 +130,12 @@ $(document).ready(function(){
 	});//click
 	
 	/**
-	 * 删除子目录（子文件夹&文件）
+	 * 分享删除子目录（子文件夹&文件）
 	 */
 //	var menu = new BootstrapMenu('.list-group-item.select-folder', {
 		var menu = new BootstrapMenu('.list-group-item.select-child', {
 		  actions: [{
-		      name: '分享',
+		      name: '<div class="glyphicon glyphicon-share">分享</div>',
 		      onClick: function() {
 		    	  if(delType == "folder"){
 		    		  alert("不支持文件夹分享");
@@ -156,7 +156,7 @@ $(document).ready(function(){
 				            	// 回传的list中对象为 String
 				            	//http://10.127.169.122/jnote/
 				            	//localhost:8081/jnote/
-				            	alert("10.127.169.122/jnote/" + d.shareUrl + "      请将url复制到浏览器地址栏访问");
+				            	alert("localhost:8081/jnote/" + d.shareUrl + "      请将url复制到浏览器地址栏访问");
 				            }//success	
 			    	  });//ajax
 		    	  }
@@ -164,7 +164,7 @@ $(document).ready(function(){
 //		        toastr.info("'Action' clicked!");
 		      }
 		    }, {
-		      name: '删除',
+		      name: '<div class="glyphicon glyphicon-trash">删除</div>',
 		      onClick: function() {
 		    	  if(delType == "folder"){//删除类型是文件夹
 		    		  
@@ -218,26 +218,14 @@ $(document).ready(function(){
 		    	  }
 //		        toastr.info("'Another action' clicked!");
 		      }
-		    }, {
-		      name: '打开',
-		      onClick: function() {
-		        toastr.info("'A third action' clicked!");
-		      }
-		  }]
+		    }]
 		});
 		/**
 		 * 删除根目录
 		 */
 		var rootmenu = new BootstrapMenu('.list-group-item.select-root', {
-			  actions: [{
-			      name: '添加',
-			      onClick: function() {
-			    	alert(delType);
-			    	alert(delFolderId);
-//			        toastr.info("'Action' clicked!");
-			      }
-			    }, {
-			      name: '删除',
+			  actions: [ {
+			      name: '<div class="glyphicon glyphicon-trash">删除</div>',
 			      onClick: function() {
 			    	  if(delType == "folder"){//删除类型是文件夹
 			    		  $.ajax({
@@ -259,6 +247,44 @@ $(document).ready(function(){
 					            }//success	
 				    	  });//ajax
 			    	  }
+//			        toastr.info("'Another action' clicked!");
+			      }
+			    }]
+			});
+		
+		/**
+		 * 分享列表的右键
+		 */
+		var sharemenu = new BootstrapMenu('.list-group-item.share-list', {
+			  actions: [{
+			      name: '<div class="glyphicon glyphicon-share">获取链接</div>',
+			      onClick: function() {
+					alert("localhost:8081/jnote/note/share?fileid=" + delFileId + "      请将url复制到浏览器地址栏访问");
+			      }
+			    }, {
+			      name: '<div class="glyphicon glyphicon-trash">不再分享</div>',
+			      onClick: function() {
+			    		  $.ajax({
+							 	url:'/jnote/ajax/deleteFileShare.action',
+					            type:'post',
+					            data:{
+					            	fileId:delFileId,
+					            	parentid:currentFolderId
+					            },
+					            dataType:'json',
+					            success:function (data) {
+					            	var d = eval("("+data+")");
+					            	$("#childList-div").empty();
+					            	// 回传的list中对象为 String
+					            	$(d.list).each(function (i, value) {
+					            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder"  name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
+					            	});
+					            	$(d.fileList).each(function (i, value) {
+					            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+					            	});
+					            	alert(d.result);
+					            }//success	
+				    	  });//ajax
 //			        toastr.info("'Another action' clicked!");
 			      }
 			    }]
@@ -296,7 +322,6 @@ function getChild(obj){
         	});
         	$(d.fileList).each(function (i, value) {
         		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
-        	
         	});
 //        	alert(d.result);
         }
@@ -312,13 +337,12 @@ function getMdFile(obj){
 	mdEditor.cm.setValue("");//源码中参数为cm,设置cm的值可以达到清空效果
 	var fileId = obj.name;
 //	alert(fileId);
-	currentFileId = fileId;
+	currentFileId = fileId;//当前的文件id
 	$.ajax({
 		url:'/jnote/ajax/getMdFile.action',
         type:'post',
         data:{
         	mdFileId:fileId
-        	// foldername:folderName
         },
         dataType:'json',
         success:function (data) {
@@ -331,6 +355,27 @@ function getMdFile(obj){
 //        	alert(file.content);
     		mdEditor.insertValue(file.content);//设置文本内容
 //    		alert(d.result);//
+        }
+	});
+}
+//页签2显示分享的内容
+function getContent(obj){
+	var fileId = obj.name;
+	$.ajax({
+		url:'/jnote/ajax/getMdFileHtml.action',
+        type:'post',
+        data:{
+        	mdFileId:fileId
+        },
+        dataType:'json',
+        success:function (data) {
+        	var d = eval("("+data+")");
+        	var file = d.file;
+        	// 回传的list中对象为 String
+        	$("#lib2-title").empty();
+        	$("#editormd-View").empty();
+        	$("#lib2-title").append(file.title);
+    		$("#editormd-View").append(file.content);
         }
 	});
 }

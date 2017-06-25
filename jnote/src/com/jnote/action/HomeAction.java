@@ -16,7 +16,16 @@ public class HomeAction extends BaseAction implements ModelDriven<Folder>{
 	private ServiceManager serviceManager;
 	private List rootFolderList;
 	private Folder folder;
+	private List sharedList;
 	
+	public List getSharedList() {
+		return sharedList;
+	}
+
+	public void setSharedList(List sharedList) {
+		this.sharedList = sharedList;
+	}
+
 	public Folder getModel() {
 		return folder;
 	}
@@ -43,6 +52,7 @@ public class HomeAction extends BaseAction implements ModelDriven<Folder>{
 			userid = ((User)session.getAttribute("user")).getUserid();
 		}
 		if(userid!=null){
+			sharedList = serviceManager.getMdFileService().getSharedFile(userid);
 			rootFolderList = serviceManager.getFolderService().findRootFolder(userid);
 			return SUCCESS;
 		}

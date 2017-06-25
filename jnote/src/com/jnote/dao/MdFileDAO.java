@@ -124,8 +124,20 @@ public class MdFileDAO extends HibernateDaoSupport  {
     		throw re;
     	}
 //    	System.out.println(userid+"-"+folderid);
-//    	System.out.println("comein DAO :"+lists.size());
-    	
+//    	System.out.println("comein DAO :"+lists.size());	
+	}
+	
+	public List getSharedMdFile(java.lang.Integer userid){
+    	try{
+    		List list = null;
+    		String hql ="from MdFile where userid=:uid and shareurl!=null";
+    		Query query = this.getSession().createQuery(hql);
+    		query.setParameter("uid", userid);
+    		list = query.list();
+    		return list;
+    	}catch(RuntimeException re){
+    		throw re;
+    	}	
 	}
     
     public MdFile findById( java.lang.Integer id) {

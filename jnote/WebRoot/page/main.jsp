@@ -13,7 +13,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'index.jsp' starting page</title>
+<title>Jnote可在线编辑markdown笔记</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -60,7 +60,7 @@
             	 $.get('page/assets/editormd/test.md', function(md){
                     mdEditor = editormd("editor-editormd", {
                         width: "100%",
-                        height: "78%",
+                        height: "77%",
                         path : './page/assets/editormd/lib/',
                         //theme : "dark",
                         //previewTheme : "dark",
@@ -410,8 +410,54 @@ function getFId(evt){
 	</div><%--页签1 end --%>
 	
 	<div role="tabpanel" class="tab-pane" id="share"><%--页签2 start --%>
-		2
+		<!-- 左侧列表 -->
+		<div id="tab2-left" class="tab2-left" data-spy="scroll" data-target="#myScrollspy" data-offset="0" onmouseover="javascript:getFId(event);">
+			<s:iterator value="sharedList">
+				<a href="javascript:return false;" class="list-group-item share-list glyphicon glyphicon-file a-list" onclick="getContent(this)" value="file" name="${mdfileid}">&nbsp${filename}</a>
+			</s:iterator>
+		</div><!-- 左侧div显示列表 -->
+		
+		<!-- 右侧内容 -->
+		<div id="tab2-right" class="tab2-right">
+			<div style="text-align:center;width:80%;margin:0 auto;"><br>
+	 		<div style="margin:0 auto;">
+	 			<h1><font style="color:#aaa" id="lib2-title"></font></h1>
+	 		</div><br>
+     		<div style="margin:0 auto;" id="editormd-View"></div>
+     		<%-- 使用editermd来显示样式 --%>
+        		<%-- <script src="page/assets/editormd/js/jquery.min.js"></script>
+        		<script src="page/assets/editormd/lib/marked.min.js"></script>
+        		<script src="page/assets/editormd/lib/prettify.min.js"></script>
+        
+        		<script src="page/assets/editormd/lib/raphael.min.js"></script>
+        		<script src="page/assets/editormd/lib/underscore.min.js"></script>
+        		<script src="page/assets/editormd/lib/sequence-diagram.min.js"></script>
+        		<script src="page/assets/editormd/lib/flowchart.min.js"></script>
+        		<script src="page/assets/editormd/lib/jquery.flowchart.min.js"></script>
+
+        		<script src="page/assets/editormd/editormd.js"></script>
+        		<script type="text/javascript">
+           		$(function() {
+                		var editormdView;
+                		$.get("page/assets/editormd/test.md", function(markdown) {
+				    		ditormdView = editormd.markdownToHTML("editormd-View", {
+                        		markdown        : markdown ,
+                        		htmlDecode      : true,       // 开启 HTML 标签解析，默认不开启
+                        		htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                        		tocm            : true,    // Using [TOCM]
+                        		emoji           : true,
+                        		taskList        : true,
+                        		tex             : true,  // 默认不解析
+                        		flowChart       : true,  // 默认不解析
+                        		sequenceDiagram : true,  // 默认不解析
+                    		});
+                		});
+            		});
+        		</script> --%>
+     		</div><!-- 文件显示区域，只使用editermd编辑器的样式功能 -->
+		</div><!-- 右侧div结束 -->
 	</div><%--页签2 end --%>
+	
 	<div role="tabpanel" class="tab-pane" id="help">
 		<%-- <iframe src="/test.html"></iframe> --%>
 		<jsp:include page="test.html"></jsp:include>
@@ -419,8 +465,8 @@ function getFId(evt){
 	</div><%--tab content end --%>
 </div><%-- container-fluid结束 --%>
 
-<span>测试session</span>
-<%= session.getAttribute("user") %>
+<%-- <span>测试session</span> --%>
+<%-- <%= session.getAttribute("user") %> --%>
 <%-- <input type="text" id="test"/> --%>
 	
 </body>

@@ -78,6 +78,11 @@
 				<param name="root">fileResult</param>
 			</result>
 		</action>
+		<action name="getMdFileHtml" class="AjaxAction" method="getMdFileHtml">
+			<result name="success" type="json">
+				<param name="root">fileResult</param>
+			</result>
+		</action>
 		<action name="updataFile" class="AjaxAction" method="updataFile">
 			<result name="success" type="json">
 				<param name="root">resultMsg</param>

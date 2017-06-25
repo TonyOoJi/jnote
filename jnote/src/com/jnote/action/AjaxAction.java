@@ -359,6 +359,32 @@ public class AjaxAction extends BaseAction {
 	}
 	
 	/**
+	 * get mdfile content html
+	 * @return
+	 */
+	public String getMdFileHtml(){
+//		System.out.println("come in getMd");
+		Integer fileId = Integer.parseInt(request.getParameter("mdFileId"));
+//		System.out.println(fileId);
+		MdFile mf = new MdFile();
+		mf.setMdfileid(fileId);
+		MdFile resultFile = serviceManager.getMdFileService().findByFileExample(mf);
+//		System.out.println(resultFile);
+		mdFileContentAjax mfca = new mdFileContentAjax();
+		mfca.setFileId(resultFile.getMdfileid());
+		mfca.setContent(resultFile.getMdhtml());
+		mfca.setTitle(resultFile.getFilename());
+		Map<String,mdFileContentAjax> map = new HashMap<String,mdFileContentAjax>();
+		map.put("file",mfca);
+		JSONObject json = JSONObject.fromObject(map);
+		fileResult = json.toString();
+		if(fileResult != null){
+			return SUCCESS;
+		}
+		return INPUT;
+	}
+	
+	/**
 	 * update file
 	 * @author YJ
 	 * @return

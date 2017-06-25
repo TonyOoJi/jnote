@@ -56,4 +56,11 @@ public class MdFileService implements IMdFileService {
 		return resultLine;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jnote.service.IMdFileService#getSharedFile(int)
+	 */
+	public List getSharedFile(int userid) {
+		return mdFileDao.getSharedMdFile(userid);
+	}
+
 }
