@@ -113,5 +113,10 @@
 				<param name="root">result</param>
 			</result>
 		</action>
+		<action name="getShareFiles" class="AjaxAction" method="getShareFiles">
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
 	</package>
 </struts>

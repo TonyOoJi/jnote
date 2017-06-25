@@ -521,6 +521,34 @@ public class AjaxAction extends BaseAction {
 	}
 	
 	/**
+	 * 
+	 */
+	public String getShareFiles(){
+		Integer userid = ((User) session.getAttribute("user")).getUserid();
+		if(userid != null){
+			List sharedList = serviceManager.getMdFileService().getSharedFile(userid);
+			List<FileAjax> listTempOfFile = new ArrayList<FileAjax>();
+			if(sharedList != null){
+				for (Object obj : sharedList) {
+					MdFile mf = (MdFile) obj;
+					FileAjax fileAjax = new FileAjax();
+					fileAjax.setMdfileid(mf.getMdfileid());
+					fileAjax.setFilename(mf.getFilename());
+					fileAjax.setAddtime(mf.getAddtime().toString());
+					fileAjax.setModifytime(mf.getModifytime().toString());
+					listTempOfFile.add(fileAjax);
+				}
+			}
+			Map<String,Object> map = new HashMap<String, Object>();
+			map.put("fileList", listTempOfFile);
+			JSONObject json = JSONObject.fromObject(map);
+			result = json.toString();
+			return SUCCESS;
+		}
+		return INPUT;
+	}
+	
+	/**
 	 * build shared url and return
 	 * @return
 	 */

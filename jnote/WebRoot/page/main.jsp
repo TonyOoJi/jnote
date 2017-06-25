@@ -186,7 +186,7 @@ function getFId(evt){
     				<a href="#note" aria-controls="note" role="tab" data-toggle="tab">云笔记</a>
     			</li>
     			<li role="presentation">
-    				<a href="#share" aria-controls="share" role="tab" data-toggle="tab">云分享</a>
+    				<a href="#share" aria-controls="share" role="tab" data-toggle="tab" id="shareLib">云分享</a>
     			</li>
     			<li role="presentation">
     				<a href="#help" aria-controls="help" role="tab" data-toggle="tab">示例</a>

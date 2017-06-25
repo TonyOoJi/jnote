@@ -276,7 +276,7 @@ $(document).ready(function(){
 					            	$("#tab2-left").empty();
 					            	// 回传的list中对象为 String
 					            	$(d.fileList).each(function (i, value) {
-					            		$("#tab2-left").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+					            		$("#tab2-left").append('<a href="javascript:return false;" class="list-group-item share-list glyphicon glyphicon-file a-list" onclick="getContent(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
 					            	});
 					            	alert(d.result);
 					            }//success	
@@ -286,6 +286,24 @@ $(document).ready(function(){
 			    }]
 			});
 		
+		$("#shareLib").click(function(){
+		 	$.ajax({
+			 	url:'/jnote/ajax/getShareFiles.action',
+	            type:'post',
+	            data:{
+	            },
+	            dataType:'json',
+	            success:function (data) {
+	            	var d = eval("("+data+")");
+	            	$("#tab2-left").empty();
+	            	// 回传的list中对象为 String
+	            	$(d.fileList).each(function (i, value) {
+	            		$("#tab2-left").append('<a href="javascript:return false;" class="list-group-item share-list glyphicon glyphicon-file a-list" onclick="getContent(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+	            	});
+	            }//success	
+		 	});//ajax
+		});
+		 
 });//ready
 
 function getChild(obj){
