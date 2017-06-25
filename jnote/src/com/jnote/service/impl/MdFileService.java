@@ -63,4 +63,11 @@ public class MdFileService implements IMdFileService {
 		return mdFileDao.getSharedMdFile(userid);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jnote.service.IMdFileService#deleteMdFileShare(int)
+	 */
+	public int deleteMdFileShare(int fileId) {
+		return this.mdFileDao.updataFileUrl(fileId, null);
+	}
+
 }

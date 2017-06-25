@@ -269,18 +269,14 @@ $(document).ready(function(){
 					            type:'post',
 					            data:{
 					            	fileId:delFileId,
-					            	parentid:currentFolderId
 					            },
 					            dataType:'json',
 					            success:function (data) {
 					            	var d = eval("("+data+")");
-					            	$("#childList-div").empty();
+					            	$("#tab2-left").empty();
 					            	// 回传的list中对象为 String
-					            	$(d.list).each(function (i, value) {
-					            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder"  name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
-					            	});
 					            	$(d.fileList).each(function (i, value) {
-					            		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+					            		$("#tab2-left").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
 					            	});
 					            	alert(d.result);
 					            }//success	

@@ -13,4 +13,5 @@ public interface IMdFileService {
 	public int deleteMdFile(int mdFileId);
 	public int updataMdFileUrl(int mdfileid , String url);
 	public List getSharedFile(int userid);
+	public int deleteMdFileShare(int fileId);
 }

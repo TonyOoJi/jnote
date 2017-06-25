@@ -488,6 +488,39 @@ public class AjaxAction extends BaseAction {
 	}
 	
 	/**
+	 * delete mdfile Shared
+	 */
+	public String deleteFileShare(){
+		int fileId = Integer.parseInt(request.getParameter("fileId"));
+		Integer userid = ((User) session.getAttribute("user")).getUserid();
+		//删除操作
+		int resultLine = serviceManager.getMdFileService().deleteMdFileShare(fileId);
+		if(resultLine == 1){
+			List sharedList = serviceManager.getMdFileService().getSharedFile(userid);
+			List<FileAjax> listTempOfFile = new ArrayList<FileAjax>();
+			if(sharedList != null){
+				for (Object obj : sharedList) {
+					MdFile mf = (MdFile) obj;
+					FileAjax fileAjax = new FileAjax();
+					fileAjax.setMdfileid(mf.getMdfileid());
+					fileAjax.setFilename(mf.getFilename());
+					fileAjax.setAddtime(mf.getAddtime().toString());
+					fileAjax.setModifytime(mf.getModifytime().toString());
+					listTempOfFile.add(fileAjax);
+				}
+			}
+			result = "取消分享成功";
+			Map<String,Object> map = new HashMap<String, Object>();
+			map.put("fileList", listTempOfFile);
+			map.put("result", result);
+			JSONObject json = JSONObject.fromObject(map);
+			result = json.toString();
+			return SUCCESS;
+		}
+		return INPUT;
+	}
+	
+	/**
 	 * build shared url and return
 	 * @return
 	 */

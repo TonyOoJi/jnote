@@ -108,6 +108,10 @@
 				<param name="root">shareUrl</param>
 			</result>
 		</action>
-		
+		<action name="deleteFileShare" class="AjaxAction" method="deleteFileShare">
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
 	</package>
 </struts>
