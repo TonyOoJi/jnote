@@ -43,7 +43,7 @@
 		
 		<action name="uploadFile" class="UserInfoAction" method="uploadFile">
 			<result name="success">/page/uploadSuccess.jsp</result>
-			<result name="input">/page/error.jsp</result>
+			<result name="input">/page/uploadError.jsp</result>
 		</action>
 		
 		<action name="getUserInfo" class="UserInfoAction" method="getUserInfo">

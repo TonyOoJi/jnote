@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'uploadSuccess.jsp' starting page</title>
+    <title>My JSP 'uploadError.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<script type="text/javascript">
+<script type="text/javascript">
 	var secs = 3; //倒计时的秒数 
 	var URL ;
 	function Load(url){
@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body onload="Load('note/getUserInfo')">
-  	 头像上传成功！点击<a class="btn btn-primary" href="note/getUserInfo">返回</a>
-  	 <div id="ShowDiv"></div><br>
+    	请检查是否选择了文件，文件格式、大小等事都符合要求 <br>
+	<div id="ShowDiv"></div><br>
   </body>
 </html>

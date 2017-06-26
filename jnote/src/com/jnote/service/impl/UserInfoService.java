@@ -31,7 +31,10 @@ public class UserInfoService implements IUserInfoService {
 				this.userInfoDao.save(ui);
 				return 1;
 			}else{
-				resultLine = this.userInfoDao.updateUserInfo(ui);
+				UserInfo uiTemp = this.findUserInfoByUserId(ui.getUserid());
+				uiTemp.setEmail(ui.getEmail());
+				uiTemp.setTel(ui.getTel());
+				resultLine = this.userInfoDao.updateUserInfo(uiTemp);
 			}
 		}
 		return resultLine;

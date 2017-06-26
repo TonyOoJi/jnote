@@ -94,22 +94,25 @@ public class UserInfoAction extends BaseAction implements ModelDriven<UserInfo>,
 	    /*上传到head文件夹下，保存名字为用户的id
 	     * getUploadFileName().substring(getUploadFileName().lastIndexOf(".")); 文件获取后缀
 	    */
-	    String realFileName = ((User) session.getAttribute("user")).getUserid().toString() + getUploadFileName().substring(getUploadFileName().lastIndexOf("."));
-	    File savefile = new File(path, realFileName);
-	    try {
-			FileUtils.copyFile(upload, savefile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-//	    System.out.println(savefile.getAbsolutePath());
-	    //保存路径
-//	    userInfo.setUserid(((User)session.getAttribute("user")).getUserid());
-	    userInfo.setHeadurl("head/" + userInfo.getUserid() + getUploadFileName().substring(getUploadFileName().lastIndexOf(".")));
-		if(serviceManager.getUserInfoService().updateUserInfoUrl(userInfo) == 1 && savefile.getAbsolutePath() != null){
-			return SUCCESS;
-		}else{
-	    	return INPUT;
+	    if(session.getAttribute("user") != null && getUploadFileName() != null){
+	    	String realFileName = ((User) session.getAttribute("user")).getUserid().toString() + getUploadFileName().substring(getUploadFileName().lastIndexOf("."));
+		    File savefile = new File(path, realFileName);
+		    try {
+				FileUtils.copyFile(upload, savefile);
+			} catch (IOException e) {
+				e.printStackTrace();
+				//抛出异常处理，返回INPUT--跳转出错页面--返回之前的界面
+				return INPUT;
+			}
+//	    	System.out.println(savefile.getAbsolutePath());
+	    	//保存路径
+//	    	userInfo.setUserid(((User)session.getAttribute("user")).getUserid());
+		    userInfo.setHeadurl("head/" + userInfo.getUserid() + getUploadFileName().substring(getUploadFileName().lastIndexOf(".")));
+			if(serviceManager.getUserInfoService().updateUserInfoUrl(userInfo) == 1 && savefile.getAbsolutePath() != null){
+				return SUCCESS;
+			}
 	    }
+	    return INPUT;
 	}
 	
 	/**
@@ -130,12 +133,13 @@ public class UserInfoAction extends BaseAction implements ModelDriven<UserInfo>,
 	 * @return
 	 */
 	public String getUserInfo(){
-		userid = ((User) session.getAttribute("user")).getUserid();
-		userInfoExist = serviceManager.getUserInfoService().findUserInfoByUserId(userid);
-//		System.out.println(userInfoExist.getHeadurl());
-		if(userid != null){
-			userInfo.setUserid(userid);
-			return SUCCESS;
+		if(session.getAttribute("user") != null){
+			userid = ((User) session.getAttribute("user")).getUserid();
+			userInfoExist = serviceManager.getUserInfoService().findUserInfoByUserId(userid);
+			if(userid != null){
+				userInfo.setUserid(userid);
+				return SUCCESS;
+			}
 		}
 		return INPUT;
 	}
