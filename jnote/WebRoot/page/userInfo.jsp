@@ -69,6 +69,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false; 
 			} 
 		} 
+		
+		//图片缓存刷新问题（增加参数使浏览器认为刷新了图片）
+		var srcTemp='${userInfoExist.headurl}?timestemp='+new Date().getTime();
+ 		$('#headIMG').attr('src',srcTemp);
+ 		//alert(srcTemp);
+		
+		$(document).ready(function(){
+		  $('#userInfoSubmit').click(function(){
+			//eamil check
+			var email = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+			if (!email.test($('#email').val()) || $('#email').val().length < 5 || $('#email').val().length > 30) {
+				$('#email').focus().css({
+					border: "1px solid red",
+					boxShadow: "0 0 2px red"
+				});
+				$('#userCue').html("<font color='red'><b>×邮箱格式不正确</b></font>");
+				return false;
+			} else {
+				$('#email').css({
+					border: "1px solid #D7D7D7",
+					boxShadow: "none"
+				});
+			}
+			
+			var tel = /^1[34578]\d{9}/;
+			if (!tel.test($('#tel').val()) || ( $('#tel').val().length < 5 && $('#tel').val().length > 12 ) ) {
+				$('#tel').focus().css({
+					border: "1px solid red",
+					boxShadow: "0 0 2px red"
+					});
+					$('#userCue').html("<font color='red'><b>×电话号码格式不正确</b></font>");
+					return false;
+				} else {
+					$('#tel').css({
+						border: "1px solid #D7D7D7",
+						boxShadow: "none"
+					});	
+				}
+			$('#userInfoForm').submit();
+			});//userInfo.click end
+		});//document.ready end
 </script> 
   </head>
   
@@ -76,7 +117,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<a class="btn btn-primary" href="note/home">返回</a>
     <br>
     <br>
-    <img alt="pic" src="${userInfoExist.headurl}" style="width:100px;height:100px;">
+    <div id="userCue" class="cue">请按照正确格式填写</div>
+    <img id="headIMG" alt="pic" src="${userInfoExist.headurl}" style="width:100px;height:100px;">
 	<form action="note/uploadFile" method="post" enctype="multipart/form-data">
     <!--文件域-->
     <input type="file" name="upload" onchange="fileChange(this);"/><input type="submit" value="上传">
@@ -85,10 +127,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br>
 	<br>
 	<br>
-	<form action="note/userinfo" method="post">
+	<form action="note/userinfo" method="post" id="userInfoForm">
 		用户手机：<input type="text" name="tel" id="tel" value="${userInfoExist.tel}"><br>
 		用户邮箱：<input type="text" name="email" id="email" value="${userInfoExist.email}"><br>
-		<input type="submit" value="提交">
+		<input id="userInfoSubmit" type="button" value="提交">
 	</form>
   </body>
   

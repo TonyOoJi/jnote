@@ -126,7 +126,7 @@ public class UserInfoAction extends BaseAction implements ModelDriven<UserInfo>,
 	}
 
 	/**
-	 * 
+	 * get user Information
 	 * @return
 	 */
 	public String getUserInfo(){

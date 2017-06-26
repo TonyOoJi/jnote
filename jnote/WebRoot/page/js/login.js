@@ -37,7 +37,7 @@ function logintab(){
 
 //根据参数名获得该参数, pname等于想要的参数名 
 function getParam(pname) { 
-    var params = location.search.substr(1); // 获取参数 平且去掉？ 
+    var params = location.search.substr(1); // 获取参数 去掉？ 
     var ArrParam = params.split('&'); 
     if (ArrParam.length == 1) { 
         //只有一个参数的情况 
@@ -55,7 +55,7 @@ function getParam(pname) {
 
 
 var reMethod = "GET",
-	pwdmin = 6;
+	pwdmin = 6;  
 
 $(document).ready(function() {
 
@@ -86,7 +86,7 @@ $(document).ready(function() {
 		
 		/*$.ajax({
 			type: reMethod,
-			url: "/member/ajax.php",
+			url: "/note/ajax.action",
 			data: "uid=" + $("#user").val() + '&temp=' + new Date(),
 			dataType: 'html',
 			success: function(result) {

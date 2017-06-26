@@ -23,6 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    加载出错，请返回重新<a href="page/loginAndRegister.jsp">登录</a> <br>
+    加载出错，请返回重新（登录过期）<a href="page/loginAndRegister.jsp">登录</a> <br>
   </body>
 </html>
