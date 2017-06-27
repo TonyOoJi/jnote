@@ -134,8 +134,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script> 
   </head>
   
-  <body>
-  	<div class="card">
+  <body class="body">
+  	<%-- <div class="card">
   		<a class="btn btn-primary btn-back" href="note/home">返回</a><br>
   		<img id="headIMG" class="img" alt="pic" src="${userInfoExist.headurl}" style=""><br>
   		<!--文件域-->
@@ -157,8 +157,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div><br>
 			<input id="userInfoSubmit" class="btn btn-pull btn-userInfo" type="button" value="提交">
 		</form>
-  		
-  	</div>
+  	</div> --%>
+  	<a class="btn btn-primary btn-back" href="note/home">返回</a><br>
+  	<div class="single-member effect">
+		<div class="member-image">
+			<img src="${userInfoExist.headurl}" id="headIMG" alt="headImg">
+		</div>
+		<div class="member-info">
+			<h3>${session.user.username}</h3>
+			<!--  -->
+			<form id="uploadForm" name="uploadForm" class="upload-form" action="note/uploadFile" method="post" enctype="multipart/form-data">
+    			<input id="filePath" type="file" class="" name="upload" onchange="fileChange(this);"/><br>
+    			<input id="uploadSubmit" class="btn btn-pull" type="submit" value="上传">
+    			<span>不要忘记点击上传哦。</span>
+  			</form>
+  			<hr style="border-top:2px solid #CDCDCD"/>
+  			<div id="userCue" class="cue">请按照正确格式填写</div>
+  			<form class="userInfo-form" action="note/userinfo" method="post" id="userInfoForm">
+			<div class="input-group">
+				<span class="input-group-addon">用户手机：</span>
+				<input class="form-control md-title-text" type="text" name="tel" id="tel" value="${userInfoExist.tel}">
+			</div><br>
+			<div class="input-group">
+				<span class="input-group-addon">用户邮箱：</span>
+				<input class="form-control md-title-text" type="text" name="email" id="email" value="${userInfoExist.email}"><br>
+			</div><br>
+			<input id="userInfoSubmit" class="btn btn-pull btn-userInfo" type="button" value="提交">
+		</form>
+		    
+		</div>
+	</div>
   </body>
   
 </html>
