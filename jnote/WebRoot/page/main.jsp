@@ -163,6 +163,8 @@ function getFId(evt){
 	ex=evt||window.event;
 	objx = ex.srcElement || ex.target || ex;
 	delType = objx.getAttribute("value");
+	folderOrFileName = objx.innerText; //innerHTML
+	//alert(folderOrFileName);
 	if(delType == "folder"){
 		delFolderId = objx.name;
 	}else {
@@ -234,7 +236,7 @@ function getFId(evt){
 	<div id="note" role="tabpanel" class="tab-pane active"><%--页签1 start --%>
 	<div>
 		<%-- 路径导航  --%>
-		<ul class="breadcrumb breadcrumb-crumbs">
+		<ul id="route" class="breadcrumb breadcrumb-crumbs">
 			<li>
 				<a href="#">Home</a>
 			</li>
@@ -301,7 +303,7 @@ function getFId(evt){
 				<%-- <ul class="list-group"></ul> --%>
 				<div data-spy="scroll" data-target="#myScrollspy" data-offset="0" id="rootFolderList-div" class="rootFolderList-div"  onmouseover="javascript:getFId(event);">
 					<s:iterator value="rootFolderList">
-						<a href="javascript:return false;" class="list-group-item select-root glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" value="folder" name="${folderid}">&nbsp${foldername}</a>
+						<a href="javascript:return false;" class="list-group-item select-root glyphicon glyphicon-bookmark a-list" onclick="RootGetChild(this)" value="folder" name="${folderid}">&nbsp${foldername}</a>
 					</s:iterator>
 				</div>
 			</div>

@@ -3,10 +3,35 @@ var delFolderId;//需要删除的目录ID
 var currentFileId;//当前文件
 var delFileId;//需要删除或获取URL的文件ID
 var delType;//删除操作的类型file&folder
-
+var folderOrFileName;//文件夹或者文件名
+var routeStacks = new Array();//路径栈
+Array.prototype.contains = function ( obj ) {
+	for(var i = 0;i<this.length;i++){
+		if (this[i].id == obj.id && this[i].type == obj.type) return true;
+	}
+	return false;
+}
+//移除标识符后面的所有元素（与名称相同的元素之后的所有元素）
+Array.prototype.containsAndPopHinder = function ( obj ) {
+	var identifier = 0;
+	for(var i = 0;i<routeStacks.length;i++){
+		if (this[i].id == obj.id && this[i].type == obj.type) {
+			identifier = i;
+		}
+		if(i > identifier) {
+			routeStacks.pop(this[i]);
+		}
+	}
+	return false;
+}
+//路径节点对象
+function routeNode(id,type,name){
+	this.id = id;
+	this.type = type;
+	this.name = name;
+}
 //启用页签1
 //$('#noteTab a[href="#note"]').tab('show');
-
 $(document).ready(function(){
 	// 滚动监听
 // $('rootFolderList-div').scrollspy({ target: '.navbar-example' });//启用滚动触发事件
@@ -40,7 +65,7 @@ $(document).ready(function(){
 	            	$("#rootFolderList-div").empty();
 	            	// 回传的list中对象为 String
 	            	$(d.list).each(function (i, value) {
-	            		$("#rootFolderList-div").append('<a href="javascript:return false;" class="list-group-item select-root glyphicon glyphicon-bookmark a-list" onclick="getChild(this)" value="folder"  name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
+	            		$("#rootFolderList-div").append('<a href="javascript:return false;" class="list-group-item select-root glyphicon glyphicon-bookmark a-list" onclick="RootGetChild(this)" value="folder"  name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
 	            	});
 	            	alert(d.result);
 	            	// $('#addNewFolderModal').modal('hide');
@@ -105,6 +130,9 @@ $(document).ready(function(){
 		});
 	});
 
+	/**
+	 * save file
+	 */
 	$("#saveFilebtn").click(function(){
 //		mdEditor.setCursor({line:1, ch:1});
 //		mdEditor.insertValue("#qwedascsa");
@@ -132,7 +160,7 @@ $(document).ready(function(){
 	/**
 	 * 分享删除子目录（子文件夹&文件）
 	 */
-//	var menu = new BootstrapMenu('.list-group-item.select-folder', {
+//		var menu = new BootstrapMenu('.list-group-item.select-folder', {
 		var menu = new BootstrapMenu('.list-group-item.select-child', {
 		  actions: [{
 		      name: '<div class="glyphicon glyphicon-share">分享</div>',
@@ -286,6 +314,9 @@ $(document).ready(function(){
 			    }]
 			});
 		
+		/*
+		 * the top row of tablist -- sharelib,show the second tabpanel with you shared files
+		 */
 		$("#shareLib").click(function(){
 		 	$.ajax({
 			 	url:'/jnote/ajax/getShareFiles.action',
@@ -306,6 +337,101 @@ $(document).ready(function(){
 		 
 });//ready
 
+/**
+ * get child list with folder and file lists in tab1's second column list
+ * add onclick folder node to routeStacks
+ * this method is rootList's method
+ * @param obj
+ */
+function routeBack(obj){
+	var folderid = obj.name;
+	currentFolderId = folderid;
+//	alert(folderid);
+	$.ajax({
+        url:'/jnote/ajax/getChildListToJsonByFolderid.action',  
+        type:'post',
+        data:{
+        	parentid:folderid
+        	// foldername:folderName
+        },
+        dataType:'json',
+        success:function (data) {
+        	var d = eval("("+data+")");
+//        	alert(d);
+        	//加入路径导航栈
+        	var newNode = new routeNode(folderid,"folder",folderOrFileName);
+//        	alert(routeStacks.contains(newNode));
+        	routeStacks.containsAndPopHinder(newNode);
+//			alert(routeStacks[routeStacks.length-1].name);        	
+        	//路径导航的刷新
+			$('#route').empty();
+			for(var i = 0;i<routeStacks.length;i++){
+				$('#route').append('<li><a href="javascript:return false;" onclick="routeBack(this)" name="' + routeStacks[i].id + '">' + routeStacks[i].name + '</a></li>');
+			}
+			alert(d.list);
+			// 回传的list中对象为 String
+    		$("#childList-div").empty();
+        	$(d.list).each(function (i, value) {
+        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder" name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
+        	});
+        	$(d.fileList).each(function (i, value) {
+        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+        	});
+//        	alert(d.result);
+        }
+	});
+}
+
+/**
+ * get child list with folder and file lists in tab1's second column list
+ * add onclick folder node to routeStacks
+ * this method is rootList's method
+ * @param obj
+ */
+function RootGetChild(obj){
+	var folderid = obj.name;
+	currentFolderId = folderid;
+//	alert(folderid);
+	$.ajax({
+        url:'/jnote/ajax/getChildListToJsonByFolderid.action',  
+        type:'post',
+        data:{
+        	parentid:folderid
+        	// foldername:folderName
+        },
+        dataType:'json',
+        success:function (data) {
+        	var d = eval("("+data+")");
+//        	alert(d);
+        	//加入路径导航栈
+        	var newNode = new routeNode(folderid,"folder",folderOrFileName);
+//        	alert(routeStacks.contains(newNode));
+        	routeStacks.splice(0, routeStacks.length);
+			routeStacks.push(newNode);
+//			alert(routeStacks[routeStacks.length-1].name);        	
+        	//路径导航的刷新
+			$('#route').empty();
+			for(var i = 0;i<routeStacks.length;i++){
+				$('#route').append('<li><a href="javascript:return false;" onclick="routeBack(this)" name="' + routeStacks[i].id + '">' + routeStacks[i].name + '</a></li>');
+			}
+			// 回传的list中对象为 String
+    		$("#childList-div").empty();
+        	$(d.list).each(function (i, value) {
+        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder" name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
+        	});
+        	$(d.fileList).each(function (i, value) {
+        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
+        	});
+//        	alert(d.result);
+        }
+	});
+}
+
+/**
+ * get child list with folder and file lists in tab1's second column list
+ * add onclick folder node to routeStacks
+ * @param obj
+ */
 function getChild(obj){
 	var folderid = obj.name;
 	currentFolderId = folderid;
@@ -322,17 +448,25 @@ function getChild(obj){
         	var d = eval("("+data+")");
 //        	alert(d);
         	$("#childList-div").empty();
+        	//加入路径导航栈
+        	var newNode = new routeNode(folderid,"folder",folderOrFileName);
+//        	alert(routeStacks.contains(newNode));
+        	/*if(routeStacks.contains(newNode)) {
+    			routeStacks.containsAndPopHinder(newNode);
+    			alert(routeStacks.length);
+        	}else {
+        		routeStacks.push(newNode);
+        		alert(routeStacks.length);
+        	}*/
+        	routeStacks.push(newNode);
+        	//路径导航的刷新
+			$('#route').empty();
+			for(var i = 0;i<routeStacks.length;i++){
+				$('#route').append('<li><a href="javascript:return false;" onclick="routeBack(this)" name="' + routeStacks[i].id + '">' + routeStacks[i].name + '</a></li>');
+			}
         	// 回传的list中对象为 String
         	$(d.list).each(function (i, value) {
         		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-folder glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" value="folder" name="' +value.folderid+ '">&nbsp' + value.foldername + '</a>');
-        		/*
-        		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item glyphicon glyphicon-folder-close a-list" onclick="getChild(this)" name=" ');
-        		$("#childList-div").append( value.folderid );
-        		$("#childList-div").append(' ">&nbsp ');
-        		$("#childList-div").append( value.foldername );
-        		$("#childList-div").append( '</a>' );
-        		*/
-//        		$("#childList-div").append();
         	});
         	$(d.fileList).each(function (i, value) {
         		$("#childList-div").append('<a href="javascript:return false;" class="list-group-item select-child select-file glyphicon glyphicon-file a-list" onclick="getMdFile(this)" value="file" name="' +value.mdfileid+ '">&nbsp' + value.filename + '</a>');
@@ -342,8 +476,9 @@ function getChild(obj){
 	});
 }
 /**
- * get mdFIle 
+ * get mdFIle and show file content in editermd'textarea
  * the param obj.name is mdFIle's id
+ * add file node to routeStacks
  * @param obj
  */
 function getMdFile(obj){
@@ -360,11 +495,20 @@ function getMdFile(obj){
         },
         dataType:'json',
         success:function (data) {
+        	var newNode = new routeNode(fileId,"file",folderOrFileName);
+        	if(routeStacks[routeStacks.length-1].id != newNode.id) {
+        		routeStacks.push(newNode);
+        	}
+        	//路径导航的刷新
+        	$('#route').empty();
+        	for(var i = 0;i<routeStacks.length-1;i++){
+				$('#route').append('<li><a href="javascript:return false;" onclick="routeBack(this)" name="' + routeStacks[i].id + '">' + routeStacks[i].name + '</a></li>');
+			}
+        	$('#route').append('<li>' + routeStacks[routeStacks.length-1].name + '</li>');
         	var d = eval("("+data+")");
         	var file = d.file;
         	// 回传的list中对象为 String
         	$("input[name=mdTitle]").val(file.title);//将标题添加
-        	
         	mdEditor.setCursor({line:1, ch:1});//设置光标到1，1位置
 //        	alert(file.content);
     		mdEditor.insertValue(file.content);//设置文本内容
@@ -372,7 +516,7 @@ function getMdFile(obj){
         }
 	});
 }
-//页签2显示分享的内容
+// show the MdFileHTML content in tab3's right tabpanel
 function getContent(obj){
 	var fileId = obj.name;
 	$.ajax({
@@ -392,44 +536,4 @@ function getContent(obj){
     		$("#editormd-View").append(file.content);
         }
 	});
-}
-/**
- * 
- * @param evt
- * @returns
- */
-function getTagName(evt){
-	var ex,objx,tn;
-	ex=evt||window.event;
-	objx = ex.srcElement || ex.target || ex; 
-	delFodlerId = objx.name;
-}
-/**
- * 显示右键菜单
- * @returns
- */
-function showmenu(){  
-//    document.getElementById("help").onmousedown = function(e){  
-	onmousedown = function(e){
-        if(e.which == 3){  
-            if (!e) {  
-                e = window.event;  
-            }else {  
-                e.srcElement = e.target;  
-            }  
-            if(e.srcElement.innerHTML != ""){  
-            	delFolderId = delObj.name;//记录需要删除的ID 
-                document.getElementById("rightmenu").style.left = e.clientX + "px";  
-                document.getElementById("rightmenu").style.top = e.clientY + "px";  
-                document.getElementById("rightmenu").style.display = "block";  
-            }  
-        }  
-    }  
-} 
-/**
- * 隐藏右键菜单
- * @returns
- */
-function hiddenrightmenu(){  
-    document.getElementById("rightmenu").style.display = "none";  
 }
