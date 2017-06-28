@@ -18,7 +18,10 @@ Array.prototype.containsAndPopHinder = function ( obj ) {
 		if (this[i].id == obj.id && this[i].type == obj.type) {
 			identifier = i;
 		}
+	}
+	for(var i =routeStacks.length-1;i>=0;i--){
 		if(i > identifier) {
+//			alert("pop:"+this[i].name);
 			routeStacks.pop(this[i]);
 		}
 	}
@@ -447,15 +450,13 @@ function getChild(obj){
         	$("#childList-div").empty();
         	//加入路径导航栈
         	var newNode = new routeNode(folderid,"folder",folderOrFileName);
-//        	alert(routeStacks.contains(newNode));
-        	/*if(routeStacks.contains(newNode)) {
-    			routeStacks.containsAndPopHinder(newNode);
-    			alert(routeStacks.length);
-        	}else {
+        	//最后一个为文件时将其从栈中弹出再添加新的结点
+        	if(routeStacks[routeStacks.length-1].type == "file"){
+        		routeStacks.pop(routeStacks[routeStacks.length-1]);
         		routeStacks.push(newNode);
-        		alert(routeStacks.length);
-        	}*/
-        	routeStacks.push(newNode);
+        	} else {
+        		routeStacks.push(newNode);
+        	}
         	//路径导航的刷新
 			$('#route').empty();
 			for(var i = 0;i<routeStacks.length;i++){
