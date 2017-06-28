@@ -366,7 +366,6 @@ function routeBack(obj){
 			for(var i = 0;i<routeStacks.length;i++){
 				$('#route').append('<li><a href="javascript:return false;" onclick="routeBack(this)" name="' + routeStacks[i].id + '">' + routeStacks[i].name + '</a></li>');
 			}
-			alert(d.list);
 			// 回传的list中对象为 String
     		$("#childList-div").empty();
         	$(d.list).each(function (i, value) {
