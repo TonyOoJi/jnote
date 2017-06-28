@@ -338,9 +338,7 @@ $(document).ready(function(){
 });//ready
 
 /**
- * get child list with folder and file lists in tab1's second column list
- * add onclick folder node to routeStacks
- * this method is rootList's method
+ * click the route button it will back to Previous Catalog
  * @param obj
  */
 function routeBack(obj){
