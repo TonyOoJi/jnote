@@ -237,14 +237,8 @@ function getFId(evt){
 	<div>
 		<%-- 路径导航  --%>
 		<ul id="route" class="breadcrumb breadcrumb-crumbs">
-			<li>
-				<a href="#">Home</a>
-			</li>
-			<li>
-				<a href="#">Library</a>
-			</li>
 			<li class="active">
-				Data
+				路径导航
 			</li>
 		</ul>
 	</div>

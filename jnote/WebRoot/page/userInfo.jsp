@@ -161,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<a class="btn btn-primary btn-back" href="note/home">返回</a><br>
   	<div class="single-member effect">
 		<div class="member-image">
-			<img src="${userInfoExist.headurl}" id="headIMG" alt="headImg">
+			<img id="headIMG" src="${userInfoExist.headurl}" alt="headPic">
 		</div>
 		<div class="member-info">
 			<h3>${session.user.username}</h3>

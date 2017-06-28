@@ -24,7 +24,7 @@ body{
 	width:100%;
 	border:0px;
 	color:#000;
-	background:#F7F9EF;
+	background:#f5f5f5;
 }
 
 .img{
@@ -73,14 +73,16 @@ body{
 }
 .effect h3{
 	padding-top: 1px; 
-	line-height: 33px;
+	line-height: 20px;
 }
 .effect .member-image{
 	border-bottom: 1px solid #f5f5f5; 
-	height: 212px; overflow: hidden; 
-	width: 100%; transition: 0.4s; 
-	display: inline-block; 
-	float: none; 
+	height: 50%;
+	overflow: hidden;/*溢出时隐藏*/
+	width: 100%; 
+	transition: 0.4s;/*过渡效果*/
+	display: inline-block;
+	float: none;
 	vertical-align: middle;
 }
 .effect .member-info{
@@ -91,7 +93,8 @@ body{
 	vertical-align: bottom;
 }
 
+/*:hover鼠标悬停样式；通过改变图片高度属性来显示隐藏的div*/
 .effect:hover .member-image{
-	height: 81px; 
+	height: 16%; 
 	transition: 0.4s;
 }
