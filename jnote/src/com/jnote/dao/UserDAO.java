@@ -25,6 +25,7 @@ public class UserDAO extends HibernateDaoSupport  {
 		//property constants
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
+	public static final String USERID = "userid";
 
 
 
@@ -91,6 +92,19 @@ public class UserDAO extends HibernateDaoSupport  {
          throw re;
       }
 	}
+    
+    public User findUserById(int id){
+    	try{
+    		List list = findByProperty(USERID, id);
+    		if(list.size() == 0){
+    			return null;
+    		}else {
+    			return (User) list.get(0);
+    		}
+    	}catch(RuntimeException re){
+    		throw re;
+    	}
+    }
 
 	public List findByUsername(Object username
 	) {

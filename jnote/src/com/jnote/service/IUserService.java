@@ -7,4 +7,5 @@ public interface IUserService {
 	boolean login(User user);
 //	boolean checkUser(String username);
 	boolean check(String username);
+	User getUserById(Integer id);
 }

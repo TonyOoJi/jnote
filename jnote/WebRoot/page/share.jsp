@@ -23,6 +23,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body style="text-align:center;width:60%;margin:0 auto;">
   	 <br>
+  	 <div style="width:100%;height:5%;background:#f5f5f5;">
+  	 	<div style="float:right;">
+  	 	<img alt="Pic" style="weight:auto;height:100%;" src="${userInfo.headurl}">
+  	 	<span style="position:relative;top:-15px;margin-right:15px;">${user.username}</span>
+  	 	</div>
+  	 </div>
 	 <div style="margin:0 auto;">
 	 	<h1><font style="color:#aaa">${title}</font></h1>
 	 </div>

@@ -57,6 +57,13 @@ public class UserService implements IUserService{
 		}else 
 			return false;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.jnote.service.IUserService#getUserById(java.lang.Integer)
+	 */
+	public User getUserById(Integer id) {
+		return this.userDao.findUserById(id);
+	}
 	
 /*	/**
 	 * DWR调用

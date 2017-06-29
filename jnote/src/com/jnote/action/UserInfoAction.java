@@ -18,7 +18,7 @@ public class UserInfoAction extends BaseAction implements ModelDriven<UserInfo>,
 	private String uploadFileName;//上传文件的文件名
 	private String uploadContentType;//文件的类型
 	private ServletContext context;//用来获取路径的context
-	private UserInfo userInfoExist;//首次访问用户信息页时可以
+	private UserInfo userInfoExist;//首次访问用户信息页时
 	
 	public File getUpload() {
 		return upload;
